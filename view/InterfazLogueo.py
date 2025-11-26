@@ -139,7 +139,7 @@ class LoginInterface(ctk.CTk):
             border_color="#000000",
             border_width=2,
             placeholder_text="example@kunibo.com",
-            placeholder_text_color="#111111"
+            placeholder_text_color="#626262"
         )
         self.email_entry.grid(
             row=1,
