@@ -1,9 +1,23 @@
 from view.InterfazBaseTabla import HistorialBase
 import customtkinter as ctk
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+from controller.controlador_historial_ventas import ControladorHistorialVentas
+>>>>>>> 5718117065bf8efc8fa6b8cfb2bd703f5cab660d
+>>>>>>> 4752275700e9a44b4122f574c9ce3a9b59b5884d
 
 class Historial_de_ventas(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
         self.headers = ["ID", "Vendedor", "Productos", "Cantidad", "Total", "Ganancia Total"]
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+        self.controlador = ControladorHistorialVentas()
+>>>>>>> 5718117065bf8efc8fa6b8cfb2bd703f5cab660d
+>>>>>>> 4752275700e9a44b4122f574c9ce3a9b59b5884d
         super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Historial de Ventas")
         self.crear_tabla_ventas()
 
@@ -26,9 +40,24 @@ class Historial_de_ventas(HistorialBase):
             lbl.grid(row=0, column=col, padx=15, pady=10)
 
         # Datos de ejemplo o traídos de la BD 
+<<<<<<< HEAD
         datos = [
             (1, "Gustavo", "Piña coco,\nFresa", "Piña coco: 2\n Fresa :2", "$458", "$126"),
         ]
+=======
+<<<<<<< HEAD
+        datos = [
+            (1, "Gustavo", "Piña coco,\nFresa", "Piña coco: 2\n Fresa :2", "$458", "$126"),
+        ]
+=======
+        datos = self.controlador.obtener_todas_las_ventas()
+
+        if not datos:
+            lbl_vacio = ctk.CTkLabel(tabla, text="No hay ventas registradas", font=("Poppins", 16))
+            lbl_vacio.grid(row=1, column=0, columnspan=len(self.headers), pady=20)
+            return
+>>>>>>> 5718117065bf8efc8fa6b8cfb2bd703f5cab660d
+>>>>>>> 4752275700e9a44b4122f574c9ce3a9b59b5884d
 
         for i, fila in enumerate(datos, start=1):
             for col, valor in enumerate(fila):

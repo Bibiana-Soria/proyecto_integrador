@@ -3,6 +3,8 @@ import os
 from PIL import Image
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
+from view.InterfazPrincipalDashboard import MainInterface
+from view.InterfazUsuarios  import Usuarios
 from tkinter import messagebox
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
@@ -11,6 +13,7 @@ from controller.controlador_logueo import ControladorLogueo # Importar el contro
 class LoginInterface(ctk.CTk):
     def __init__(self):
         super().__init__()
+        self.controlador = ControladorLogueo()
         self.controlador = ControladorLogueo()
 
         # Rutas base
@@ -143,7 +146,7 @@ class LoginInterface(ctk.CTk):
             border_color="#000000",
             border_width=2,
             placeholder_text="example@kunibo.com",
-            placeholder_text_color="#111111"
+            placeholder_text_color="#626262"
         )
         self.email_entry.grid(
             row=1,
@@ -212,6 +215,8 @@ class LoginInterface(ctk.CTk):
             hover_color="#333333",
             text_color="#FFFFFF",
             font=("Segoe UI", 16, "bold"),
+            command=self.realizar_login,
+            command=self.switch_to_main,
             command=self.realizar_login
         )
         login_button.grid(
@@ -235,6 +240,7 @@ class LoginInterface(ctk.CTk):
             # Login fallido
             messagebox.showerror("Error de acceso", "E-mail o contraseña incorrectos")
             
+
     # --- Cambio a dashboard ---
 
     def switch_to_main(self):
@@ -243,6 +249,3 @@ class LoginInterface(ctk.CTk):
             widget.destroy()
         self.main_interface = MainInterface(self)
         self.main_interface.pack(fill="both", expand=True)
-
-
-
