@@ -127,7 +127,7 @@ class MainInterface(ctk.CTkFrame):
         lbl_saludo = ctk.CTkLabel(
             frame_bienvenida,
             text="Bienvenido\nGus",
-            font=("Mochiy Pop One", 40, "bold"),
+            font=("Mochiy Pop One", 35, "bold"),
             text_color="#7A5230",
             justify="left"
         )
@@ -197,7 +197,7 @@ class MainInterface(ctk.CTkFrame):
         lbl_cantidad_ventas_mes = ctk.CTkLabel(
             frame_ventas_mes,
             text="$12,345.67",
-            font=("Mochiy Pop One", 26),
+            font=("Mochiy Pop One", 20),
             text_color="#7A5230"
         )
         lbl_cantidad_ventas_mes.grid(
@@ -245,7 +245,7 @@ class MainInterface(ctk.CTkFrame):
         lbl_cantidad_ganancias_mes = ctk.CTkLabel(
             frame_ganancias_mes,
             text="$8,765.43",
-            font=("Mochiy Pop One", 26),
+            font=("Mochiy Pop One", 20),
             text_color="#7A5230"
         )
         lbl_cantidad_ganancias_mes.grid(
@@ -315,7 +315,7 @@ class MainInterface(ctk.CTkFrame):
         lbl_cantidad_gasto_mes = ctk.CTkLabel(
             frame_gasto_mes,
             text="$3,580.24",
-            font=("Mochiy Pop One", 26),
+            font=("Mochiy Pop One", 20),
             text_color="#7A5230"
         )
         lbl_cantidad_gasto_mes.grid(

@@ -26,11 +26,7 @@ class Egresos:
     def cambiar(id_insumo,proveedor,descripcion,monto,cantidad_comprada,id_egreso):
         try:
             cursor.execute(
-<<<<<<< HEAD
                 "update egresos set id_insumo=%s,proveedor=%s,descripcion=%s,monto=%s,monto=%s,cantidad_comprada=%s,NOW() where id_egreso=%s",
-=======
-                "update egresos set id_insumo=%s,proveedor=%s,descripcion=%s,monto=%s,cantidad_comprada=%s,fecha=NOW() where id_egreso=%s",
->>>>>>> 5718117065bf8efc8fa6b8cfb2bd703f5cab660d
                 (id_insumo,proveedor,descripcion,monto,cantidad_comprada,id_egreso)
             )
             conexion.commit()

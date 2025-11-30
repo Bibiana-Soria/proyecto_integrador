@@ -1,24 +1,17 @@
 import customtkinter as ctk
 import os
 from PIL import Image
-<<<<<<< HEAD
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
-=======
 from tkinter import messagebox
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
 from controller.controlador_logueo import ControladorLogueo # Importar el controlador
->>>>>>> 5718117065bf8efc8fa6b8cfb2bd703f5cab660d
-
 
 class LoginInterface(ctk.CTk):
     def __init__(self):
         super().__init__()
-<<<<<<< HEAD
-=======
         self.controlador = ControladorLogueo()
->>>>>>> 5718117065bf8efc8fa6b8cfb2bd703f5cab660d
 
         # Rutas base
         self.base_path = os.path.dirname(os.path.abspath(__file__))
@@ -194,7 +187,7 @@ class LoginInterface(ctk.CTk):
             text="Crear un nuevo usuario",
             fg_color="#FFF9F3",
             hover_color="#FFF9F3",
-            text_color="#111111",
+            text_color="#171616",
             font=("Segoe UI", 16, "bold"),
             command= lambda: self._crear_ventana_emergente_agregar_usuarios()
         )
@@ -219,11 +212,7 @@ class LoginInterface(ctk.CTk):
             hover_color="#333333",
             text_color="#FFFFFF",
             font=("Segoe UI", 16, "bold"),
-<<<<<<< HEAD
-            command=self.switch_to_main
-=======
             command=self.realizar_login
->>>>>>> 5718117065bf8efc8fa6b8cfb2bd703f5cab660d
         )
         login_button.grid(
             row=6,
@@ -231,8 +220,6 @@ class LoginInterface(ctk.CTk):
             pady=(0, 60)
         )
 
-<<<<<<< HEAD
-=======
     def realizar_login(self):
         # 1. Obtener datos
         email = self.email_entry.get()
@@ -247,8 +234,7 @@ class LoginInterface(ctk.CTk):
         else:
             # Login fallido
             messagebox.showerror("Error de acceso", "E-mail o contraseña incorrectos")
-
->>>>>>> 5718117065bf8efc8fa6b8cfb2bd703f5cab660d
+            
     # --- Cambio a dashboard ---
 
     def switch_to_main(self):
