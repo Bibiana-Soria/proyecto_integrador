@@ -1,12 +1,17 @@
 from view.InterfazBaseTabla import HistorialBase
 import customtkinter as ctk
+<<<<<<< HEAD
 
 from controller.controlador_gastos import ControladorGastos
 
+=======
+>>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
 
+from controller.controlador_gastos import ControladorGastos
 class interfaz_de_gastos(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
         self.headers = ["ID", "Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad comprada", "Fecha"]
+<<<<<<< HEAD
         super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Gastos")
         self.crear_tabla_ventas()
 
@@ -16,6 +21,14 @@ class interfaz_de_gastos(HistorialBase):
         self.crear_tabla_gastos()
 
     def crear_tabla_gastos(self):
+=======
+
+        super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Gastos")
+        self.crear_tabla_ventas()
+
+    def crear_tabla_ventas(self):
+
+>>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
         tabla = ctk.CTkScrollableFrame(
             self.contenido,
             fg_color="#FEE3D0",
@@ -28,6 +41,11 @@ class interfaz_de_gastos(HistorialBase):
 
         self.headers = ["ID", "Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad comprada", "Fecha"]
 
+<<<<<<< HEAD
+=======
+        self.headers = ["ID", "Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad comprada", "Fecha"]
+
+>>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
         for col, text in enumerate(self.headers):
             lbl = ctk.CTkLabel(tabla, text=text,
                                font=("Mochiy Pop One", 20),
@@ -39,13 +57,23 @@ class interfaz_de_gastos(HistorialBase):
             (1, "Lechera", "Sams's Club", "Leche condensada", "$458", "10", "11/23/2025"),
         ]
 
+<<<<<<< HEAD
+=======
+        datos = [
+            (1, "Lechera", "Sams's Club", "Leche condensada", "$458", "10", "11/23/2025"),
+        ]
+
+>>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
         datos = self.controlador.obtener_todos_los_gastos()
 
         if not datos:
             lbl_vacio = ctk.CTkLabel(tabla, text="No hay gastos registrados", font=("Poppins", 16))
             lbl_vacio.grid(row=1, column=0, columnspan=len(self.headers), pady=20)
             return
+<<<<<<< HEAD
 
+=======
+>>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
 
         for i, fila in enumerate(datos, start=1):
             for col, valor in enumerate(fila):

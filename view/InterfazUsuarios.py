@@ -1,6 +1,6 @@
 import customtkinter as ctk
-
-
+from controller import controlador_usuarios
+from tkinter import messagebox
 class Usuarios():
     def __init__(self, root):
         self.root = root 
@@ -73,8 +73,17 @@ class Usuarios():
 
         def guardar():
             self.informacion_obtenida = info_obtenida
-            ventana_emergente_crear_usuario.destroy()
-
+            nombre = info_obtenida["Nombre"].get()
+            apellido = info_obtenida["Apellido"].get()
+            email = info_obtenida["Email"].get()
+            contrasena = info_obtenida["Contraseña"].get()
+            registro_exitoso = controlador_usuarios.Usuarios.insertar(nombre, apellido, email, contrasena)
+            if registro_exitoso:
+                messagebox.showinfo(message="Usuario registrado exitosamente.")
+                ventana_emergente_crear_usuario.destroy()
+            else:
+                messagebox.showinfo(message="Error al registrar usuario. Compruebe los datos (Nombre, Email y Contraseña son obligatorios).")
+            
         btn_guardar = ctk.CTkButton(
             frame_botones,
             text="Guardar",

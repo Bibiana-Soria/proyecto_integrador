@@ -2,11 +2,11 @@ from conexionBD import *
 
 class Usuarios:
     @staticmethod
-    def insertar(nombre, apellido, email, contrasena):
+    def insertar(nombre,apellido,email,contrasena):
         try:
             cursor.execute(
-                "insert into usuarios (nombre, apellido, email, contrasena) values (%s,%s,%s,%s)",
-                (nombre, apellido, email, contrasena)
+                "insert into usuarios values (%s,%s,%s,%s)",
+                (nombre,apellido,email,contrasena)
             )
             conexion.commit()
             return True
@@ -16,18 +16,18 @@ class Usuarios:
     @staticmethod
     def consultar():
         try:
-            cursor.execute("select * from usuarios")
+            cursor.execute(
+                "select * from usuarios")
             return cursor.fetchall()
         except:
             return []
         
     @staticmethod
-    def cambiar(nombre, apellido, email, contrasena, id_usuario):
+    def cambiar(nombre,apellido,email,contrasena,id_usuario):
         try:
-            # CORRECCIÓN: Faltaba setear contrasena en el SQL y el WHERE estaba confuso
             cursor.execute(
-                "update usuarios set nombre=%s, apellido=%s, email=%s, contrasena=%s where id_usuario=%s",
-                (nombre, apellido, email, contrasena, id_usuario)
+                "update usuarios set nombre=%s,apellido=%s,email=%s where id_usuario=%s",
+                (nombre,apellido,email,contrasena, id_usuario)
             )
             conexion.commit()
             return True
@@ -37,12 +37,16 @@ class Usuarios:
     @staticmethod
     def eliminar(id_usuario):
         try:
-            cursor.execute("delete from usuarios where id_usuario=%s", (id_usuario,))
+            cursor.execute(
+                "delete from usuarios where id_usuario=%s",
+                (id_usuario,)
+            )
             conexion.commit()
             return True
         except:
             return False
         
+    
         
     @staticmethod
     def validar(email, password):
@@ -56,4 +60,4 @@ class Usuarios:
             return datos
         except:
             return None
-
+        
