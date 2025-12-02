@@ -1,23 +1,12 @@
 from view.InterfazBaseTabla import HistorialBase
 import customtkinter as ctk
-<<<<<<< HEAD
-
 from controller.controlador_insumos import ControladorInsumos
-
-=======
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
-
 from controller.controlador_insumos import ControladorInsumos
 class interfaz_de_insumos(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
         self.headers = ["ID", "Insumo", "Cantidad", "Costo por unidad"]
-<<<<<<< HEAD
         self.controlador = ControladorInsumos()
-=======
-
         self.controlador = ControladorInsumos()
-
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
         super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Insumos")
         self.crear_tabla_ventas()
 
@@ -44,22 +33,17 @@ class interfaz_de_insumos(HistorialBase):
             (1, "Chocolate abuelita", "1", "200"),
         ]
 
-<<<<<<< HEAD
-=======
         datos = [
             (1, "Chocolate abuelita", "1", "200"),
         ]
 
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
+
         datos = self.controlador.obtener_insumos()
         if not datos:
             lbl_vacio = ctk.CTkLabel(tabla, text="No hay insumos registrados", font=("Poppins", 16))
             lbl_vacio.grid(row=1, column=0, columnspan=len(self.headers), pady=20)
             return
-<<<<<<< HEAD
-=======
 
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
         for i, fila in enumerate(datos, start=1):
             for col, valor in enumerate(fila):
                 lbl = ctk.CTkLabel(tabla, text=str(valor),

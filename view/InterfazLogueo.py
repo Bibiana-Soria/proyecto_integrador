@@ -3,32 +3,20 @@ import os
 from PIL import Image
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
-<<<<<<< HEAD
-=======
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
 from tkinter import messagebox
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
 from controller.controlador_logueo import ControladorLogueo # Importar el controlador
-<<<<<<< HEAD
 
-=======
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
 
 class LoginInterface(ctk.CTk):
     def __init__(self):
         super().__init__()
-<<<<<<< HEAD
-
-        self.controlador = ControladorLogueo()
-
-=======
         self.controlador = ControladorLogueo()
         self.controlador = ControladorLogueo()
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
-
+        self.controlador = ControladorLogueo()
         # Rutas base
         self.base_path = os.path.dirname(os.path.abspath(__file__))
 
@@ -159,11 +147,9 @@ class LoginInterface(ctk.CTk):
             border_color="#000000",
             border_width=2,
             placeholder_text="example@kunibo.com",
-<<<<<<< HEAD
-            placeholder_text_color="#111111"
-=======
-            placeholder_text_color="#626262"
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
+
+            placeholder_text_color="#111111",
+
         )
         self.email_entry.grid(
             row=1,
@@ -232,13 +218,7 @@ class LoginInterface(ctk.CTk):
             hover_color="#333333",
             text_color="#FFFFFF",
             font=("Segoe UI", 16, "bold"),
-<<<<<<< HEAD
-
-=======
             command=self.realizar_login,
-            command=self.switch_to_main,
->>>>>>> d80135de5ef4e424ed6b7f67d2b80e62ef9b3220
-            command=self.realizar_login
         )
         login_button.grid(
             row=6,
