@@ -215,8 +215,6 @@ class LoginInterface(ctk.CTk):
             hover_color="#333333",
             text_color="#FFFFFF",
             font=("Segoe UI", 16, "bold"),
-            command=self.realizar_login,
-            command=self.switch_to_main,
             command=self.realizar_login
         )
         login_button.grid(

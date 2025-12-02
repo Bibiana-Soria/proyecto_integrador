@@ -57,7 +57,7 @@ class Insumos:
     def buscar(nombre_insumo):
         try:
             cursor.execute(
-                "select * from insumos where nombre_insumo like '$%s$'"
+                "select * from insumos where nombre_insumo=%s'"
                 (nombre_insumo,)
             )
             conexion.commit()
