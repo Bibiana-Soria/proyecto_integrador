@@ -1,7 +1,7 @@
 from view.InterfazBaseTabla import HistorialBase
 import customtkinter as ctk
 from controller.controlador_historial_ventas import ControladorHistorialVentas
-<<<<<<< HEAD
+
 
 class Historial_de_ventas(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
@@ -13,8 +13,6 @@ class Historial_de_ventas(HistorialBase):
 from controller.controlador_historial_ventas import ControladorHistorialVentas
 
 
-=======
->>>>>>> 6c3d2977ad03eb55e2e9e1982f316f3839d882b6
 
 class Historial_de_ventas(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
@@ -48,10 +46,6 @@ class Historial_de_ventas(HistorialBase):
             lbl_vacio = ctk.CTkLabel(tabla, text="No hay ventas registradas", font=("Poppins", 16))
             lbl_vacio.grid(row=1, column=0, columnspan=len(self.headers), pady=20)
             return
-<<<<<<< HEAD
-
-=======
->>>>>>> 6c3d2977ad03eb55e2e9e1982f316f3839d882b6
 
         for i, fila in enumerate(datos, start=1):
             for col, valor in enumerate(fila):

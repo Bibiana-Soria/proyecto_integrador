@@ -50,7 +50,7 @@ class Egresos:
     def buscar(proveedor):
         try:
             cursor.execute(
-                "select * from egresos where proveedor like '$%s$'"
+                "select * from egresos where proveedor like '$%s$'",
                 (proveedor,)
             )
             conexion.commit()
