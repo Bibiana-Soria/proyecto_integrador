@@ -50,7 +50,7 @@ class Ventas:
     def buscar(fecha_venta):
         try:
             cursor.execute(
-                "select * from ventas where fecha_venta like '$%s$'"
+                "select * from ventas where fecha_venta=%s'"
                 (fecha_venta,)
             )
             conexion.commit()
