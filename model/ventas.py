@@ -49,12 +49,13 @@ class Ventas:
     @staticmethod
     def buscar(fecha_venta):
         try:
+            # Corregido: Se agregó la coma antes de los parámetros y se ajustó el LIKE
             cursor.execute(
-                "select * from ventas where fecha_venta=%s'"
-                (fecha_venta,)
+                "select * from ventas where fecha_venta like %s",
+                ('%' + fecha_venta + '%',) 
             )
-            conexion.commit()
-            return True
+            # Corregido: Buscar debe devolver datos, no True/False
+            return cursor.fetchall()
         except:
-            return False
+            return []
         

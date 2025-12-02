@@ -30,11 +30,11 @@ class Insumos:
             return []
         
     @staticmethod
-    def cambiar(nombre_insumo,unidad_medida,cantidad,costo_unitario,id_insumo):
+    def cambiar(nombre_insumo, unidad_medida, cantidad, costo_unitario, id_insumo):
         try:
             cursor.execute(
-                "update insumos set nombre_insumo=%s,unidad_medida=%s,cantidad=%s,costo_unitario=%s where id_insumo=%s",
-                (nombre_insumo,unidad_medida,cantidad,costo_unitario,id_insumo)
+                "update insumos set nombre_insumo=%s, unidad_medida=%s, cantidad=%s, costo_unitario=%s where id_insumo=%s",
+                (nombre_insumo, unidad_medida, cantidad, costo_unitario, id_insumo)
             )
             conexion.commit()
             return True
@@ -56,12 +56,12 @@ class Insumos:
     @staticmethod
     def buscar(nombre_insumo):
         try:
+            # CORRECCIÓN IMPORTANTE: LIKE con % y coma en la tupla
             cursor.execute(
-                "select * from insumos where nombre_insumo=%s'"
-                (nombre_insumo,)
+                "select * from insumos where nombre_insumo like %s",
+                ('%' + nombre_insumo + '%',)
             )
-            conexion.commit()
-            return True
+            return cursor.fetchall() # Debe retornar los datos, no True
         except:
-            return False
+            return []
         
