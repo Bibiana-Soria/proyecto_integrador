@@ -1,8 +1,14 @@
 from model.insumos import Insumos
-
+from tkinter import messagebox
 class ControladorInsumos:
     def __init__(self):
         self.modelo = Insumos()
+
+    def respuesta_sql(self,respuesta):
+        if respuesta:
+            messagebox.showinfo(message="Acción realizada con éxito", icon="info")
+        else:
+            messagebox.showerror(message="Ocurrió un error en la operación", icon="error")
 
     def obtener_insumos(self):
         return self.modelo.consultar()

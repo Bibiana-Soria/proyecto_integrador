@@ -1,12 +1,19 @@
 from model.ventas import Ventas
 from model.insumos import Insumos
 from model.egresos import Egresos
+from tkinter import messagebox
 
 class ControladorDashboard:
     def __init__(self):
         self.modelo_ventas = Ventas()
         self.modelo_insumos = Insumos()
         self.modelo_egresos = Egresos()
+
+    def respuesta_sql(self,respuesta):
+        if respuesta:
+            messagebox.showinfo(message="Acción realizada con éxito", icon="info")
+        else:
+            messagebox.showerror(message="Ocurrió un error en la operación", icon="error")
 
     def obtener_resumen_global(self):
         """

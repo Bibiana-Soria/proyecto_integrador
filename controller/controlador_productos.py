@@ -1,8 +1,14 @@
 from model.productos import Productos
-
+from tkinter import messagebox
 class ControladorProductos:
     def __init__(self):
         self.modelo = Productos()
+
+    def respuesta_sql(self,respuesta):
+        if respuesta:
+            messagebox.showinfo(message="Acción realizada con éxito", icon="info")
+        else:
+            messagebox.showerror(message="Ocurrió un error en la operación", icon="error")
 
     def obtener_productos(self):
         """
