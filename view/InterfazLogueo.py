@@ -1,10 +1,6 @@
 import customtkinter as ctk
 import os
 from PIL import Image
-from view.InterfazPrincipalDashboard import MainInterface
-from view.InterfazUsuarios  import Usuarios
-from view.InterfazPrincipalDashboard import MainInterface
-from view.InterfazUsuarios  import Usuarios
 from tkinter import messagebox
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
@@ -15,8 +11,7 @@ class LoginInterface(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.controlador = ControladorLogueo()
-        self.controlador = ControladorLogueo()
-        self.controlador = ControladorLogueo()
+
         # Rutas base
         self.base_path = os.path.dirname(os.path.abspath(__file__))
 
@@ -147,9 +142,7 @@ class LoginInterface(ctk.CTk):
             border_color="#000000",
             border_width=2,
             placeholder_text="example@kunibo.com",
-
-            placeholder_text_color="#111111",
-
+            placeholder_text_color="#111111"
         )
         self.email_entry.grid(
             row=1,
@@ -193,7 +186,7 @@ class LoginInterface(ctk.CTk):
             text="Crear un nuevo usuario",
             fg_color="#FFF9F3",
             hover_color="#FFF9F3",
-            text_color="#171616",
+            text_color="#111111",
             font=("Segoe UI", 16, "bold"),
             command= lambda: self._crear_ventana_emergente_agregar_usuarios()
         )
@@ -218,11 +211,7 @@ class LoginInterface(ctk.CTk):
             hover_color="#333333",
             text_color="#FFFFFF",
             font=("Segoe UI", 16, "bold"),
-<<<<<<< HEAD
-            command=self.realizar_login,
-=======
             command=self.realizar_login
->>>>>>> e9884e05df2efdceb13e9567c8d7c85c6b88b0a8
         )
         login_button.grid(
             row=6,
@@ -244,7 +233,6 @@ class LoginInterface(ctk.CTk):
         else:
             # Login fallido
             messagebox.showerror("Error de acceso", "E-mail o contraseña incorrectos")
-            
 
     # --- Cambio a dashboard ---
 
@@ -254,3 +242,6 @@ class LoginInterface(ctk.CTk):
             widget.destroy()
         self.main_interface = MainInterface(self)
         self.main_interface.pack(fill="both", expand=True)
+
+
+

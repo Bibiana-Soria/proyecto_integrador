@@ -1,16 +1,15 @@
 from view.InterfazBaseTabla import HistorialBase
 import customtkinter as ctk
-
 from controller.controlador_gastos import ControladorGastos
+
 class interfaz_de_gastos(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
         self.headers = ["ID", "Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad comprada", "Fecha"]
-
+        self.controlador = ControladorGastos()
         super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Gastos")
-        self.crear_tabla_ventas()
+        self.crear_tabla_gastos()
 
-    def crear_tabla_ventas(self):
-
+    def crear_tabla_gastos(self):
         tabla = ctk.CTkScrollableFrame(
             self.contenido,
             fg_color="#FEE3D0",
@@ -21,10 +20,6 @@ class interfaz_de_gastos(HistorialBase):
         )
         tabla.grid(row=0, column=0, sticky="nsew")
 
-        self.headers = ["ID", "Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad comprada", "Fecha"]
-
-        self.headers = ["ID", "Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad comprada", "Fecha"]
-
         for col, text in enumerate(self.headers):
             lbl = ctk.CTkLabel(tabla, text=text,
                                font=("Mochiy Pop One", 20),
@@ -32,14 +27,6 @@ class interfaz_de_gastos(HistorialBase):
             lbl.grid(row=0, column=col, padx=15, pady=10)
 
         # Datos de ejemplo o traídos de la BD 
-        datos = [
-            (1, "Lechera", "Sams's Club", "Leche condensada", "$458", "10", "11/23/2025"),
-        ]
-
-        datos = [
-            (1, "Lechera", "Sams's Club", "Leche condensada", "$458", "10", "11/23/2025"),
-        ]
-
         datos = self.controlador.obtener_todos_los_gastos()
 
         if not datos:

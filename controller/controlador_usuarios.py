@@ -21,3 +21,6 @@ class ControladorUsuarios:
 
     def eliminar_usuario(self, id_usuario):
         return self.modelo.eliminar(id_usuario)
+
+    def buscar_usuario(self, nombre):
+        return self.modelo.buscar(nombre)

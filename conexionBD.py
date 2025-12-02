@@ -6,8 +6,8 @@ try:
         port=3306,
         host="localhost",
         user="root",
-        password="admin",
-        database="bd_kunibo"
+        password="Digimods",
+        database="bd_Kunibo"
     )
     cursor=conexion.cursor(buffered=True)
 except:
