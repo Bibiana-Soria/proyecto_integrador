@@ -1,13 +1,12 @@
 from view.InterfazBaseTabla import HistorialBase
 import customtkinter as ctk
-
+from controller.controlador_insumos import ControladorInsumos
 from controller.controlador_insumos import ControladorInsumos
 class interfaz_de_insumos(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
         self.headers = ["ID", "Insumo", "Cantidad", "Costo por unidad"]
-
         self.controlador = ControladorInsumos()
-
+        self.controlador = ControladorInsumos()
         super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Insumos")
         self.crear_tabla_ventas()
 
@@ -37,6 +36,7 @@ class interfaz_de_insumos(HistorialBase):
         datos = [
             (1, "Chocolate abuelita", "1", "200"),
         ]
+
 
         datos = self.controlador.obtener_insumos()
         if not datos:
