@@ -319,6 +319,14 @@ class HistorialBase(ctk.CTkFrame):
                 datos.get("Tamaño"),
                 datos.get("Precio")
             )
+        elif titulo_panel == "Gastos":
+            self.controlador.agregar_gasto(
+                datos.get("Codigo Insumo"),
+                datos.get("Proveedor"),
+                datos.get("Descripcion"),
+                datos.get("Monto"),
+                datos.get("Cantidad")
+            )
 
     def enviar_datos_modificar(self, titulo_panel, datos):
         if titulo_panel == "Productos":
@@ -331,6 +339,18 @@ class HistorialBase(ctk.CTkFrame):
                 datos.get("Tamaño"),
                 datos.get("Precio")
             )
+        elif titulo_panel == "Gastos":
+            if not datos.get("id"):
+                messagebox.showerror("Error", "Debe ingresar un ID para modificar")
+                return
+            self.controlador.actualizar_gasto(
+                datos.get("id"),
+                datos.get("Codigo Insumo"),
+                datos.get("Proveedor"),
+                datos.get("Descripcion"),
+                datos.get("Monto"),
+                datos.get("Cantidad")
+            )
 
     def enviar_datos_eliminar(self, titulo_panel, id_registro):
         if titulo_panel == "Productos":
@@ -338,6 +358,11 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
                 return
             self.controlador.eliminar_producto(id_registro)
+        elif titulo_panel == "Gastos":
+            if not id_registro:
+                messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
+                return
+            self.controlador.eliminar_gasto(id_registro)
 
     def crear_sidebar(self):
         from view.SideBar import Sidebar

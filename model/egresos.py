@@ -4,12 +4,16 @@ class Egresos:
     @staticmethod
     def insertar(id_insumo,proveedor,descripcion,monto,cantidad_comprada):
         try:
-            cursor.execute(
-                "insert into egresos values (%s,%s,%s,%s,%s,NOW())",
-                (id_insumo,proveedor,descripcion,monto,cantidad_comprada)
-            )
+            sql = ("insert into egresos (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha) VALUES (%s, %s, %s, %s, %s, NOW())")
+            cursor.execute(sql, (id_insumo, proveedor, descripcion, monto, cantidad_comprada))
             conexion.commit()
             return True
+            #cursor.execute(
+             #   "insert into egresos values (%s,%s,%s,%s,%s,NOW())",
+              #  (id_insumo,proveedor,descripcion,monto,cantidad_comprada)
+            #)
+            #conexion.commit()
+            #return True
         except:
             return False
         
