@@ -140,7 +140,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_saludo = ctk.CTkLabel(
             frame_bienvenida,
-            text="¿Que vamos\na vender hoy\nGus?",
+            text="¿Que vamos\na vender hoy?",
             font=("Mochiy Pop One", 32, "bold"),
             text_color="#7A5230",
             justify="left"

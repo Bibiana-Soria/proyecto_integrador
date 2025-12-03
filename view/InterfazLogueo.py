@@ -231,18 +231,18 @@ class LoginInterface(ctk.CTk):
 
         if datos_usuario:
             # Login exitoso
-            self.switch_to_main()
+            self.switch_to_main(datos_usuario)
         else:
             # Login fallido
             messagebox.showerror("Error de acceso", "E-mail o contraseña incorrectos")
 
     # --- Cambio a dashboard ---
 
-    def switch_to_main(self):
+    def switch_to_main(self, datos_usuario):
         # destruir todo lo actual (login)
         for widget in self.winfo_children():
             widget.destroy()
-        self.main_interface = MainInterface(self)
+        self.main_interface = MainInterface(self, usuario_logueado=datos_usuario)
         self.main_interface.pack(fill="both", expand=True)
 
 
