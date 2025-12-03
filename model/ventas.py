@@ -2,15 +2,20 @@ from conexionBD import *
 
 class Ventas:
     @staticmethod
-    def insertar(id_usuario,id_producto,cantidad,precio_unitario,total):
+    def insertar(id_usuario, id_producto, cantidad, precio_unitario, total=None):
         try:
+            # CORRECCIÓN IMPORTANTE:
+            # 1. Especificamos las columnas: (id_usuario, id_producto, fecha_venta, cantidad, precio_unitario)
+            # 2. Ignoramos 'id_venta' (es auto-increment) y 'total' (es generado automático)
             cursor.execute(
-                "insert into ventas values (%s,%s,NOW(),%s,%s,%s)",
-                (id_usuario,id_producto,cantidad,precio_unitario,total)
+                "INSERT INTO ventas (id_usuario, id_producto, fecha_venta, cantidad, precio_unitario) VALUES (%s, %s, NOW(), %s, %s)",
+                (id_usuario, id_producto, cantidad, precio_unitario)
             )
             conexion.commit()
             return True
-        except:
+        except Exception as e:
+            # Agregamos este print para que veas el error en la consola si falla
+            print(f"Error SQL: {e}")
             return False
         
     @staticmethod

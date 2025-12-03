@@ -38,10 +38,9 @@ class ControladorNuevaVenta:
             id_prod = item.get('id_producto')
             cant = item.get('cantidad')
             prec_unit = item.get('precio')
-            total_linea = item.get('total')
 
-            # Insertar venta (id_usuario, id_producto, cantidad, precio_unitario, total)
-            resultado = self.modelo_ventas.insertar(id_usuario, id_prod, cant, prec_unit, total_linea)
+            # Insertar venta (id_usuario, id_producto, cantidad, precio_unitario)
+            resultado = self.modelo_ventas.insertar(id_usuario, id_prod, cant, prec_unit)
             
             if not resultado:
                 exito_total = False
