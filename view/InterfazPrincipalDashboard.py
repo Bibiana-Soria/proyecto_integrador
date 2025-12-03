@@ -418,7 +418,7 @@ class MainInterface(ctk.CTkFrame):
         elif destino == "Productos":
             for widget in self.winfo_children():
                 widget.destroy()
-            self.interface.title("Kunibo - Insumos")
+            self.interface.title("Kunibo - Productos")
             self.historial_de_ventas = interfaz_de_productos(
                 interface=self,
                 parent_navegar=self.navegar,
