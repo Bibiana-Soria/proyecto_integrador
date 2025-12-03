@@ -2,17 +2,18 @@ from conexionBD import *
 
 class Productos:
     @staticmethod
-    def insertar(nombre,tamano,precio):
+    def insertar(nombre, tamano, precio):
         try:
             cursor.execute(
-                "insert into productos values (%s,%s,%s,%s)",
-                (nombre,tamano,precio)
+                "INSERT INTO productos (nombre, tamano, precio) VALUES (%s, %s, %s)",
+                (nombre, tamano, precio)
             )
             conexion.commit()
             return True
-        except:
+        except Exception as e:
+            print("Error en insertar:", e)
             return False
-        
+            
     @staticmethod
     def consultar():
         try:
@@ -47,11 +48,11 @@ class Productos:
             return False
         
     @staticmethod
-    def buscar(nombre):
+    def buscar(id_producto):
         try:
             cursor.execute(
-                "select * from productos where nombre like '$%s$'"
-                (nombre,)
+                "SELECT id_producto, nombre, tamano, precio FROM productos WHERE id_producto = %s",
+                (id_producto,)
             )
             conexion.commit()
             return True
