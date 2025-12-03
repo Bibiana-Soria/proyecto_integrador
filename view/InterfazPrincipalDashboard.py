@@ -9,9 +9,10 @@ from view.InterfazInsumos import interfaz_de_insumos
 from view.InterfazProductos import interfaz_de_productos
 
 class MainInterface(ctk.CTkFrame):
-    def __init__(self, interface):
+    def __init__(self, interface, usuario_logueado=None):
         super().__init__(interface, fg_color="#FFF9F3")
         self.interface = interface
+        self.usuario_logueado = usuario_logueado
         self.base_path = os.path.dirname(os.path.abspath(__file__))
         self.Menu_Principal()
         
@@ -124,9 +125,16 @@ class MainInterface(ctk.CTkFrame):
             sticky="w"
         )
 
+        nombre_a_mostrar = "Usuario"
+        if self.usuario_logueado:
+            try:
+                nombre_a_mostrar = self.usuario_logueado[1]
+            except IndexError:
+                nombre_a_mostrar = str(self.usuario_logueado[0])
+
         lbl_saludo = ctk.CTkLabel(
             frame_bienvenida,
-            text="Bienvenido\nGus",
+            text=f"Bienvenido\n{nombre_a_mostrar}",
             font=("Mochiy Pop One", 40, "bold"),
             text_color="#7A5230",
             justify="left"
