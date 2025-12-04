@@ -19,10 +19,11 @@ class Ventas:
             return False
         
     @staticmethod
-    def consultar():
+    def consultar(id_usuario): # Se agregó el parámetro
         try:
             cursor.execute(
-                "select * from ventas")
+                "select * from ventas where id_usuario = %s", (id_usuario,)
+                )
             return cursor.fetchall()
         except:
             return []
