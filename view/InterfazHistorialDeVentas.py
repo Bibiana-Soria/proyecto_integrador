@@ -17,8 +17,8 @@ from controller.controlador_historial_ventas import ControladorHistorialVentas
 class Historial_de_ventas(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
         self.headers = ["ID", "Vendedor", "Productos", "Cantidad", "Total", "Ganancia Total"]
-        self.controlador = ControladorHistorialVentas()
         super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Historial de Ventas")
+        self.controlador = ControladorHistorialVentas()
         self.crear_tabla_ventas()
 
     def crear_tabla_ventas(self):
