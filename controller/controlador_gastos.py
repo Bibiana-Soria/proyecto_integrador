@@ -15,12 +15,22 @@ class ControladorGastos:
         return self.modelo.consultar()
 
     def agregar_gasto(self, id_insumo, proveedor, descripcion, monto, cantidad_comprada):
-        if not id_insumo or not monto:
-            messagebox.showerror("Error", "El ID Insumo y Monto son obligatorios")
-            return False
-        resultado = self.modelo.insertar(id_insumo, proveedor, descripcion, monto, cantidad_comprada)
+
+        if not id_insumo or str(id_insumo) == "None":
+            print("ID vacío, no se crea egreso")
+            return True
+
+        resultado = self.modelo.insertar(
+            id_insumo,
+            proveedor,
+            descripcion,
+            monto,
+            cantidad_comprada
+        )
+
         self.respuesta_sql(resultado)
         return resultado
+
    
     def actualizar_gasto(self, id_egreso, id_insumo, proveedor, descripcion, monto, cantidad_comprada):
         if not id_egreso:

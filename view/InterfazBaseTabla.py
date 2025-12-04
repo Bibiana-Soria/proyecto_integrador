@@ -10,6 +10,24 @@ class HistorialBase(ctk.CTkFrame):
         self.parent_navegar = parent_navegar
         self.app = ventana_principal
         self.campos = campos
+        try:
+            if titulo_panel == "Insumos":
+                from controller.controlador_insumos import ControladorInsumos
+                self.controlador = ControladorInsumos()
+            elif titulo_panel == "Gastos":
+                from controller.controlador_gastos import ControladorGastos
+                self.controlador = ControladorGastos()
+            elif titulo_panel == "Productos":
+                # si tienes controlador de productos, importa aquí
+                from controller.controlador_productos import ControladorProductos
+                self.controlador = ControladorProductos()
+            else:
+                # por defecto, lo dejamos None para evitar llamadas accidentales
+                self.controlador = None
+        except Exception as e:
+            # debug por si hay problemas con las rutas de import
+            print("⚠️ Error al asignar controlador en HistorialBase:", e)
+            self.controlador = None
         self.base_path = os.path.dirname(os.path.abspath(__file__))
         self.informacion_obtenida = {}
 
@@ -164,13 +182,38 @@ class HistorialBase(ctk.CTkFrame):
             )
             lbl.grid(row=i*2, column=0, padx=20, pady=(10, 0), sticky="ew")
 
-            if nombre_campo.lower() == "tamano":
+            if nombre_campo.lower() in ["tamaño", "tamano"]:
+
                 widget = ctk.CTkOptionMenu(
                     frame_para_entries,
-                    values=["pequeño", "grande"],
+                    values=["Pequeño", "Grande"],
                     width=260,
                     corner_radius=10
                 )
+
+                widget.set("Pequeño")  # valor por defecto
+
+                widget.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10))
+            elif nombre_campo.lower() in ["unidad", "unidad de medida", "unidad_medida"]:
+
+                widget = ctk.CTkOptionMenu(
+                    frame_para_entries,
+                    values=[
+                        "Unidad",
+                        "Kilogramo (kg)",
+                        "Gramo (g)",
+                        "Litro (L)",
+                        "Mililitro (ml)",
+                        "Pieza (pz)",
+                        "Paquete",
+                        "Caja",
+                        "Bolsa"
+                    ],
+                    width=260,
+                    corner_radius=10
+                )
+                widget.set("Unidad")
+
                 widget.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10))
             else:
                 # Entry normal
@@ -240,13 +283,38 @@ class HistorialBase(ctk.CTkFrame):
             )
             lbl.grid(row=fila, column=0, padx=20, pady=(10, 0), sticky="ew")
 
-            if nombre_campo.lower() == "tamano":
+            if nombre_campo.lower() in ["tamaño", "tamano"]:
+
                 widget = ctk.CTkOptionMenu(
                     frame,
                     values=["Pequeño", "Grande"],
                     width=260,
                     corner_radius=10
                 )
+
+                widget.set("Pequeño")
+
+                widget.grid(row=fila + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
+
+            elif nombre_campo.lower() in ["unidad", "unidad de medida", "unidad_medida"]:
+
+                widget = ctk.CTkOptionMenu(
+                    frame,
+                    values=[
+                        "Unidad",
+                        "Kilogramo (kg)",
+                        "Gramo (g)",
+                        "Litro (L)",
+                        "Mililitro (ml)",
+                        "Pieza (pz)",
+                        "Paquete",
+                        "Caja",
+                        "Bolsa"
+                    ],
+                    width=260,
+                    corner_radius=10
+                )
+                widget.set("Unidad")
             else:
                 widget = ctk.CTkEntry(
                     frame,
@@ -313,22 +381,67 @@ class HistorialBase(ctk.CTkFrame):
         btn.pack(pady=20)
 
     def enviar_datos_al_controlador(self, titulo_panel, datos):
+    # PRODUCTOS
         if titulo_panel == "Productos":
             self.controlador.agregar_producto(
                 datos.get("Nombre"),
                 datos.get("Tamaño"),
                 datos.get("Precio")
             )
+
+        # INSUMOS
+        elif titulo_panel == "Insumos":
+            # campos esperados por interfaz_de_insumos.form_campos
+            nombre = datos.get("Nombre del insumo")
+            unidad = datos.get("Unidad")
+            cantidad = datos.get("Cantidad")
+            costo = datos.get("Costo unitario")
+            proveedor = datos.get("Proveedor")
+            descripcion = datos.get("Descripción")
+
+            # validación mínima
+            if not nombre or not cantidad or not costo:
+                messagebox.showerror("Error", "Nombre, cantidad y costo son requeridos")
+                return
+
+            # llamar al controlador (ControladorInsumos debe estar asignado en la vista hija)
+            self.controlador.agregar_insumo(nombre, unidad, cantidad, costo, proveedor, descripcion)
+
+        # GASTOS
         elif titulo_panel == "Gastos":
+
+            codigo = datos.get("Codigo Insumo")
+
+            # Si viene del OptionMenu tipo: "3 - Azúcar", dejamos solo el número
+            if "-" in str(codigo):
+                codigo = codigo.split(" - ")[0]
+
+            proveedor = datos.get("Proveedor")
+            descripcion = datos.get("Descripcion")
+
+            try:
+                monto = float(datos.get("Monto"))
+                cantidad = float(datos.get("Cantidad Comprada"))
+                codigo = int(codigo)   # ← IMPORTANTE
+            except:
+                messagebox.showerror("Error", "Código, Monto y Cantidad deben ser números válidos")
+                return
+
+            if not codigo or not monto or not cantidad:
+                messagebox.showerror("Error", "Código, Monto y Cantidad son obligatorios")
+                return
+
             self.controlador.agregar_gasto(
-                datos.get("Codigo Insumo"),
-                datos.get("Proveedor"),
-                datos.get("Descripcion"),
-                datos.get("Monto"),
-                datos.get("Cantidad")
+                codigo,
+                proveedor,
+                descripcion,
+                monto,
+                cantidad
             )
 
+
     def enviar_datos_modificar(self, titulo_panel, datos):
+        # PRODUCTOS
         if titulo_panel == "Productos":
             if not datos.get("id"):
                 messagebox.showerror("Error", "Debe ingresar un ID para modificar")
@@ -339,30 +452,67 @@ class HistorialBase(ctk.CTkFrame):
                 datos.get("Tamaño"),
                 datos.get("Precio")
             )
-        elif titulo_panel == "Gastos":
+
+        # INSUMOS
+        elif titulo_panel == "Insumos":
             if not datos.get("id"):
                 messagebox.showerror("Error", "Debe ingresar un ID para modificar")
                 return
+            self.controlador.actualizar_insumo(
+                datos.get("id"),
+                datos.get("Nombre del insumo"),
+                datos.get("Unidad"),
+                datos.get("Cantidad"),
+                datos.get("Costo unitario")
+            )
+
+        # GASTOS
+        elif titulo_panel == "Gastos":
+
+            if not datos.get("id"):
+                messagebox.showerror("Error", "Debe ingresar un ID para modificar")
+                return
+
+            try:
+                monto = float(datos.get("Monto"))
+                cantidad = int(datos.get("Cantidad Comprada"))
+            except:
+                messagebox.showerror("Error", "Monto y Cantidad deben ser números")
+                return
+
             self.controlador.actualizar_gasto(
                 datos.get("id"),
                 datos.get("Codigo Insumo"),
                 datos.get("Proveedor"),
                 datos.get("Descripcion"),
-                datos.get("Monto"),
-                datos.get("Cantidad")
+                monto,
+                cantidad
             )
 
+
+
     def enviar_datos_eliminar(self, titulo_panel, id_registro):
+        # PRODUCTOS
         if titulo_panel == "Productos":
             if not id_registro:
                 messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
                 return
             self.controlador.eliminar_producto(id_registro)
+
+        # INSUMOS
+        elif titulo_panel == "Insumos":
+            if not id_registro:
+                messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
+                return
+            self.controlador.eliminar_insumo(id_registro)
+
+        # GASTOS
         elif titulo_panel == "Gastos":
             if not id_registro:
                 messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
                 return
             self.controlador.eliminar_gasto(id_registro)
+
 
     def crear_sidebar(self):
         from view.SideBar import Sidebar

@@ -426,11 +426,6 @@ class MainInterface(ctk.CTkFrame):
 
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
-
-
-
-
-            
     
     def crear_sidebar(self):
         self.sidebar = Sidebar(self, on_nav=self.navegar)

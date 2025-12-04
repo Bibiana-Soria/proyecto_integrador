@@ -2,20 +2,31 @@ from conexionBD import *
 
 class Egresos:
     @staticmethod
-    def insertar(id_insumo,proveedor,descripcion,monto,cantidad_comprada):
+    def insertar(id_insumo, proveedor, descripcion, monto, cantidad_comprada):
         try:
-            sql = ("insert into egresos (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha) VALUES (%s, %s, %s, %s, %s, NOW())")
+            # Primero validar que el insumo exista
+            cursor.execute("SELECT id_insumo FROM insumos WHERE id_insumo=%s", (id_insumo,))
+            resultado = cursor.fetchone()
+
+            if not resultado:
+                print("ERROR: El insumo no existe")
+                return False
+
+            sql = """
+                INSERT INTO egresos
+                (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha)
+                VALUES (%s, %s, %s, %s, %s, NOW())
+            """
+
             cursor.execute(sql, (id_insumo, proveedor, descripcion, monto, cantidad_comprada))
             conexion.commit()
+
             return True
-            #cursor.execute(
-             #   "insert into egresos values (%s,%s,%s,%s,%s,NOW())",
-              #  (id_insumo,proveedor,descripcion,monto,cantidad_comprada)
-            #)
-            #conexion.commit()
-            #return True
-        except:
+
+        except Exception as e:
+            print("ERROR insertar egreso:", e)
             return False
+
         
     @staticmethod
     def consultar():

@@ -1,67 +1,115 @@
 from conexionBD import *
-
 class Insumos:
+
     @staticmethod
-    def insertar(nombre_insumo,unidad_medida,cantidad,costo_unitario,proveedor,descripcion):
+    def insertar(nombre_insumo, unidad_medida, cantidad, costo_unitario, proveedor, descripcion):
         try:
+            # 1. Insertar en INSUMOS
             cursor.execute(
-                "insert into insumos values (%s,%s,%s,%s)",
-                (nombre_insumo,unidad_medida,cantidad,costo_unitario)
+                """
+                INSERT INTO insumos (nombre_insumo, unidad_medida, cantidad, costo_unitario)
+                VALUES (%s, %s, %s, %s)
+                """,
+                (nombre_insumo, unidad_medida, cantidad, costo_unitario)
             )
-            id_insumo=cursor.lastrowid
-            monto_egreso=cantidad*costo_unitario
-            
+
+            conexion.commit()   # ✅ PRIMERO confirmamos el insumo
+
+            # 2. Obtener ID real recién guardado
+            cursor.execute("SELECT LAST_INSERT_ID()")
+            id_insumo = cursor.fetchone()[0]
+
+            print("ID INSUMO CREADO:", id_insumo)  # <-- para que tú lo veas
+
+            # 3. Crear egreso automático
+            monto_egreso = float(cantidad) * float(costo_unitario)
+
             cursor.execute(
-                "insert into egresos (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha) values (%s,%s,%s,%s,%s,NOW())",
+                """
+                INSERT INTO egresos
+                (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha)
+                VALUES (%s, %s, %s, %s, %s, NOW())
+                """,
                 (id_insumo, proveedor, descripcion, monto_egreso, cantidad)
             )
+
             conexion.commit()
+
             return True
-        except:
+
+        except Exception as e:
+            print("ERROR insertar insumo:", e)
             return False
-        
+
     @staticmethod
     def consultar():
         try:
-            cursor.execute(
-                "select * from insumos")
+            cursor.execute("SELECT * FROM insumos")
             return cursor.fetchall()
-        except:
+        except Exception as e:
+            print("ERROR consultar:", e)
             return []
-        
+
     @staticmethod
     def cambiar(nombre_insumo, unidad_medida, cantidad, costo_unitario, id_insumo):
         try:
+            # 1. Actualizar INSUMO
             cursor.execute(
-                "update insumos set nombre_insumo=%s, unidad_medida=%s, cantidad=%s, costo_unitario=%s where id_insumo=%s",
+                """
+                UPDATE insumos
+                SET nombre_insumo=%s, unidad_medida=%s, cantidad=%s, costo_unitario=%s
+                WHERE id_insumo=%s
+                """,
                 (nombre_insumo, unidad_medida, cantidad, costo_unitario, id_insumo)
             )
+
+            # 2. Recalcular monto del egreso
+            monto = float(cantidad) * float(costo_unitario)
+
+            # 3. Actualizar EGRESO relacionado
+            cursor.execute(
+                """
+                UPDATE egresos
+                SET monto=%s,
+                    cantidad_comprada=%s,
+                    descripcion=%s
+                WHERE id_insumo=%s
+                """,
+                (monto, cantidad, f"Actualización automática del insumo {nombre_insumo}", id_insumo)
+            )
+
             conexion.commit()
             return True
-        except:
-            return False
+
+        except Exception as e:
+            print("ERROR cambiar:", e)
+            return False 
         
     @staticmethod
     def eliminar(id_insumo):
         try:
-            cursor.execute(
-                "delete from insumos where id_insumo=%s",
-                (id_insumo,)
-            )
+            cursor.execute("DELETE FROM insumos WHERE id_insumo=%s", (id_insumo,))
             conexion.commit()
             return True
-        except:
+        except Exception as e:
+            print("ERROR eliminar:", e)
             return False
-        
+
     @staticmethod
     def buscar(nombre_insumo):
         try:
-            # CORRECCIÓN IMPORTANTE: LIKE con % y coma en la tupla
             cursor.execute(
-                "select * from insumos where nombre_insumo like %s",
-                ('%' + nombre_insumo + '%',)
+                "SELECT * FROM insumos WHERE nombre_insumo LIKE %s",
+                ("%" + nombre_insumo + "%",)
             )
-            return cursor.fetchall() # Debe retornar los datos, no True
-        except:
+            return cursor.fetchall()
+        except Exception as e:
+            print("ERROR buscar:", e)
             return []
+        
+    @staticmethod
+    def ultimo_id():
+        cursor.execute("SELECT LAST_INSERT_ID()")
+        return cursor.fetchone()[0]
+
         
