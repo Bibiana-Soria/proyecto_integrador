@@ -22,10 +22,11 @@ class Ventas:
     def consultar(id_usuario): # Se agregó el parámetro
         try:
             cursor.execute(
-                "select * from ventas where id_usuario = %s", (id_usuario,)
+                "select id_venta, id_producto, fecha_venta, cantidad, precio_unitario, total from ventas where id_usuario = %s", (id_usuario,)
                 )
             return cursor.fetchall()
-        except:
+        except Exception as e:
+            print(f"Error consultando ventas: {e}")
             return []
         
     @staticmethod
