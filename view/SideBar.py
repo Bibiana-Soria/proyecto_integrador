@@ -240,6 +240,7 @@ class Sidebar(ctk.CTkFrame):
             padx= 10
         )
 
+
     def Destruir_sidebar(self):
         self.destroy()
 
