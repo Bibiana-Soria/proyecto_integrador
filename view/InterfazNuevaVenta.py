@@ -962,7 +962,7 @@ class NuevaVenta(ctk.CTkFrame):
             )
             return
         
-        id_usuario_actual = 1
+        id_usuario_actual = self.interface.usuario_logueado[0]
         lista_para_guardar = [
             {
                 "id_producto": id_producto_real,

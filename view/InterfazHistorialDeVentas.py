@@ -32,15 +32,17 @@ class Historial_de_ventas(HistorialBase):
         )
         tabla.grid(row=0, column=0, sticky="nsew")
 
-        self.headers = ["ID", "Vendedor", "Productos", "Cantidad", "Total", "Ganancia Total"]
+        self.headers = ["Código", "Vendedor", "Producto", "Fecha", "Cantidad", "Precio", "Total"]
         for col, text in enumerate(self.headers):
             lbl = ctk.CTkLabel(tabla, text=text,
                                font=("Mochiy Pop One", 20),
                                text_color="#7A5230")
             lbl.grid(row=0, column=col, padx=15, pady=10)
 
+        id_usuario_actual = self.interface.usuario_logueado[0]
+
         # Datos de ejemplo o traídos de la BD 
-        datos = self.controlador.obtener_todas_las_ventas()
+        datos = self.controlador.obtener_todas_las_ventas(id_usuario_actual)
 
         if not datos:
             lbl_vacio = ctk.CTkLabel(tabla, text="No hay ventas registradas", font=("Poppins", 16))
