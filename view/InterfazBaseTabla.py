@@ -350,12 +350,13 @@ class HistorialBase(ctk.CTkFrame):
         ventana.geometry("400x250")
         ventana.grab_set()
 
+        # CAMBIO: Texto actualizado a "Código" para consistencia
         lbl = ctk.CTkLabel(
-            ventana, text="Ingrese el ID a eliminar", font=("Poppins", 18), text_color="#7A5230"
+            ventana, text="Ingrese el Código a eliminar", font=("Poppins", 18), text_color="#7A5230"
         )
         lbl.pack(pady=20)
 
-        entry_id = ctk.CTkEntry(ventana, width=200, placeholder_text="ID...", corner_radius=10)
+        entry_id = ctk.CTkEntry(ventana, width=200, placeholder_text="Código...", corner_radius=10)
         entry_id.pack(pady=10)
 
         def eliminar():
@@ -528,6 +529,13 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
                 return
             self.controlador.eliminar_gasto(id_registro)
+            
+        # --- NUEVO: HISTORIAL DE VENTAS ---
+        elif titulo_panel == "Historial de Ventas":
+            if not id_registro:
+                messagebox.showerror("Error", "Debe ingresar el Código de la venta")
+                return
+            self.controlador.eliminar_venta(id_registro)
 
 
     def crear_sidebar(self):
