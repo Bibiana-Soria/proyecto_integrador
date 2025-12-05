@@ -43,12 +43,14 @@ class ControladorDashboard:
                     pass
 
         # Calcular gastos totales
+        # Calcular gastos totales
         if egresos:
             for e in egresos:
                 try:
-                    total_gastos += float(e[3])
+                    total_gastos += float(e[4])   # ← monto correcto
                 except:
                     pass
+
 
         return {
             "ingresos_totales": total_ingresos,
@@ -66,7 +68,7 @@ class ControladorDashboard:
         # Ordenadas por fecha_venta (posición 2)
         ventas_ordenadas = sorted(ventas, key=lambda v: v[2], reverse=True)
 
-        return ventas_ordenadas[:5]
+        return ventas_ordenadas[:10]
     
     def obtener_ultimos_egresos(self):
         egresos = self.modelo_egresos.consultar()
@@ -77,7 +79,7 @@ class ControladorDashboard:
         # Ordenados por fecha (posicion 6)
         egresos_ordenados = sorted(egresos, key=lambda e: e[6], reverse=True)
 
-        return egresos_ordenados[:5]
+        return egresos_ordenados[:10]
 
             
             

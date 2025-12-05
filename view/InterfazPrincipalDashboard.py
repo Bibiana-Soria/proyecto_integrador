@@ -8,6 +8,8 @@ from view.InterfazGastos import interfaz_de_gastos
 from view.InterfazInsumos import interfaz_de_insumos
 from view.InterfazProductos import interfaz_de_productos
 from controller.controlador_dashboard import ControladorDashboard
+from controller.controlador_reportes import ControladorReportes
+
 class MainInterface(ctk.CTkFrame):
     def __init__(self, interface, usuario_logueado=None):
         super().__init__(interface, fg_color="#FFF9F3")
@@ -15,6 +17,8 @@ class MainInterface(ctk.CTkFrame):
         self.usuario_logueado = usuario_logueado
         self.id_usuario=usuario_logueado[0] if usuario_logueado else None
         self.controlador=ControladorDashboard()
+        self.controlador_reportes = ControladorReportes()
+
         self.base_path = os.path.dirname(os.path.abspath(__file__))
         self.Menu_Principal()
         
@@ -417,10 +421,11 @@ class MainInterface(ctk.CTkFrame):
     def crear_listados_inferiores(self):
         # Contenedor de ambos cuadros inferiores
         frame_listas = ctk.CTkFrame(self, fg_color="#FFF9F3")
-        frame_listas.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=20, pady=20)
+        frame_listas.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=20, pady=(20, 5))
 
         frame_listas.grid_columnconfigure(0, weight=1)
         frame_listas.grid_columnconfigure(1, weight=1)
+        frame_listas.grid_rowconfigure(0, weight=1)
 
         # ===============================
         #     ÚLTIMAS 5 VENTAS
@@ -430,7 +435,7 @@ class MainInterface(ctk.CTkFrame):
                                     corner_radius=30)
         frame_ventas.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
-        lbl_v = ctk.CTkLabel(frame_ventas, text="Últimas 5 Ventas",
+        lbl_v = ctk.CTkLabel(frame_ventas, text="Últimas  Ventas",
                             font=("Mochiy Pop One", 22), text_color="#7A5230")
         lbl_v.pack(pady=10)
 
@@ -454,7 +459,7 @@ class MainInterface(ctk.CTkFrame):
                                     corner_radius=30)
         frame_egresos.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
 
-        lbl_g = ctk.CTkLabel(frame_egresos, text="Últimos 5 Gastos",
+        lbl_g = ctk.CTkLabel(frame_egresos, text="Últimos  Gastos",
                             font=("Mochiy Pop One", 22), text_color="#7A5230")
         lbl_g.pack(pady=10)
 
@@ -469,6 +474,74 @@ class MainInterface(ctk.CTkFrame):
                 texto = f"{fecha}  |  ${monto}"
                 ctk.CTkLabel(frame_egresos, text=texto,
                             font=("Poppins", 16), text_color="#7A5230").pack(pady=3)
+
+        # ======================================================
+        #           BOTONES DE EXPORTACIÓN (AFUERA)
+        # ======================================================
+        frame_botones = ctk.CTkFrame(self, fg_color="#FFF9F3")
+        frame_botones.grid(row=2, column=0, columnspan=2, pady=(5, 20), padx=20, sticky="ew")
+
+        # Configuración para dos filas y dos columnas
+        frame_botones.grid_columnconfigure(0, weight=1)
+        frame_botones.grid_columnconfigure(1, weight=1)
+        frame_botones.grid_rowconfigure(0, weight=1)
+        frame_botones.grid_rowconfigure(1, weight=1)
+
+        # --------------------
+        #      FILA 1
+        # --------------------
+
+        btn_exportar_ventas = ctk.CTkButton(
+            frame_botones,
+            text="Exportar Reporte de Ventas",
+            height=60,
+            fg_color="#C49A85",
+            hover_color="#A67C65",
+            font=("Poppins", 18, "bold"),
+            corner_radius=20,
+            command=lambda: self.controlador_reportes.exportar_ventas(self.id_usuario)
+        )
+        btn_exportar_ventas.grid(row=0, column=0, padx=20, pady=10, sticky="ew")
+
+        btn_exportar_gastos = ctk.CTkButton(
+            frame_botones,
+            text="Exportar Reporte de Gastos",
+            height=60,
+            fg_color="#C49A85",
+            hover_color="#A67C65",
+            font=("Poppins", 18, "bold"),
+            corner_radius=20,
+            command=self.controlador_reportes.exportar_egresos
+        )
+        btn_exportar_gastos.grid(row=0, column=1, padx=20, pady=10, sticky="ew")
+
+        # --------------------
+        #      FILA 2
+        # --------------------
+
+        btn_exportar_insumos = ctk.CTkButton(
+            frame_botones,
+            text="Exportar Reporte de Insumos",
+            height=60,
+            fg_color="#C49A85",
+            hover_color="#A67C65",
+            font=("Poppins", 18, "bold"),
+            corner_radius=20,
+            command=self.controlador_reportes.exportar_insumos
+        )
+        btn_exportar_insumos.grid(row=1, column=0, padx=20, pady=10, sticky="ew")
+
+        btn_exportar_productos = ctk.CTkButton(
+            frame_botones,
+            text="Exportar Reporte de Productos",
+            height=60,
+            fg_color="#C49A85",
+            hover_color="#A67C65",
+            font=("Poppins", 18, "bold"),
+            corner_radius=20,
+            command=self.controlador_reportes.exportar_productos
+        )
+        btn_exportar_productos.grid(row=1, column=1, padx=20, pady=10, sticky="ew")
 
 
 
