@@ -265,56 +265,51 @@ class HistorialBase(ctk.CTkFrame):
         )
         frame.grid(row=1, column=0, padx=20, pady=10, sticky="nsew")
 
-        lbl_id = ctk.CTkLabel(frame, text="ID", font=("Poppins", 16), text_color="#7A5230")
-        lbl_id.grid(row=0, column=0, padx=20, pady=(10, 0), sticky="w")
+        # 1. Título "ID" alineado a la DERECHA (anchor="e")
+        lbl_id = ctk.CTkLabel(frame, text="Código", font=("Poppins", 16), text_color="#7A5230", anchor="w")
+        lbl_id.grid(row=0, column=0, padx=20, pady=(10, 0), sticky="ew")
 
-        entry_id = ctk.CTkEntry(frame, width=260, placeholder_text="Ingrese ID...", corner_radius=10)
+        entry_id = ctk.CTkEntry(frame, width=260, placeholder_text="Ingrese Código...", corner_radius=10)
         entry_id.grid(row=1, column=0, padx=20, pady=(0, 10), sticky="ew")
 
         info_obtenida["id"] = entry_id
         fila = 2
+        
         for nombre_campo in self.campos:
 
             if nombre_campo.lower() == "id":
                 continue
 
+            # --- FILTRO ESPECÍFICO PARA VENTAS ---
+            # Solo mostramos "Código de Producto" y "Cantidad"
+            if titulo_panel == "Historial de Ventas":
+                # Convertimos a minúsculas para comparar fácil
+                txt = nombre_campo.lower()
+                # Si NO es código de producto Y NO es cantidad, saltamos esta vuelta
+                if "código de\nproducto" not in txt and "cantidad" not in txt:
+                    continue
+
+            # 2. Títulos de campos alineados a la DERECHA (anchor="e")
             lbl = ctk.CTkLabel(
-                frame, text=nombre_campo, font=("Poppins", 16), text_color="#7A5230"
+                frame, text=nombre_campo, font=("Poppins", 16), text_color="#7A5230", anchor="w"
             )
             lbl.grid(row=fila, column=0, padx=20, pady=(10, 0), sticky="ew")
 
             if nombre_campo.lower() in ["tamaño", "tamano"]:
-
                 widget = ctk.CTkOptionMenu(
-                    frame,
-                    values=["Pequeño", "Grande"],
-                    width=260,
-                    corner_radius=10
+                    frame, values=["Pequeño", "Grande"], width=260, corner_radius=10
                 )
-
                 widget.set("Pequeño")
-
                 widget.grid(row=fila + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
 
             elif nombre_campo.lower() in ["unidad", "unidad de medida", "unidad_medida"]:
-
                 widget = ctk.CTkOptionMenu(
                     frame,
-                    values=[
-                        "Unidad",
-                        "Kilogramo (kg)",
-                        "Gramo (g)",
-                        "Litro (L)",
-                        "Mililitro (ml)",
-                        "Pieza (pz)",
-                        "Paquete",
-                        "Caja",
-                        "Bolsa"
-                    ],
-                    width=260,
-                    corner_radius=10
+                    values=["Unidad", "Kilogramo (kg)", "Gramo (g)", "Litro (L)", "Pieza (pz)", "Paquete"],
+                    width=260, corner_radius=10
                 )
                 widget.set("Unidad")
+                widget.grid(row=fila + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
             else:
                 widget = ctk.CTkEntry(
                     frame,
@@ -322,8 +317,8 @@ class HistorialBase(ctk.CTkFrame):
                     placeholder_text=f"Ingrese {nombre_campo.lower()}...",
                     corner_radius=10,
                 )
+                widget.grid(row=fila + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
 
-            widget.grid(row=fila + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
             info_obtenida[nombre_campo] = widget
             fila += 2
 
@@ -355,12 +350,13 @@ class HistorialBase(ctk.CTkFrame):
         ventana.geometry("400x250")
         ventana.grab_set()
 
+        # CAMBIO: Texto actualizado a "Código" para consistencia
         lbl = ctk.CTkLabel(
-            ventana, text="Ingrese el ID a eliminar", font=("Poppins", 18), text_color="#7A5230"
+            ventana, text="Ingrese el Código a eliminar", font=("Poppins", 18), text_color="#7A5230"
         )
         lbl.pack(pady=20)
 
-        entry_id = ctk.CTkEntry(ventana, width=200, placeholder_text="ID...", corner_radius=10)
+        entry_id = ctk.CTkEntry(ventana, width=200, placeholder_text="Código...", corner_radius=10)
         entry_id.pack(pady=10)
 
         def eliminar():
@@ -467,18 +463,15 @@ class HistorialBase(ctk.CTkFrame):
 
         # GASTOS
         elif titulo_panel == "Gastos":
-
             if not datos.get("id"):
                 messagebox.showerror("Error", "Debe ingresar un ID para modificar")
                 return
-
             try:
                 monto = float(datos.get("Monto"))
                 cantidad = int(datos.get("Cantidad Comprada"))
             except:
                 messagebox.showerror("Error", "Monto y Cantidad deben ser números")
                 return
-
             self.controlador.actualizar_gasto(
                 datos.get("id"),
                 datos.get("Codigo Insumo"),
@@ -488,6 +481,35 @@ class HistorialBase(ctk.CTkFrame):
                 cantidad
             )
 
+<<<<<<< HEAD
+=======
+        # --- VENTAS (MODIFICADO) ---
+        elif titulo_panel == "Historial de Ventas":
+            id_venta = datos.get("id")
+            if not id_venta:
+                messagebox.showerror("Error", "Debe ingresar el ID de la venta")
+                return
+
+            try:
+                # Solo tomamos ID PRODUCTO y CANTIDAD, el precio se buscará automático
+                id_producto = datos.get("Código de\nProducto")
+                cantidad = float(datos.get("Cantidad\n"))
+                id_usuario = self.interface.usuario_logueado[0]
+
+                # Llamamos al controlador SIN el precio (él lo buscará)
+                self.controlador.actualizar_venta(
+                    id_venta, 
+                    id_usuario, 
+                    id_producto, 
+                    cantidad
+                )
+            except ValueError:
+                messagebox.showerror("Error", "La cantidad debe ser un número")
+            except Exception as e:
+                messagebox.showerror("Error", f"Error en datos: {e}")
+
+
+>>>>>>> ef4e9085bbbea9f50da6f50471fc8b21b819e54e
     def enviar_datos_eliminar(self, titulo_panel, id_registro):
         # PRODUCTOS
         if titulo_panel == "Productos":
@@ -509,6 +531,13 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
                 return
             self.controlador.eliminar_gasto(id_registro)
+            
+        # --- NUEVO: HISTORIAL DE VENTAS ---
+        elif titulo_panel == "Historial de Ventas":
+            if not id_registro:
+                messagebox.showerror("Error", "Debe ingresar el Código de la venta")
+                return
+            self.controlador.eliminar_venta(id_registro)
 
     def crear_sidebar(self):
         from view.SideBar import Sidebar

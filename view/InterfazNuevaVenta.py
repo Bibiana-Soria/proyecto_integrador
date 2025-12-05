@@ -4,7 +4,7 @@ from PIL import Image
 from view.SideBar import Sidebar
 from controller.controlador_nueva_venta import ControladorNuevaVenta
 from tkinter import messagebox
-
+from controller.controlador_dashboard import ControladorDashboard
 class NuevaVenta(ctk.CTkFrame):
     def __init__(self, interface, 
                  parent_navegar):
@@ -16,6 +16,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         # Instanciar el controlador
         self.controlador = ControladorNuevaVenta()
+        self.controlador_dashboard =ControladorDashboard()
 
         self.mapa_productos_ids = {}
         self.carrito_items = {}
@@ -60,6 +61,10 @@ class NuevaVenta(ctk.CTkFrame):
         self.grid_columnconfigure(1, weight=1)  # columna derecha
 
     def crear_parte_superior(self):
+        datos=self.controlador_dashboard.obtener_resumen_global(self.interface.id_usuario)
+        self.ingresos_totales = datos["ingresos_totales"]
+        self.ventas_realizadas = datos["ventas_realizadas"]
+        self.gastos_totales = datos.get("gastos_totales", 0)
         self.frame_superior_dashboard = ctk.CTkFrame(
             self,
             fg_color="#FEF3E7"
@@ -210,7 +215,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_cantidad_ventas_mes = ctk.CTkLabel(
             frame_ventas_mes,
-            text="$12,345.67",
+            text=f"${self.ingresos_totales:,.2f}",
             font=("Mochiy Pop One", 26),
             text_color="#7A5230"
         )
@@ -258,7 +263,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_cantidad_ganancias_mes = ctk.CTkLabel(
             frame_ganancias_mes,
-            text="$8,765.43",
+            text=f"${self.ingresos_totales:,.2f}",
             font=("Mochiy Pop One", 26),
             text_color="#7A5230"
         )
@@ -328,7 +333,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_cantidad_gasto_mes = ctk.CTkLabel(
             frame_gasto_mes,
-            text="$3,580.24",
+            text=f"${self.gastos_totales:,.2f}",
             font=("Mochiy Pop One", 26),
             text_color="#7A5230"
         )
@@ -962,7 +967,7 @@ class NuevaVenta(ctk.CTkFrame):
             )
             return
         
-        id_usuario_actual = self.interface.usuario_logueado[0]
+        id_usuario_actual = self.interface.id_usuario
         lista_para_guardar = [
             {
                 "id_producto": id_producto_real,

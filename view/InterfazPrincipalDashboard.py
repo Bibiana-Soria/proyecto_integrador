@@ -7,12 +7,14 @@ from view.InterfazHistorialDeVentas import Historial_de_ventas
 from view.InterfazGastos import interfaz_de_gastos
 from view.InterfazInsumos import interfaz_de_insumos
 from view.InterfazProductos import interfaz_de_productos
-
+from controller.controlador_dashboard import ControladorDashboard
 class MainInterface(ctk.CTkFrame):
     def __init__(self, interface, usuario_logueado=None):
         super().__init__(interface, fg_color="#FFF9F3")
         self.interface = interface
         self.usuario_logueado = usuario_logueado
+        self.id_usuario=usuario_logueado[0] if usuario_logueado else None
+        self.controlador=ControladorDashboard()
         self.base_path = os.path.dirname(os.path.abspath(__file__))
         self.Menu_Principal()
         
@@ -21,8 +23,12 @@ class MainInterface(ctk.CTkFrame):
         self.configurar_grid_principal()
         self.sidebar = Sidebar(self, on_nav=self.navegar)
         self.cargar_fuentes()
+        
         self.crear_parte_superior()
         self.crear_parte_media_y_baja()
+        self.crear_listados_inferiores()
+        
+
      
     # --- Config general ---
 
@@ -31,12 +37,11 @@ class MainInterface(ctk.CTkFrame):
 
     def configurar_grid_principal(self):
         self.grid_rowconfigure(0, weight=0)   # Parte superior
-        self.grid_rowconfigure(1, weight=1)   # Título Notificaciones
-        self.grid_rowconfigure(2, weight=1)   # Mensaje notificaciones
-        self.grid_rowconfigure(3, weight=1)
-        self.grid_rowconfigure(4, weight=1)
-        self.grid_columnconfigure(0, weight=1)  # columna izquierda
-        self.grid_columnconfigure(1, weight=1)  # columna derecha
+        self.grid_rowconfigure(1, weight=1)   # Listados inferiores
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_columnconfigure(1, weight=1)
+
+
 
     def cargar_fuentes(self):
         font_path_Mochiy = os.path.join(self.base_path, "fonts", "MochiyPopOne-Regular.ttf")
@@ -47,6 +52,12 @@ class MainInterface(ctk.CTkFrame):
     # --- Parte superior del dashboard ---
 
     def crear_parte_superior(self):
+        datos=self.controlador.obtener_resumen_global(self.id_usuario)
+        self.ingresos_totales=datos["ingresos_totales"]
+        self.ventas_realizadas = datos["ventas_realizadas"]
+        self.alertas_stock = datos["alertas_stock"]
+        self.gastos_totales=datos["gastos_totales"]
+        
         self.frame_superior_dashboard = ctk.CTkFrame(
             self,
             fg_color="#FEF3E7"
@@ -204,7 +215,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_cantidad_ventas_mes = ctk.CTkLabel(
             frame_ventas_mes,
-            text="$12,345.67",
+            text=f"${self.ingresos_totales:,.2f}",
             font=("Mochiy Pop One", 26),
             text_color="#7A5230"
         )
@@ -252,7 +263,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_cantidad_ganancias_mes = ctk.CTkLabel(
             frame_ganancias_mes,
-            text="$8,765.43",
+            text=f"${self.ingresos_totales:,.2f}",
             font=("Mochiy Pop One", 26),
             text_color="#7A5230"
         )
@@ -264,6 +275,7 @@ class MainInterface(ctk.CTkFrame):
         )
 
     def _crear_tarjeta_gasto_mes(self):
+        
         frame_gasto_mes = ctk.CTkFrame(
             self.frame_superior_dashboard,
             fg_color="#FEE3D0",
@@ -322,7 +334,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_cantidad_gasto_mes = ctk.CTkLabel(
             frame_gasto_mes,
-            text="$3,580.24",
+            text=f"${self.gastos_totales:,.2f}",
             font=("Mochiy Pop One", 26),
             text_color="#7A5230"
         )
@@ -335,32 +347,7 @@ class MainInterface(ctk.CTkFrame):
     # --- Parte media y baja ---
 
     def crear_parte_media_y_baja(self):
-        lbl_notificaciones = ctk.CTkLabel(
-            self,
-            text="Notificaciones",
-            font=("Mochiy Pop One", 24, "bold"),
-            text_color="#7A5230"
-        )
-        lbl_notificaciones.grid(
-            row=1,
-            column=0,
-            sticky="wns",
-            padx=(120, 0),
-            pady = (20,20)
-        )
-
-        lbl_no_hay_notificaciones = ctk.CTkLabel(
-            self,
-            text="No hay notificaciones nuevas\n por mostrar",
-            font=("Mochiy Pop One", 30),
-            text_color="#E9DFD6"
-        )
-        lbl_no_hay_notificaciones.grid(
-            row=2,
-            column=0,
-            columnspan=2,
-            sticky="nsew"
-        )
+        pass
 
     def navegar(self, destino: str):
         if destino == "Panel Principal":
@@ -427,6 +414,61 @@ class MainInterface(ctk.CTkFrame):
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
 
+    def crear_listados_inferiores(self):
+        # Contenedor de ambos cuadros inferiores
+        frame_listas = ctk.CTkFrame(self, fg_color="#FFF9F3")
+        frame_listas.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=20, pady=20)
+
+        frame_listas.grid_columnconfigure(0, weight=1)
+        frame_listas.grid_columnconfigure(1, weight=1)
+
+        # ===============================
+        #     ÚLTIMAS 5 VENTAS
+        # ===============================
+        frame_ventas = ctk.CTkFrame(frame_listas, fg_color="#FEE3D0",
+                                    border_width=4, border_color="#D8B59D",
+                                    corner_radius=30)
+        frame_ventas.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+
+        lbl_v = ctk.CTkLabel(frame_ventas, text="Últimas 5 Ventas",
+                            font=("Mochiy Pop One", 22), text_color="#7A5230")
+        lbl_v.pack(pady=10)
+
+        ultimas_ventas = self.controlador.obtener_ultimas_ventas(self.id_usuario)
+
+        if not ultimas_ventas:
+            ctk.CTkLabel(frame_ventas, text="No hay ventas recientes",
+                        font=("Poppins", 16)).pack(pady=10)
+        else:
+            for venta in ultimas_ventas:
+                id_venta, id_producto, fecha, cant, precio_u, total = venta
+                texto = f"{fecha}  |  ${total}"
+                ctk.CTkLabel(frame_ventas, text=texto,
+                            font=("Poppins", 16), text_color="#7A5230").pack(pady=3)
+
+        # ===============================
+        #     ÚLTIMOS 5 GASTOS
+        # ===============================
+        frame_egresos = ctk.CTkFrame(frame_listas, fg_color="#FEE3D0",
+                                    border_width=4, border_color="#D8B59D",
+                                    corner_radius=30)
+        frame_egresos.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
+
+        lbl_g = ctk.CTkLabel(frame_egresos, text="Últimos 5 Gastos",
+                            font=("Mochiy Pop One", 22), text_color="#7A5230")
+        lbl_g.pack(pady=10)
+
+        ultimos_egresos = self.controlador.obtener_ultimos_egresos()
+
+        if not ultimos_egresos:
+            ctk.CTkLabel(frame_egresos, text="No hay gastos recientes",
+                        font=("Poppins", 16)).pack(pady=10)
+        else:
+            for egreso in ultimos_egresos:
+                id_e, id_i, prov, desc, monto, cant, fecha = egreso
+                texto = f"{fecha}  |  ${monto}"
+                ctk.CTkLabel(frame_egresos, text=texto,
+                            font=("Poppins", 16), text_color="#7A5230").pack(pady=3)
 
 
 

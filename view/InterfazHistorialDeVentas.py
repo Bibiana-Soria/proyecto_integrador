@@ -2,21 +2,9 @@ from view.InterfazBaseTabla import HistorialBase
 import customtkinter as ctk
 from controller.controlador_historial_ventas import ControladorHistorialVentas
 
-
 class Historial_de_ventas(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
-        self.headers = ["ID", "Vendedor", "Productos", "Cantidad", "Total", "Ganancia Total"]
-
-        self.controlador = ControladorHistorialVentas()
-
-
-from controller.controlador_historial_ventas import ControladorHistorialVentas
-
-
-
-class Historial_de_ventas(HistorialBase):
-    def __init__(self, interface, parent_navegar, ventana_principal):
-        self.headers = ["ID", "Vendedor", "Productos", "Cantidad", "Total", "Ganancia Total"]
+        self.headers = ["Código\n", "Código de\nProducto", "Fecha\n", "Cantidad\n", "Precio\n", "Total\n"]
         super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Historial de Ventas")
         self.controlador = ControladorHistorialVentas()
         self.crear_tabla_ventas()
@@ -32,7 +20,6 @@ class Historial_de_ventas(HistorialBase):
         )
         tabla.grid(row=0, column=0, sticky="nsew")
 
-        self.headers = ["Código", "Vendedor", "Producto", "Fecha", "Cantidad", "Precio", "Total"]
         for col, text in enumerate(self.headers):
             lbl = ctk.CTkLabel(tabla, text=text,
                                font=("Mochiy Pop One", 20),
