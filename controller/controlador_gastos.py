@@ -30,8 +30,7 @@ class ControladorGastos:
 
         self.respuesta_sql(resultado)
         return resultado
-
-   
+ 
     def actualizar_gasto(self, id_egreso, id_insumo, proveedor, descripcion, monto, cantidad_comprada):
         if not id_egreso:
             messagebox.showerror("Error", "ID Egreso es requerido para modificar")

@@ -435,7 +435,6 @@ class HistorialBase(ctk.CTkFrame):
                 cantidad
             )
 
-
     def enviar_datos_modificar(self, titulo_panel, datos):
         # PRODUCTOS
         if titulo_panel == "Productos":
@@ -482,6 +481,8 @@ class HistorialBase(ctk.CTkFrame):
                 cantidad
             )
 
+<<<<<<< HEAD
+=======
         # --- VENTAS (MODIFICADO) ---
         elif titulo_panel == "Historial de Ventas":
             id_venta = datos.get("id")
@@ -508,6 +509,7 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", f"Error en datos: {e}")
 
 
+>>>>>>> ef4e9085bbbea9f50da6f50471fc8b21b819e54e
     def enviar_datos_eliminar(self, titulo_panel, id_registro):
         # PRODUCTOS
         if titulo_panel == "Productos":
@@ -536,7 +538,6 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", "Debe ingresar el Código de la venta")
                 return
             self.controlador.eliminar_venta(id_registro)
-
 
     def crear_sidebar(self):
         from view.SideBar import Sidebar
