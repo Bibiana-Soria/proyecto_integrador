@@ -18,6 +18,7 @@ class LoginInterface(ctk.CTk):
         self.configurar_ventana()
         self.configurar_grid_principal()
         self.cargar_icono()
+        self.restaurar_login()
         self.crear_frame_superior()
         self.crear_frame_inferior()
         self.crear_contenido_superior()
@@ -28,6 +29,14 @@ class LoginInterface(ctk.CTk):
         self.after(10, lambda: self.state("zoomed"))
 
     # --- Configuración general ---
+
+    def restaurar_login(self):
+        """Vuelve a pintar los elementos del Login en la ventana"""
+        self.configurar_grid_principal()
+        self.crear_frame_superior()
+        self.crear_frame_inferior()
+        self.crear_contenido_superior()
+        self.crear_contenido_inferior()
 
     def configurar_ventana(self):
         self.title("Kunibo")

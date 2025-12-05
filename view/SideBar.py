@@ -240,6 +240,31 @@ class Sidebar(ctk.CTkFrame):
             padx= 10
         )
 
+        btn_cerrar_sesion = ctk.CTkButton(
+            self,
+            text="Cerrar sesión",
+            corner_radius=20,
+            # image=self.logout_image, # Descomenta si tienes un ícono para esto
+            # compound="left",
+            anchor="w",                # Alineado a la izquierda como los demás
+            height=40,
+            font=("Mochiy Pop One", 11),
+            fg_color="#D9534F",        # Rojo suave para diferenciarlo
+            text_color="white",
+            hover_color="#C9302C",
+            border_color="#AC2925",
+            border_width=2,
+            command=lambda on_nav="Cerrar sesión": self.on_nav(on_nav)
+        )
+        
+        # Lo colocamos en row=7 (Productos es row=6)
+        btn_cerrar_sesion.grid(
+            row=7, 
+            column=0,
+            sticky="new",
+            pady=(20, 10),  # Un poco más de margen superior para separarlo del grupo
+            padx=10
+        )
 
     def Destruir_sidebar(self):
         self.destroy()

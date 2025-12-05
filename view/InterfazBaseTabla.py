@@ -18,15 +18,12 @@ class HistorialBase(ctk.CTkFrame):
                 from controller.controlador_gastos import ControladorGastos
                 self.controlador = ControladorGastos()
             elif titulo_panel == "Productos":
-                # si tienes controlador de productos, importa aquí
                 from controller.controlador_productos import ControladorProductos
                 self.controlador = ControladorProductos()
             else:
-                # por defecto, lo dejamos None para evitar llamadas accidentales
                 self.controlador = None
         except Exception as e:
-            # debug por si hay problemas con las rutas de import
-            print("⚠️ Error al asignar controlador en HistorialBase:", e)
+            print("Error al asignar controlador en HistorialBase:", e)
             self.controlador = None
         self.base_path = os.path.dirname(os.path.abspath(__file__))
         self.informacion_obtenida = {}
@@ -265,7 +262,6 @@ class HistorialBase(ctk.CTkFrame):
         )
         frame.grid(row=1, column=0, padx=20, pady=10, sticky="nsew")
 
-        # 1. Título "ID" alineado a la DERECHA (anchor="e")
         lbl_id = ctk.CTkLabel(frame, text="Código", font=("Poppins", 16), text_color="#7A5230", anchor="w")
         lbl_id.grid(row=0, column=0, padx=20, pady=(10, 0), sticky="ew")
 
@@ -280,16 +276,11 @@ class HistorialBase(ctk.CTkFrame):
             if nombre_campo.lower() == "id":
                 continue
 
-            # --- FILTRO ESPECÍFICO PARA VENTAS ---
-            # Solo mostramos "Código de Producto" y "Cantidad"
             if titulo_panel == "Historial de Ventas":
-                # Convertimos a minúsculas para comparar fácil
                 txt = nombre_campo.lower()
-                # Si NO es código de producto Y NO es cantidad, saltamos esta vuelta
                 if "código de\nproducto" not in txt and "cantidad" not in txt:
                     continue
 
-            # 2. Títulos de campos alineados a la DERECHA (anchor="e")
             lbl = ctk.CTkLabel(
                 frame, text=nombre_campo, font=("Poppins", 16), text_color="#7A5230", anchor="w"
             )
@@ -350,7 +341,6 @@ class HistorialBase(ctk.CTkFrame):
         ventana.geometry("400x250")
         ventana.grab_set()
 
-        # CAMBIO: Texto actualizado a "Código" para consistencia
         lbl = ctk.CTkLabel(
             ventana, text="Ingrese el Código a eliminar", font=("Poppins", 18), text_color="#7A5230"
         )
@@ -377,7 +367,7 @@ class HistorialBase(ctk.CTkFrame):
         btn.pack(pady=20)
 
     def enviar_datos_al_controlador(self, titulo_panel, datos):
-    # PRODUCTOS
+        # PRODUCTOS
         if titulo_panel == "Productos":
             self.controlador.agregar_producto(
                 datos.get("Nombre"),
@@ -400,7 +390,6 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", "Nombre, cantidad y costo son requeridos")
                 return
 
-            # llamar al controlador (ControladorInsumos debe estar asignado en la vista hija)
             self.controlador.agregar_insumo(nombre, unidad, cantidad, costo, proveedor, descripcion)
 
         # GASTOS
@@ -408,7 +397,6 @@ class HistorialBase(ctk.CTkFrame):
 
             codigo = datos.get("Codigo Insumo")
 
-            # Si viene del OptionMenu tipo: "3 - Azúcar", dejamos solo el número
             if "-" in str(codigo):
                 codigo = codigo.split(" - ")[0]
 
@@ -418,7 +406,7 @@ class HistorialBase(ctk.CTkFrame):
             try:
                 monto = float(datos.get("Monto"))
                 cantidad = float(datos.get("Cantidad Comprada"))
-                codigo = int(codigo)   # ← IMPORTANTE
+                codigo = int(codigo)
             except:
                 messagebox.showerror("Error", "Código, Monto y Cantidad deben ser números válidos")
                 return
@@ -481,9 +469,7 @@ class HistorialBase(ctk.CTkFrame):
                 cantidad
             )
 
-<<<<<<< HEAD
-=======
-        # --- VENTAS (MODIFICADO) ---
+        # VENTAS
         elif titulo_panel == "Historial de Ventas":
             id_venta = datos.get("id")
             if not id_venta:
@@ -491,12 +477,10 @@ class HistorialBase(ctk.CTkFrame):
                 return
 
             try:
-                # Solo tomamos ID PRODUCTO y CANTIDAD, el precio se buscará automático
                 id_producto = datos.get("Código de\nProducto")
                 cantidad = float(datos.get("Cantidad\n"))
                 id_usuario = self.interface.usuario_logueado[0]
 
-                # Llamamos al controlador SIN el precio (él lo buscará)
                 self.controlador.actualizar_venta(
                     id_venta, 
                     id_usuario, 
@@ -509,7 +493,6 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", f"Error en datos: {e}")
 
 
->>>>>>> ef4e9085bbbea9f50da6f50471fc8b21b819e54e
     def enviar_datos_eliminar(self, titulo_panel, id_registro):
         # PRODUCTOS
         if titulo_panel == "Productos":
@@ -532,7 +515,7 @@ class HistorialBase(ctk.CTkFrame):
                 return
             self.controlador.eliminar_gasto(id_registro)
             
-        # --- NUEVO: HISTORIAL DE VENTAS ---
+        # HISTORIAL DE VENTAS
         elif titulo_panel == "Historial de Ventas":
             if not id_registro:
                 messagebox.showerror("Error", "Debe ingresar el Código de la venta")

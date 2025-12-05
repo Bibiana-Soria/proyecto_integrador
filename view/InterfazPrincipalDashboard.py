@@ -418,6 +418,22 @@ class MainInterface(ctk.CTkFrame):
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
 
+        elif destino == "Productos":
+             # ... tu lógica de productos ...
+             pass
+
+        # --- CAMBIO AQUÍ: Lógica de cerrar sesión ---
+        elif destino == "Cerrar sesión":
+            # 1. Destruimos el Dashboard actual (se borra de la pantalla)
+            self.destroy()
+            
+            # 2. Le decimos a la ventana principal (LoginInterface) que se vuelva a pintar
+            try:
+                self.interface.restaurar_login()
+            except AttributeError:
+                # Por si acaso self.interface no fuera LoginInterface (debug)
+                print("Error: No se pudo restaurar el login en la ventana padre.")
+
     def crear_listados_inferiores(self):
         # Contenedor de ambos cuadros inferiores
         frame_listas = ctk.CTkFrame(self, fg_color="#FFF9F3")
@@ -544,9 +560,6 @@ class MainInterface(ctk.CTkFrame):
         btn_exportar_productos.grid(row=1, column=1, padx=20, pady=10, sticky="ew")
 
 
-
-            
-    
     def crear_sidebar(self):
         self.sidebar = Sidebar(self, on_nav=self.navegar)
         self.sidebar.place(x=0, y=0, relheight=1)
