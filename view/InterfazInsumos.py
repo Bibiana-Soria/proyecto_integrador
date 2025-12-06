@@ -3,7 +3,6 @@ import customtkinter as ctk
 from controller.controlador_insumos import ControladorInsumos
 
 class interfaz_de_insumos(HistorialBase):
-
     def __init__(self, interface, parent_navegar, ventana_principal):
 
         self.headers = [
@@ -68,7 +67,6 @@ class interfaz_de_insumos(HistorialBase):
     def on_data_changed(self):
         self.actualizar_tabla()
 
-    # --- Control del formulario ---
     def agregar_registro_form(self, datos):
         self.controlador.agregar_insumo(
             datos["Nombre del insumo"],

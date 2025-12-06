@@ -492,7 +492,6 @@ class HistorialBase(ctk.CTkFrame):
             except Exception as e:
                 messagebox.showerror("Error", f"Error en datos: {e}")
 
-
     def enviar_datos_eliminar(self, titulo_panel, id_registro):
         # PRODUCTOS
         if titulo_panel == "Productos":

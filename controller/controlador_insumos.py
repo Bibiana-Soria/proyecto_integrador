@@ -1,7 +1,6 @@
 from model.insumos import Insumos
 from tkinter import messagebox
 class ControladorInsumos:
-
     def __init__(self):
         self.modelo = Insumos()
 

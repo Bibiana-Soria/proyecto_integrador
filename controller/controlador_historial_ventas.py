@@ -38,7 +38,6 @@ class ControladorHistorialVentas:
             print(f"Error en controlador actualizar venta: {e}")
             messagebox.showerror("Error", f"Error al procesar la actualización: {e}")
 
-    # --- NUEVO MÉTODO AGREGADO ---
     def eliminar_venta(self, id_venta):
         if not id_venta:
             messagebox.showerror("Error", "Debe proporcionar el código de la venta")

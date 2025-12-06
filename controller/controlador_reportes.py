@@ -6,7 +6,6 @@ from tkinter import messagebox
 from openpyxl import Workbook
 
 class ControladorReportes:
-
     def exportar_ventas(self, id_usuario):
         datos = Ventas.consultar(id_usuario)
         self.crear_excel("Reporte de Ventas", 
@@ -35,9 +34,6 @@ class ControladorReportes:
                          datos,
                          "reporte_productos.xlsx")
 
-    # --------------------------------------------
-    # FUNCIÓN REUTILIZABLE PARA GENERAR EXCEL
-    # --------------------------------------------
     def crear_excel(self, titulo, encabezados, datos, nombre_archivo):
         try:
             wb = Workbook()

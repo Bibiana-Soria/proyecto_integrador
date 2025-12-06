@@ -31,10 +31,6 @@ class MainInterface(ctk.CTkFrame):
         self.crear_parte_superior()
         self.crear_parte_media_y_baja()
         self.crear_listados_inferiores()
-        
-
-     
-    # --- Config general ---
 
     def configurar_ventana(self):
         self.interface.title("Kunibo - Dashboard")
@@ -45,15 +41,11 @@ class MainInterface(ctk.CTkFrame):
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
-
-
     def cargar_fuentes(self):
         font_path_Mochiy = os.path.join(self.base_path, "fonts", "MochiyPopOne-Regular.ttf")
         font_path_Poppins = os.path.join(self.base_path, "fonts", "Poppins-Regular.ttf")
         ctk.FontManager.load_font(font_path_Mochiy)
         ctk.FontManager.load_font(font_path_Poppins)
-
-    # --- Parte superior del dashboard ---
 
     def crear_parte_superior(self):
         datos=self.controlador.obtener_resumen_global(self.id_usuario)
@@ -348,8 +340,6 @@ class MainInterface(ctk.CTkFrame):
             sticky="nw"
         )
 
-    # --- Parte media y baja ---
-
     def crear_parte_media_y_baja(self):
         pass
 
@@ -558,7 +548,6 @@ class MainInterface(ctk.CTkFrame):
             command=self.controlador_reportes.exportar_productos
         )
         btn_exportar_productos.grid(row=1, column=1, padx=20, pady=10, sticky="ew")
-
 
     def crear_sidebar(self):
         self.sidebar = Sidebar(self, on_nav=self.navegar)

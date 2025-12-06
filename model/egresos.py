@@ -26,8 +26,7 @@ class Egresos:
         except Exception as e:
             print("ERROR insertar egreso:", e)
             return False
-
-        
+ 
     @staticmethod
     def consultar():
         try:

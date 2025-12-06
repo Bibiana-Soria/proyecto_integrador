@@ -65,11 +65,9 @@ class interfaz_de_gastos(HistorialBase):
                                    text_color="#7A5230")
                 lbl.grid(row=i, column=col, padx=15, pady=5)
     
-    # Este método es llamado automáticamente por InterfazBaseTabla cuando se agrega/modifica/elimina algo
     def on_data_changed(self):
         self.actualizar_tabla()
 
-    # Estos métodos puente conectan la BaseTabla con el controlador especifico
     def agregar_gasto(self, id_insumo, proveedor, descripcion, monto, cantidad):
         self.controlador.agregar_gasto(id_insumo, proveedor, descripcion, monto, cantidad)
         self.actualizar_tabla()

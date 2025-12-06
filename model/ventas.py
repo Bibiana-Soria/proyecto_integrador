@@ -19,7 +19,7 @@ class Ventas:
             return False
         
     @staticmethod
-    def consultar(id_usuario): # Se agregó el parámetro
+    def consultar(id_usuario):
         try:
             cursor.execute(
                 "select id_venta, id_producto, fecha_venta, cantidad, precio_unitario, total from ventas where id_usuario = %s", (id_usuario,)

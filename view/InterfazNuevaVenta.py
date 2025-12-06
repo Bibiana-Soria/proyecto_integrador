@@ -856,15 +856,12 @@ class NuevaVenta(ctk.CTkFrame):
             item["frame"].grid_configure(row=self.contador_filas_carrito)
             self.contador_filas_carrito += 1
 
-
     def actualizar_total(self):
         total = 0.0
         for item in self.carrito_items.values():
             total += item["precio"] * item["cantidad"].get()
 
         self.total_var.set(f"${total:.2f}")
-
-
 
     def label_nueva_venta(self):
         lbl_nueva_venta = ctk.CTkLabel(

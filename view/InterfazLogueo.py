@@ -6,7 +6,6 @@ from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
 from controller.controlador_logueo import ControladorLogueo # Importar el controlador
 
-
 class LoginInterface(ctk.CTk):
     def __init__(self):
         super().__init__()
@@ -27,8 +26,6 @@ class LoginInterface(ctk.CTk):
         # tamaño y estado
         self.minsize(800, 600)
         self.after(10, lambda: self.state("zoomed"))
-
-    # --- Configuración general ---
 
     def restaurar_login(self):
         """Vuelve a pintar los elementos del Login en la ventana"""
@@ -52,8 +49,6 @@ class LoginInterface(ctk.CTk):
     def cargar_icono(self):
         icon_path = os.path.join(self.base_path, "images", "kunibo_icon.ico")
         self.iconbitmap(icon_path)
-
-    # --- Frames principales ---
 
     def crear_frame_superior(self):
         self.frame_superior = ctk.CTkFrame(
@@ -96,8 +91,6 @@ class LoginInterface(ctk.CTk):
         self.frame_inferior.grid_columnconfigure(1, weight=0)
         self.frame_inferior.grid_columnconfigure(2, weight=1)
 
-    # --- Contenido superior (logo) ---
-
     def crear_contenido_superior(self):
         logo_path = os.path.join(self.base_path, "images", "Login_logo.png")
         img = Image.open(logo_path)
@@ -119,8 +112,6 @@ class LoginInterface(ctk.CTk):
             sticky="nsew",
             pady=(35, 0)
         )
-
-    # --- Contenido inferior (login) ---
 
     def crear_contenido_inferior(self):
         self._crear_email()
@@ -208,7 +199,6 @@ class LoginInterface(ctk.CTk):
     def _crear_ventana_emergente_agregar_usuarios(self):
         ventana_emergente = Usuarios(self)
 
-
     def _crear_boton_login(self):
         login_button = ctk.CTkButton(
             self.frame_inferior,
@@ -244,8 +234,6 @@ class LoginInterface(ctk.CTk):
         else:
             # Login fallido
             messagebox.showerror("Error de acceso", "E-mail o contraseña incorrectos")
-
-    # --- Cambio a dashboard ---
 
     def switch_to_main(self, datos_usuario):
         # destruir todo lo actual (login)
