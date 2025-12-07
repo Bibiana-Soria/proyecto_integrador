@@ -419,7 +419,8 @@ class HistorialBase(ctk.CTkFrame):
                 proveedor,
                 descripcion,
                 monto,
-                cantidad
+                cantidad,
+                self.interface.id_usuario
             )
 
     def enviar_datos_modificar(self, titulo_panel, datos):

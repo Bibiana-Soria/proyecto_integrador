@@ -380,10 +380,11 @@ class MainInterface(ctk.CTkFrame):
             self.historial_de_ventas = interfaz_de_gastos(
                 interface=self,
                 parent_navegar=self.navegar,
-                ventana_principal = self.interface
-
+                ventana_principal = self.interface,
+                id_usuario=self.id_usuario
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
+
         elif destino == "Insumos":
             for widget in self.winfo_children():
                 widget.destroy()
@@ -467,14 +468,14 @@ class MainInterface(ctk.CTkFrame):
                             font=("Mochiy Pop One", 22), text_color="#7A5230")
         lbl_g.pack(pady=10)
 
-        ultimos_egresos = self.controlador.obtener_ultimos_egresos()
+        ultimos_egresos = self.controlador.obtener_ultimos_egresos(self.id_usuario)
 
         if not ultimos_egresos:
             ctk.CTkLabel(frame_egresos, text="No hay gastos recientes",
                         font=("Poppins", 16)).pack(pady=10)
         else:
             for egreso in ultimos_egresos:
-                id_e, id_i, prov, desc, monto, cant, fecha = egreso
+                id_e, id_i, prov, desc, monto, cant, fecha, _ = egreso
                 texto = f"{fecha}  |  ${monto}"
                 ctk.CTkLabel(frame_egresos, text=texto,
                             font=("Poppins", 16), text_color="#7A5230").pack(pady=3)

@@ -3,8 +3,9 @@ import customtkinter as ctk
 from controller.controlador_gastos import ControladorGastos
 
 class interfaz_de_gastos(HistorialBase):
-    def __init__(self, interface, parent_navegar, ventana_principal):
+    def __init__(self, interface, parent_navegar, ventana_principal, id_usuario):
         self.controlador = ControladorGastos()
+        self.id_usuario = id_usuario
         
         self.headers = ["Codigo", "Codigo Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad Comprada", "Fecha"]
         
@@ -48,7 +49,7 @@ class interfaz_de_gastos(HistorialBase):
         for widget in list(self.tabla.winfo_children())[len(self.headers):]:
             widget.destroy()
 
-        datos = self.controlador.obtener_todos_los_gastos()
+        datos = self.controlador.obtener_todos_los_gastos(self.id_usuario)
 
         if not datos:
             lbl_vacio = ctk.CTkLabel(self.tabla, text="No hay gastos registrados", font=("Poppins", 16), text_color="#7A5230")
@@ -56,7 +57,7 @@ class interfaz_de_gastos(HistorialBase):
             return
 
         for i, fila in enumerate(datos, start=1):
-            for col, valor in enumerate(fila):
+            for col, valor in enumerate(fila[:-1]):
                 lbl = ctk.CTkLabel(self.tabla, text=str(valor),
                                    font=("Poppins", 16),
                                    text_color="#7A5230")
@@ -66,7 +67,7 @@ class interfaz_de_gastos(HistorialBase):
         self.actualizar_tabla()
 
     def agregar_gasto(self, id_insumo, proveedor, descripcion, monto, cantidad):
-        self.controlador.agregar_gasto(id_insumo, proveedor, descripcion, monto, cantidad)
+        self.controlador.agregar_gasto(id_insumo, proveedor, descripcion, monto, cantidad, self.id_usuario)
         self.actualizar_tabla()
 
     def actualizar_gasto(self, id_egreso, id_insumo, proveedor, descripcion, monto, cantidad):

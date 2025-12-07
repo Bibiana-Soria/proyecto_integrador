@@ -11,10 +11,12 @@ class ControladorGastos:
         else:
             messagebox.showerror(message="Ocurrió un error en la operación", icon="error")
 
-    def obtener_todos_los_gastos(self):
-        return self.modelo.consultar()
+    # Recibe id_usuario
+    def obtener_todos_los_gastos(self, id_usuario):
+        return self.modelo.consultar(id_usuario)
 
-    def agregar_gasto(self, id_insumo, proveedor, descripcion, monto, cantidad_comprada):
+    # Recibe id_usuario
+    def agregar_gasto(self, id_insumo, proveedor, descripcion, monto, cantidad_comprada, id_usuario):
 
         if not id_insumo or str(id_insumo) == "None":
             print("ID vacío, no se crea egreso")
@@ -25,7 +27,8 @@ class ControladorGastos:
             proveedor,
             descripcion,
             monto,
-            cantidad_comprada
+            cantidad_comprada,
+            id_usuario # Pasamos el ID al modelo
         )
 
         self.respuesta_sql(resultado)

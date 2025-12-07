@@ -19,7 +19,7 @@ class ControladorDashboard:
 
         ventas = self.modelo_ventas.consultar(id_usuario)
         insumos = self.modelo_insumos.consultar()
-        egresos = self.modelo_egresos.consultar()
+        egresos = self.modelo_egresos.consultar(id_usuario)
 
         total_ingresos = 0
         stock_bajo = 0
@@ -69,15 +69,16 @@ class ControladorDashboard:
 
         return ventas_ordenadas[:10]
     
-    def obtener_ultimos_egresos(self):
-        egresos = self.modelo_egresos.consultar()
+    def obtener_ultimos_egresos(self, id_usuario):
+        egresos = self.modelo_egresos.consultar(id_usuario)
 
         if not egresos:
             return []
 
-        # Ordenados por fecha (posicion 6)
+        # Ordenados por fecha (posición 6) de más reciente a más antiguo
         egresos_ordenados = sorted(egresos, key=lambda e: e[6], reverse=True)
 
+        # Retornamos solo los 10 primeros (o 5, según prefieras para el dashboard)
         return egresos_ordenados[:10]
 
             

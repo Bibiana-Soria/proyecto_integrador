@@ -241,6 +241,3 @@ class LoginInterface(ctk.CTk):
             widget.destroy()
         self.main_interface = MainInterface(self, usuario_logueado=datos_usuario)
         self.main_interface.pack(fill="both", expand=True)
-
-
-
