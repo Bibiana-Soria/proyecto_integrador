@@ -6,7 +6,7 @@ class interfaz_de_insumos(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
 
         self.headers = [
-            "ID", "Nombre del insumo", "Unidad", "Cantidad", "Costo unitario"
+            "Código", "Nombre del insumo", "Unidad", "Cantidad", "Costo unitario"
         ]
 
         # CAMPOS PARA FORMULARIO
