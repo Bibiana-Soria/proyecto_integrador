@@ -7,10 +7,15 @@ class Historial_de_ventas(HistorialBase):
         self.headers = ["Código\n", "Código de\nProducto", "Fecha\n", "Cantidad\n", "Precio\n", "Total\n"]
         super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Historial de Ventas")
         self.controlador = ControladorHistorialVentas()
+        self.tabla = None
         self.crear_tabla_ventas()
 
     def crear_tabla_ventas(self):
-        tabla = ctk.CTkScrollableFrame(
+        # Si ya existe una tabla, la eliminamos para refrescar
+        if self.tabla is not None:
+            self.tabla.destroy()
+
+        self.tabla = ctk.CTkScrollableFrame(
             self.contenido,
             fg_color="#FEE3D0",
             border_width=4,
@@ -18,10 +23,10 @@ class Historial_de_ventas(HistorialBase):
             corner_radius=40,
             width=800, height=400
         )
-        tabla.grid(row=0, column=0, sticky="nsew")
+        self.tabla.grid(row=0, column=0, sticky="nsew")
 
         for col, text in enumerate(self.headers):
-            lbl = ctk.CTkLabel(tabla, text=text,
+            lbl = ctk.CTkLabel(self.tabla, text=text,
                                font=("Mochiy Pop One", 20),
                                text_color="#7A5230")
             lbl.grid(row=0, column=col, padx=15, pady=10)
@@ -32,13 +37,16 @@ class Historial_de_ventas(HistorialBase):
         datos = self.controlador.obtener_todas_las_ventas(id_usuario_actual)
 
         if not datos:
-            lbl_vacio = ctk.CTkLabel(tabla, text="No hay ventas registradas", font=("Poppins", 16))
+            lbl_vacio = ctk.CTkLabel(self.tabla, text="No hay ventas registradas", font=("Poppins", 16))
             lbl_vacio.grid(row=1, column=0, columnspan=len(self.headers), pady=20)
             return
 
         for i, fila in enumerate(datos, start=1):
             for col, valor in enumerate(fila):
-                lbl = ctk.CTkLabel(tabla, text=str(valor),
+                lbl = ctk.CTkLabel(self.tabla, text=str(valor),
                                    font=("Poppins", 16),
                                    text_color="#7A5230")
                 lbl.grid(row=i, column=col, padx=15, pady=5)
+    
+    def on_data_changed(self):
+        self.crear_tabla_ventas()
