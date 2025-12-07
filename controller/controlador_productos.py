@@ -15,7 +15,6 @@ class ControladorProductos:
         return self.modelo.consultar()
 
     def agregar_producto(self, nombre, tamano, precio):
-        # validación básica
         if not nombre or not precio:
             messagebox.showerror("Error", "Nombre y precio son requeridos")
             return False

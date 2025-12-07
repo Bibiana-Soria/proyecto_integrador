@@ -24,7 +24,6 @@ class Usuarios:
     @staticmethod
     def cambiar(nombre, apellido, email, contrasena, id_usuario):
         try:
-            # CORRECCIÓN: Faltaba setear contrasena en el SQL y el WHERE estaba confuso
             cursor.execute(
                 "update usuarios set nombre=%s, apellido=%s, email=%s, contrasena=%s where id_usuario=%s",
                 (nombre, apellido, email, contrasena, id_usuario)
@@ -46,7 +45,6 @@ class Usuarios:
     @staticmethod
     def buscar(nombre):
         try:
-            # CORRECCIÓN: Sintaxis de LIKE corregida
             cursor.execute(
                 "select * from usuarios where nombre like %s",
                 ('%' + nombre + '%',)
@@ -58,7 +56,7 @@ class Usuarios:
     @staticmethod
     def validar(email, password):
         try:
-            # CORRECCIÓN: Validamos por EMAIL
+            # Validamos por EMAIL
             cursor.execute(
                 "select * from usuarios where email = %s and contrasena = %s",
                 (email, password)

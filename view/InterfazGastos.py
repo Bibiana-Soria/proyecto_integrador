@@ -6,11 +6,8 @@ class interfaz_de_gastos(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
         self.controlador = ControladorGastos()
         
-        # Headers para la tabla (visualización)
         self.headers = ["Codigo", "Codigo Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad Comprada", "Fecha"]
         
-        # Campos para el formulario (Agregar/Modificar)
-        # Nota: Deben coincidir con las claves que usamos en InterfazBaseTabla.enviar_datos_...
         self.form_campos = ["Codigo Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad Comprada"]
 
         super().__init__(

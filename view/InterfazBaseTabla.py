@@ -385,7 +385,6 @@ class HistorialBase(ctk.CTkFrame):
             proveedor = datos.get("Proveedor")
             descripcion = datos.get("Descripción")
 
-            # validación mínima
             if not nombre or not cantidad or not costo:
                 messagebox.showerror("Error", "Nombre, cantidad y costo son requeridos")
                 return

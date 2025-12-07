@@ -409,10 +409,9 @@ class MainInterface(ctk.CTkFrame):
             self.historial_de_ventas.pack(fill="both" ,expand = True)
 
         elif destino == "Productos":
-             # ... tu lógica de productos ...
+             # lógica de productos
              pass
 
-        # --- CAMBIO AQUÍ: Lógica de cerrar sesión ---
         elif destino == "Cerrar sesión":
             # 1. Destruimos el Dashboard actual (se borra de la pantalla)
             self.destroy()
@@ -421,7 +420,6 @@ class MainInterface(ctk.CTkFrame):
             try:
                 self.interface.restaurar_login()
             except AttributeError:
-                # Por si acaso self.interface no fuera LoginInterface (debug)
                 print("Error: No se pudo restaurar el login en la ventana padre.")
 
     def crear_listados_inferiores(self):

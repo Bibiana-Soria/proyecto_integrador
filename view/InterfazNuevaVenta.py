@@ -375,9 +375,8 @@ class NuevaVenta(ctk.CTkFrame):
             sticky ="nsew"
         )
 
-        #configuramos frame_productos para usar grid interno
-        frame_productos.rowconfigure(0, weight=1) #frame con la label productos disponibles
-        frame_productos.rowconfigure(1, weight=4) #frame con los productos disponibles
+        frame_productos.rowconfigure(0, weight=1)
+        frame_productos.rowconfigure(1, weight=4)
         frame_productos.columnconfigure(0, weight=1)
         frame_productos.configure(height= 400)
         frame_productos.grid_propagate(False)
@@ -413,7 +412,7 @@ class NuevaVenta(ctk.CTkFrame):
             padx=20,
             pady =15
         )
-        #aqui iran los productos disponibles
+
         frame_productos_disponibles = ctk.CTkFrame(
             frame_productos,
             fg_color="#FEF3E7",
@@ -430,6 +429,7 @@ class NuevaVenta(ctk.CTkFrame):
         )
         frame_productos_disponibles.rowconfigure(0, weight=1)
         frame_productos_disponibles.columnconfigure(0, weight=1)
+
         #frame donde ubicaremos todos los componentes del carrito
         frame_carrito = ctk.CTkFrame(
             frame_inferior, 
@@ -445,6 +445,7 @@ class NuevaVenta(ctk.CTkFrame):
             padx = (30, 50),
             sticky = "NSEW"
         )
+
         #configuramos grid para el frame donde ira todo el carrito 
         frame_carrito.rowconfigure(0, weight=1) #este sera el frame para poner el texto "Carrito de compras"
         frame_carrito.rowconfigure(1, weight=3) #aqui ira el ctk scrollbar con los productos elegidos de prodctos disponibles 
@@ -464,6 +465,7 @@ class NuevaVenta(ctk.CTkFrame):
             pady = 20,
             padx = 20
         )
+
         #configuramos grid interno para para evitar problemas con weigth
         frame_para_lbl_carrito_de_compras.rowconfigure(0, weight=1)
         frame_para_lbl_carrito_de_compras.columnconfigure(0, weight=1)
@@ -509,6 +511,7 @@ class NuevaVenta(ctk.CTkFrame):
             pady = (0,20),
             padx = 20
         )
+
         #configuramos para evitar problemas con weight
         frame_para_lbl_total_carrito_de_compras.rowconfigure(0, weight=1) # palabra total
         frame_para_lbl_total_carrito_de_compras.rowconfigure(1, weight=1) # variable numerica
@@ -587,7 +590,6 @@ class NuevaVenta(ctk.CTkFrame):
 
         self.lista_botones_productos = []
 
-        # Ejemplo de precios (ajusta los que tú quieras)
         self.btn_producto_fresa = ctk.CTkButton(
             scrol_bar_productos,
             text="Fresa",
@@ -735,12 +737,10 @@ class NuevaVenta(ctk.CTkFrame):
         self.scrol_bar_productos.columnconfigure(0, weight=1)
 
     def enviar_boton_a_carrito(self, nombre, precio):
-        # Si ya existe en el carrito → solo aumentar cantidad
         if nombre in self.carrito_items:
             self.incrementar(nombre)
             return
 
-        # Frame del producto DENTRO del scroll del carrito
         frame = ctk.CTkFrame(
             self.scrol_bar_productos,
             fg_color="#FEE3D0",
@@ -850,7 +850,7 @@ class NuevaVenta(ctk.CTkFrame):
         self.actualizar_estado_botones_productos()
 
     def reordenar_filas(self):
-        """Reacomoda los frames del carrito después de borrar alguno."""
+        # Reacomoda los frames del carrito después de borrar alguno.
         self.contador_filas_carrito = 0
         for item in self.carrito_items.values():
             item["frame"].grid_configure(row=self.contador_filas_carrito)
@@ -889,7 +889,6 @@ class NuevaVenta(ctk.CTkFrame):
     
     def _click_fuera_sidebar(self, event):
         SIDEBAR_WIDTH = 260
-        # event.x es la posición X del click dentro de MainInterface
         # Si X es mayor al ancho de la sidebar, significa que tocó fuera
         if event.x > SIDEBAR_WIDTH:
             self.cerrar_sidebar()
@@ -903,7 +902,7 @@ class NuevaVenta(ctk.CTkFrame):
         self.unbind("<Button-1>")
     
     def cargar_mapa_productos(self):
-        '''Consulta la BD y mapea los nombres de botones a IDs reales'''
+        # Consulta la BD y mapea los nombres de botones a IDs reales
         try:
             lista_productos_bd = self.controlador.obtener_lista_productos()
             

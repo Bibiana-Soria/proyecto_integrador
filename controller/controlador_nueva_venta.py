@@ -34,7 +34,6 @@ class ControladorNuevaVenta:
         
         # Iteramos sobre los items del carrito para registrarlos en la BD
         for item in lista_items_carrito:
-            # Asegúrate de extraer los datos correctos según como guardes tu carrito en la Vista
             id_prod = item.get('id_producto')
             cant = item.get('cantidad')
             prec_unit = item.get('precio')

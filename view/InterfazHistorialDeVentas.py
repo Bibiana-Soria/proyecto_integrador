@@ -28,7 +28,7 @@ class Historial_de_ventas(HistorialBase):
 
         id_usuario_actual = self.interface.usuario_logueado[0]
 
-        # Datos de ejemplo o traídos de la BD 
+        # Datos traídos de la BD 
         datos = self.controlador.obtener_todas_las_ventas(id_usuario_actual)
 
         if not datos:

@@ -236,7 +236,7 @@ class LoginInterface(ctk.CTk):
             messagebox.showerror("Error de acceso", "E-mail o contraseña incorrectos")
 
     def switch_to_main(self, datos_usuario):
-        # destruir todo lo actual (login)
+        # Destruir todo lo actual (login)
         for widget in self.winfo_children():
             widget.destroy()
         self.main_interface = MainInterface(self, usuario_logueado=datos_usuario)

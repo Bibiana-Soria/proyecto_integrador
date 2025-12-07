@@ -43,7 +43,6 @@ class ControladorDashboard:
                     pass
 
         # Calcular gastos totales
-        # Calcular gastos totales
         if egresos:
             for e in egresos:
                 try:

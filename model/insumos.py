@@ -13,13 +13,13 @@ class Insumos:
                 (nombre_insumo, unidad_medida, cantidad, costo_unitario)
             )
 
-            conexion.commit()   # ✅ PRIMERO confirmamos el insumo
+            conexion.commit()
 
             # 2. Obtener ID real recién guardado
             cursor.execute("SELECT LAST_INSERT_ID()")
             id_insumo = cursor.fetchone()[0]
 
-            print("ID INSUMO CREADO:", id_insumo)  # <-- para que tú lo veas
+            print("ID INSUMO CREADO:", id_insumo)
 
             # 3. Crear egreso automático
             monto_egreso = float(cantidad) * float(costo_unitario)
