@@ -158,6 +158,14 @@ class NuevaVenta(ctk.CTkFrame):
             sticky="w"
         )
 
+    def actualizar_tarjetas_superiores(self):
+        # Si existe el frame superior, lo destruimos para limpiar lo viejo
+        if hasattr(self, 'frame_superior_dashboard'):
+            self.frame_superior_dashboard.destroy()
+        
+        # Llamamos a crear_parte_superior() de nuevo
+        self.crear_parte_superior()
+     
     def _crear_tarjeta_ventas_mes(self):
         frame_ventas_mes = ctk.CTkFrame(
             self.frame_superior_dashboard,
@@ -979,6 +987,7 @@ class NuevaVenta(ctk.CTkFrame):
         if exito:
             messagebox.showinfo("Exito", "Venta registrada correctamente")
             self.limpiar_todo_el_carrito()
+            self.actualizar_tarjetas_superiores()
         else:
             messagebox.showerror("Error", "No se pudo guardar la venta en la base de datos")
     
