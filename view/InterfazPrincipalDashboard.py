@@ -49,10 +49,11 @@ class MainInterface(ctk.CTkFrame):
 
     def crear_parte_superior(self):
         datos=self.controlador.obtener_resumen_global(self.id_usuario)
-        self.ingresos_totales=datos["ingresos_totales"]
+        self.ingresos_totales = datos["ingresos_totales"]
         self.ventas_realizadas = datos["ventas_realizadas"]
         self.alertas_stock = datos["alertas_stock"]
-        self.gastos_totales=datos["gastos_totales"]
+        self.gastos_totales = datos["gastos_totales"]
+        self.ganancia_neta = datos["ganancia_neta"]
         
         self.frame_superior_dashboard = ctk.CTkFrame(
             self,
@@ -259,7 +260,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_cantidad_ganancias_mes = ctk.CTkLabel(
             frame_ganancias_mes,
-            text=f"${self.ingresos_totales:,.2f}",
+            text=f"${self.ganancia_neta:,.2f}",
             font=("Mochiy Pop One", 26),
             text_color="#7A5230"
         )

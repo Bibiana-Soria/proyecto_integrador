@@ -65,6 +65,8 @@ class NuevaVenta(ctk.CTkFrame):
         self.ingresos_totales = datos["ingresos_totales"]
         self.ventas_realizadas = datos["ventas_realizadas"]
         self.gastos_totales = datos.get("gastos_totales", 0)
+        self.ganancia_neta = datos.get("ganancia_neta", 0)
+
         self.frame_superior_dashboard = ctk.CTkFrame(
             self,
             fg_color="#FEF3E7"
@@ -263,7 +265,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_cantidad_ganancias_mes = ctk.CTkLabel(
             frame_ganancias_mes,
-            text=f"${self.ingresos_totales:,.2f}",
+            text=f"${self.ganancia_neta:,.2f}",
             font=("Mochiy Pop One", 26),
             text_color="#7A5230"
         )

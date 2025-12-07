@@ -50,12 +50,14 @@ class ControladorDashboard:
                 except:
                     pass
 
+        ganancia_neta = total_ingresos - total_gastos
 
         return {
             "ingresos_totales": total_ingresos,
             "ventas_realizadas": len(ventas) if ventas else 0,
             "alertas_stock": stock_bajo,
-            "gastos_totales": total_gastos
+            "gastos_totales": total_gastos,
+            "ganancia_neta": ganancia_neta
         }
     
     def obtener_ultimas_ventas(self, id_usuario):
