@@ -183,7 +183,7 @@ class LoginInterface(ctk.CTk):
     def _crear_boton_ventana_emergente_usuarios(self):
         btn_crear_nuevo_usuario = ctk.CTkButton(
             self.frame_inferior,
-            text="Crear un nuevo usuario",
+            text="Create a new user",
             fg_color="#FFF9F3",
             hover_color="#FFF9F3",
             text_color="#111111",
@@ -233,7 +233,7 @@ class LoginInterface(ctk.CTk):
             self.switch_to_main(datos_usuario)
         else:
             # Login fallido
-            messagebox.showerror("Error de acceso", "E-mail o contraseña incorrectos")
+            messagebox.showerror("Access Error", "Incorrect email or password")
 
     def switch_to_main(self, datos_usuario):
         # Destruir todo lo actual (login)

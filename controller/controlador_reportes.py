@@ -47,7 +47,7 @@ class ControladorReportes:
 
             wb.save(nombre_archivo)
 
-            messagebox.showinfo("Éxito", f"Reporte generado: {nombre_archivo}")
+            messagebox.showinfo("Success", f"Report generated: {nombre_archivo}")
 
         except Exception as e:
-            messagebox.showerror("Error", f"No se pudo generar el reporte:\n{e}")
+            messagebox.showerror("Error", f"The report could not be generated:\n{e}")

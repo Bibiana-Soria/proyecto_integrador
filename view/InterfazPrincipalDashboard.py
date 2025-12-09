@@ -123,7 +123,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_bienvenida = ctk.CTkLabel(
             frame_bienvenida,
-            text="Panel de control de ventas",
+            text="Sales Control Panel",
             font=("Poppins", 20),
             text_color="#C49A85"
         )
@@ -142,7 +142,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_saludo = ctk.CTkLabel(
             frame_bienvenida,
-            text=f"Bienvenido\n{nombre_a_mostrar}",
+            text=f"Welcome\n{nombre_a_mostrar}",
             font=("Mochiy Pop One", 40, "bold"),
             text_color="#7A5230",
             justify="left"
@@ -200,7 +200,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_ventas_mes = ctk.CTkLabel(
             frame_ventas_mes,
-            text="Ventas del mes",
+            text="Monthly Sales",
             font=("Poppins", 20),
             text_color="#C49A85"
         )
@@ -247,7 +247,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_ganancias_mes = ctk.CTkLabel(
             frame_ganancias_mes,
-            text="Ganancias del mes",
+            text="Monthly Earnings",
             font=("Poppins", 20),
             text_color="#C49A85"
         )
@@ -319,7 +319,7 @@ class MainInterface(ctk.CTkFrame):
 
         lbl_gasto_mes = ctk.CTkLabel(
             frame_gasto_mes,
-            text="Gasto del mes",
+            text="Monthly Expenses",
             font=("Poppins", 20),
             text_color="#C49A85"
         )
@@ -345,16 +345,16 @@ class MainInterface(ctk.CTkFrame):
         pass
 
     def navegar(self, destino: str):
-        if destino == "Panel Principal":
+        if destino == "Main Dashboard":
             for widget in self.winfo_children():
                 widget.destroy()
             self.interface.title("Kunibo - Dashboard")
             self.Menu_Principal()
 
-        elif destino == "Nueva venta":
+        elif destino == "New Sale":
             for widget in self.winfo_children():
                 widget.destroy()
-            self.interface.title("Kunibo - Nueva Venta")
+            self.interface.title("Kunibo - New Sale")
 
             self.nueva_venta = NuevaVenta(
             interface=self,                    # contenedor
@@ -362,10 +362,10 @@ class MainInterface(ctk.CTkFrame):
         )
             self.nueva_venta.pack(fill="both", expand=True)
 
-        elif destino == "Historial de ventas":
+        elif destino == "Sales History":
             for widget in self.winfo_children():
                 widget.destroy()
-            self.interface.title("Kunibo - Historial de ventas")
+            self.interface.title("Kunibo - Sales History")
             self.historial_de_ventas = Historial_de_ventas(
                 interface=self,
                 parent_navegar=self.navegar,
@@ -374,10 +374,10 @@ class MainInterface(ctk.CTkFrame):
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
 
-        elif destino == "Gastos":
+        elif destino == "Expenses":
             for widget in self.winfo_children():
                 widget.destroy()
-            self.interface.title("Kunibo - Gastos")
+            self.interface.title("Kunibo - Expenses")
             self.historial_de_ventas = interfaz_de_gastos(
                 interface=self,
                 parent_navegar=self.navegar,
@@ -386,10 +386,10 @@ class MainInterface(ctk.CTkFrame):
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
 
-        elif destino == "Insumos":
+        elif destino == "Supplies":
             for widget in self.winfo_children():
                 widget.destroy()
-            self.interface.title("Kunibo - Insumos")
+            self.interface.title("Kunibo - Supplies")
             self.historial_de_ventas = interfaz_de_insumos(
                 interface=self,
                 parent_navegar=self.navegar,
@@ -398,10 +398,10 @@ class MainInterface(ctk.CTkFrame):
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
 
-        elif destino == "Productos":
+        elif destino == "Products":
             for widget in self.winfo_children():
                 widget.destroy()
-            self.interface.title("Kunibo - Productos")
+            self.interface.title("Kunibo - Products")
             self.historial_de_ventas = interfaz_de_productos(
                 interface=self,
                 parent_navegar=self.navegar,
@@ -410,15 +410,15 @@ class MainInterface(ctk.CTkFrame):
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
 
-        elif destino == "Productos":
+        elif destino == "Products":
              # lógica de productos
              pass
 
-        elif destino == "Cerrar sesión":
-            # 1. Destruimos el Dashboard actual (se borra de la pantalla)
+        elif destino == "Logout":
+            # Destruimos el Dashboard actual (se borra de la pantalla)
             self.destroy()
             
-            # 2. Le decimos a la ventana principal (LoginInterface) que se vuelva a pintar
+            # Le decimos a la ventana principal (LoginInterface) que se vuelva a pintar
             try:
                 self.interface.restaurar_login()
             except AttributeError:
@@ -441,14 +441,14 @@ class MainInterface(ctk.CTkFrame):
                                     corner_radius=30)
         frame_ventas.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
 
-        lbl_v = ctk.CTkLabel(frame_ventas, text="Últimas  Ventas",
+        lbl_v = ctk.CTkLabel(frame_ventas, text="Recent Sales",
                             font=("Mochiy Pop One", 22), text_color="#7A5230")
         lbl_v.pack(pady=10)
 
         ultimas_ventas = self.controlador.obtener_ultimas_ventas(self.id_usuario)
 
         if not ultimas_ventas:
-            ctk.CTkLabel(frame_ventas, text="No hay ventas recientes",
+            ctk.CTkLabel(frame_ventas, text="No recent sales",
                         font=("Poppins", 16)).pack(pady=10)
         else:
             for venta in ultimas_ventas:
@@ -465,14 +465,14 @@ class MainInterface(ctk.CTkFrame):
                                     corner_radius=30)
         frame_egresos.grid(row=0, column=1, sticky="nsew", padx=10, pady=10)
 
-        lbl_g = ctk.CTkLabel(frame_egresos, text="Últimos  Gastos",
+        lbl_g = ctk.CTkLabel(frame_egresos, text="Recent Expenses",
                             font=("Mochiy Pop One", 22), text_color="#7A5230")
         lbl_g.pack(pady=10)
 
         ultimos_egresos = self.controlador.obtener_ultimos_egresos(self.id_usuario)
 
         if not ultimos_egresos:
-            ctk.CTkLabel(frame_egresos, text="No hay gastos recientes",
+            ctk.CTkLabel(frame_egresos, text="No recent expenses",
                         font=("Poppins", 16)).pack(pady=10)
         else:
             for egreso in ultimos_egresos:
@@ -499,7 +499,7 @@ class MainInterface(ctk.CTkFrame):
 
         btn_exportar_ventas = ctk.CTkButton(
             frame_botones,
-            text="Exportar Reporte de Ventas",
+            text="Export Sales Report",
             height=60,
             fg_color="#C49A85",
             hover_color="#A67C65",
@@ -511,7 +511,7 @@ class MainInterface(ctk.CTkFrame):
 
         btn_exportar_gastos = ctk.CTkButton(
             frame_botones,
-            text="Exportar Reporte de Gastos",
+            text="Export Expenses Report",
             height=60,
             fg_color="#C49A85",
             hover_color="#A67C65",
@@ -527,7 +527,7 @@ class MainInterface(ctk.CTkFrame):
 
         btn_exportar_insumos = ctk.CTkButton(
             frame_botones,
-            text="Exportar Reporte de Insumos",
+            text="Export Supplies Report",
             height=60,
             fg_color="#C49A85",
             hover_color="#A67C65",
@@ -539,7 +539,7 @@ class MainInterface(ctk.CTkFrame):
 
         btn_exportar_productos = ctk.CTkButton(
             frame_botones,
-            text="Exportar Reporte de Productos",
+            text="Export Products Report",
             height=60,
             fg_color="#C49A85",
             hover_color="#A67C65",

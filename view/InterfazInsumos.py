@@ -6,22 +6,22 @@ class interfaz_de_insumos(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
 
         self.headers = [
-            "Código", "Nombre del insumo", "Unidad", "Cantidad", "Costo unitario"
+            "Code", "Supply Name", "Unit", "Quantity", "Unit Cost"
         ]
 
         # CAMPOS PARA FORMULARIO
         self.form_campos = [
-            "Nombre del insumo",
-            "Unidad",
-            "Cantidad",
-            "Costo unitario",
-            "Proveedor",
-            "Descripción"
+            "Supply Name",
+            "Unit",
+            "Quantity",
+            "Unit Cost",
+            "Provider",
+            "Description"
         ]
 
         self.controlador = ControladorInsumos()
 
-        super().__init__(interface, parent_navegar, ventana_principal, self.form_campos, "Insumos")
+        super().__init__(interface, parent_navegar, ventana_principal, self.form_campos, "Supplies")
 
         self.tabla = None
         self.crear_tabla()
@@ -55,7 +55,7 @@ class interfaz_de_insumos(HistorialBase):
         datos = self.controlador.obtener_insumos()
 
         if not datos:
-            lbl = ctk.CTkLabel(self.tabla, text="No hay insumos registrados")
+            lbl = ctk.CTkLabel(self.tabla, text="No supplies registered")
             lbl.grid(row=1, column=0, columnspan=len(self.headers), pady=10)
             return
 
@@ -69,22 +69,22 @@ class interfaz_de_insumos(HistorialBase):
 
     def agregar_registro_form(self, datos):
         self.controlador.agregar_insumo(
-            datos["Nombre del insumo"],
-            datos["Unidad"],
-            datos["Cantidad"],
-            datos["Costo unitario"],
-            datos["Proveedor"],
-            datos["Descripción"]
+            datos["Supply Name"],
+            datos["Unit"],
+            datos["Quantity"],
+            datos["Unit Cost"],
+            datos["Provider"],
+            datos["Description"]
         )
         self.actualizar_tabla()
 
     def modificar_registro_form(self, datos):
         self.controlador.actualizar_insumo(
             datos["id"],
-            datos["Nombre del insumo"],
-            datos["Unidad"],
-            datos["Cantidad"],
-            datos["Costo unitario"]
+            datos["Supply Name"],
+            datos["Unit"],
+            datos["Quantity"],
+            datos["Unit Cost"]
         )
         self.actualizar_tabla()
 

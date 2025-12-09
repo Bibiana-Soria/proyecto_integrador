@@ -5,7 +5,7 @@ from tkinter import messagebox
 class Usuarios():
     def __init__(self, root):
         self.root = root 
-        self.campos = ["ID", "Nombre", "Apellido", "Email", "Contraseña"]
+        self.campos = ["ID", "Name", "Last Name", "Email", "Password"]
         self.informacion_obtenida = {}
         self.crear_ventana_creacion_de_usuarios()
 
@@ -13,7 +13,7 @@ class Usuarios():
         ventana_emergente_crear_usuario = ctk.CTkToplevel(
             fg_color="#FFF9F3"
         )
-        ventana_emergente_crear_usuario.title("Kunibo - Agregar Usuario")
+        ventana_emergente_crear_usuario.title("Kunibo - Add User")
         ventana_emergente_crear_usuario.geometry("700x500")
         ventana_emergente_crear_usuario.lift()
         ventana_emergente_crear_usuario.focus()
@@ -28,7 +28,7 @@ class Usuarios():
 
         lbl_titulo = ctk.CTkLabel(
             ventana_emergente_crear_usuario,
-            text=f"Agregar usuario",
+            text=f"Add user",
             font=("Mochiy Pop One", 24),
             text_color="#7A5230"
         )
@@ -61,7 +61,7 @@ class Usuarios():
             entry = ctk.CTkEntry(
                 frame_para_entries,
                 width=260,
-                placeholder_text=f"Ingrese {nombre_campo.lower()}...",
+                placeholder_text=f"Enter {nombre_campo.lower()}...",
                 corner_radius=10,
 
             )
@@ -74,20 +74,20 @@ class Usuarios():
 
         def guardar():
             self.informacion_obtenida = info_obtenida
-            nombre = info_obtenida["Nombre"].get()
-            apellido = info_obtenida["Apellido"].get()
+            nombre = info_obtenida["Name"].get()
+            apellido = info_obtenida["Last Name"].get()
             email = info_obtenida["Email"].get()
-            contrasena = info_obtenida["Contraseña"].get()
+            contrasena = info_obtenida["Password"].get()
             registro_exitoso = controlador_usuarios.Usuarios.insertar(nombre, apellido, email, contrasena)
             if registro_exitoso:
-                messagebox.showinfo(message="Usuario registrado exitosamente.")
+                messagebox.showinfo(message="User registered successfully.")
                 ventana_emergente_crear_usuario.destroy()
             else:
-                messagebox.showinfo(message="Error al registrar usuario. Compruebe los datos (Nombre, Email y Contraseña son obligatorios).")
+                messagebox.showinfo(message="Error registering user. Check data (Name, Email and Password are required).")
 
         btn_guardar = ctk.CTkButton(
             frame_botones,
-            text="Guardar",
+            text="Save",
             font=("Mochiy Pop One", 18),
             fg_color="#FEE3D0",
             hover_color="#D8B59D",
@@ -101,7 +101,7 @@ class Usuarios():
 
         btn_cancelar = ctk.CTkButton(
             frame_botones,
-            text="Cancelar",
+            text="Cancel",
             font=("Mochiy Pop One", 18),
             fg_color="#F2A3A3",
             hover_color="#E57C7C",

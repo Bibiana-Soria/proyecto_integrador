@@ -7,16 +7,16 @@ class ControladorProductos:
 
     def respuesta_sql(self, respuesta):
         if respuesta:
-            messagebox.showinfo(message="Acción realizada con éxito", icon="info")
+            messagebox.showinfo(message="Action completed successfully", icon="info")
         else:
-            messagebox.showerror(message="Ocurrió un error en la operación", icon="error")
+            messagebox.showerror(message="An error occurred during operation", icon="error")
 
     def obtener_productos(self):
         return self.modelo.consultar()
 
     def agregar_producto(self, nombre, tamano, precio):
         if not nombre or not precio:
-            messagebox.showerror("Error", "Nombre y precio son requeridos")
+            messagebox.showerror("Error", "Name and price are required")
             return False
         resultado = self.modelo.insertar(nombre, tamano, precio)
         self.respuesta_sql(resultado)
@@ -24,7 +24,7 @@ class ControladorProductos:
 
     def actualizar_producto(self, id_producto, nombre, tamano, precio):
         if not id_producto:
-            messagebox.showerror("Error", "ID es requerido para modificar")
+            messagebox.showerror("Error", "ID is required to modify")
             return False
         resultado = self.modelo.cambiar(nombre, tamano, precio, id_producto)
         self.respuesta_sql(resultado)
@@ -32,7 +32,7 @@ class ControladorProductos:
 
     def eliminar_producto(self, id_producto):
         if not id_producto:
-            messagebox.showerror("Error", "ID es requerido para eliminar")
+            messagebox.showerror("Error", "ID is required to delete")
             return False
         resultado = self.modelo.eliminar(id_producto)
         self.respuesta_sql(resultado)

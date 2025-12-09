@@ -6,16 +6,16 @@ class ControladorInsumos:
 
     def respuesta_sql(self, respuesta):
         if respuesta:
-            messagebox.showinfo("OK", "Acción realizada con éxito")
+            messagebox.showinfo("OK", "Action completed successfully")
         else:
-            messagebox.showerror("Error", "Ocurrió un error en la operación")
+            messagebox.showerror("Error", "An error occurred during operation")
 
     def obtener_insumos(self):
         return self.modelo.consultar()
 
     def agregar_insumo(self, nombre, unidad, cantidad, precio, proveedor, descripcion):
         if not nombre or not precio:
-            messagebox.showerror("Error", "Todos los campos son obligatorios")
+            messagebox.showerror("Error", "All fields are required")
             return False
 
         # 1. Insertar el insumo primero
@@ -37,16 +37,16 @@ class ControladorInsumos:
             egreso.insertar(
                 id_insumo,
                 proveedor,
-                f"Compra de insumo: {nombre}",
+                f"Supply Purchase: {nombre}",
                 monto,
                 cantidad
             )
 
-            messagebox.showinfo("OK", "Insumo y egreso registrados correctamente ✅")
+            messagebox.showinfo("OK", "Supply and expense registered correctly")
             return True
 
         else:
-            messagebox.showerror("Error", "No se pudo guardar el insumo")
+            messagebox.showerror("Error", "Could not save supply")
             return False
 
     def actualizar_insumo(self, id_insumo, nombre, unidad, cantidad, precio):

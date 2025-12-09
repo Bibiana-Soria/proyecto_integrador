@@ -6,8 +6,8 @@ from controller.controlador_productos import ControladorProductos
 class interfaz_de_productos(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
         self.controlador = ControladorProductos()
-        self.headers = ["Codigo", "Nombre", "Tamaño", "Precio"]  
-        self.form_campos = ["Nombre", "Tamaño", "Precio"]
+        self.headers = ["Code", "Name", "Size", "Price"]  
+        self.form_campos = ["Name", "Size", "Price"]
         
 
         super().__init__(
@@ -15,7 +15,7 @@ class interfaz_de_productos(HistorialBase):
             parent_navegar,
             ventana_principal,
             self.form_campos,
-            "Productos"
+            "Products"
         )
 
         self.tabla = None
@@ -54,7 +54,7 @@ class interfaz_de_productos(HistorialBase):
         if not datos:
             no_data = ctk.CTkLabel(
                 self.tabla,
-                text="No hay productos registrados",
+                text="No products registered",
                 font=("Poppins", 16),
                 text_color="#7A5230"
             )

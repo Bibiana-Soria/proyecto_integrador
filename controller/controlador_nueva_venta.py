@@ -9,9 +9,9 @@ class ControladorNuevaVenta:
 
     def respuesta_sql(self,respuesta):
         if respuesta:
-            messagebox.showinfo(message="Acción realizada con éxito", icon="info")
+            messagebox.showinfo(message="Action completed successfully", icon="info")
         else:
-            messagebox.showerror(message="Ocurrió un error en la operación", icon="error")
+            messagebox.showerror(message="An error occurred during operation", icon="error")
 
     def obtener_lista_productos(self):
         """

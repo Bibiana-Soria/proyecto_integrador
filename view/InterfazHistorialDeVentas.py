@@ -4,8 +4,8 @@ from controller.controlador_historial_ventas import ControladorHistorialVentas
 
 class Historial_de_ventas(HistorialBase):
     def __init__(self, interface, parent_navegar, ventana_principal):
-        self.headers = ["Código\n", "Código de\nProducto", "Fecha\n", "Cantidad\n", "Precio\n", "Total\n"]
-        super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Historial de Ventas")
+        self.headers = ["Code\n", "Product\nCode", "Date\n", "Quantity\n", "Price\n", "Total\n"]
+        super().__init__(interface, parent_navegar, ventana_principal,self.headers, titulo_panel="Sales History")
         self.controlador = ControladorHistorialVentas()
         self.tabla = None
         self.crear_tabla_ventas()
@@ -37,7 +37,7 @@ class Historial_de_ventas(HistorialBase):
         datos = self.controlador.obtener_todas_las_ventas(id_usuario_actual)
 
         if not datos:
-            lbl_vacio = ctk.CTkLabel(self.tabla, text="No hay ventas registradas", font=("Poppins", 16))
+            lbl_vacio = ctk.CTkLabel(self.tabla, text="No sales registered", font=("Poppins", 16))
             lbl_vacio.grid(row=1, column=0, columnspan=len(self.headers), pady=20)
             return
 

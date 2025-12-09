@@ -11,19 +11,19 @@ class HistorialBase(ctk.CTkFrame):
         self.app = ventana_principal
         self.campos = campos
         try:
-            if titulo_panel == "Insumos":
+            if titulo_panel == "Supplies":
                 from controller.controlador_insumos import ControladorInsumos
                 self.controlador = ControladorInsumos()
-            elif titulo_panel == "Gastos":
+            elif titulo_panel == "Expenses":
                 from controller.controlador_gastos import ControladorGastos
                 self.controlador = ControladorGastos()
-            elif titulo_panel == "Productos":
+            elif titulo_panel == "Products":
                 from controller.controlador_productos import ControladorProductos
                 self.controlador = ControladorProductos()
             else:
                 self.controlador = None
         except Exception as e:
-            print("Error al asignar controlador en HistorialBase:", e)
+            print("Error assigning controller in HistorialBase:", e)
             self.controlador = None
         self.base_path = os.path.dirname(os.path.abspath(__file__))
         self.informacion_obtenida = {}
@@ -76,22 +76,22 @@ class HistorialBase(ctk.CTkFrame):
             pady = (20,20)
         )
 
-        if titulo_panel == "Historial de Ventas":
-            text_up = "Panel Historial de Ventas"
-            text_down = "Revisamos algo?"
-            self.informacion_formularios = "de ventas"
-        elif titulo_panel == "Gastos":
-            text_up = "Panel Gastos"
-            text_down = "Registramos algo?"
-            self.informacion_formularios = "en gastos"
-        elif titulo_panel == "Insumos":
-            text_up = "Panel Insumos"
-            text_down = "Registramos algo?"
-            self.informacion_formularios = "en Insumos"
-        elif titulo_panel == "Productos":
-            text_up = "Panel Productos"
-            text_down = "Registramos algo?"
-            self.informacion_formularios = "en Productos"
+        if titulo_panel == "Sales History":
+            text_up = "Sales History Panel"
+            text_down = "Checking something?"
+            self.informacion_formularios = "sales"
+        elif titulo_panel == "Expenses":
+            text_up = "Expenses Panel"
+            text_down = "Registering something?"
+            self.informacion_formularios = "expenses"
+        elif titulo_panel == "Supplies":
+            text_up = "Supplies Panel"
+            text_down = "Registering something?"
+            self.informacion_formularios = "supplies"
+        elif titulo_panel == "Products":
+            text_up = "Products Panel"
+            text_down = "Registering something?"
+            self.informacion_formularios = "products"
         else:
             text_up = titulo_panel
             text_down = ""
@@ -107,7 +107,7 @@ class HistorialBase(ctk.CTkFrame):
 
         boton_agregar_registros = ctk.CTkButton(
             frame_sup,
-            text= f"Agregar nuevo\nregistro {self.informacion_formularios}",
+            text= f"Add new\n{self.informacion_formularios} record",
             font=("Mochiy Pop One", 25),
             fg_color="#FEE3D0",
             hover_color="#D8B59D",
@@ -121,7 +121,7 @@ class HistorialBase(ctk.CTkFrame):
 
         boton_modificar_registros = ctk.CTkButton(
             frame_sup,
-            text= f"Modificar\nregistro {self.informacion_formularios}",
+            text= f"Modify\n{self.informacion_formularios} record",
             font=("Mochiy Pop One", 25),
             fg_color="#FEE3D0",
             hover_color="#D8B59D",
@@ -135,7 +135,7 @@ class HistorialBase(ctk.CTkFrame):
 
         boton_eliminar_registros = ctk.CTkButton(
             frame_sup,
-            text= f"Eliminar\nregistro {self.informacion_formularios}",
+            text= f"Delete\n{self.informacion_formularios} record",
             font=("Mochiy Pop One", 25),
             fg_color="#FEE3D0",
             hover_color="#D8B59D",
@@ -148,12 +148,12 @@ class HistorialBase(ctk.CTkFrame):
         boton_eliminar_registros.grid(row=0, column=4, padx=20, pady=20, sticky="nsew")
 
     def ventana_agregar_registro(self, titulo_panel):
-        if titulo_panel == "Historial de Ventas":
-            self.navegar("Nueva venta")
+        if titulo_panel == "Sales History":
+            self.navegar("New Sale")
             return
 
         ventana = ctk.CTkToplevel(fg_color="#FFF9F3")
-        ventana.title(f"{titulo_panel} - Agregar Registro")
+        ventana.title(f"{titulo_panel} - Add Record")
         ventana.geometry("700x700")
         ventana.grab_set()
 
@@ -179,37 +179,37 @@ class HistorialBase(ctk.CTkFrame):
             )
             lbl.grid(row=i*2, column=0, padx=20, pady=(10, 0), sticky="ew")
 
-            if nombre_campo.lower() in ["tamaño", "tamano"]:
+            if nombre_campo.lower() in ["size", "tamaño", "tamano"]:
 
                 widget = ctk.CTkOptionMenu(
                     frame_para_entries,
-                    values=["Pequeño", "Grande"],
+                    values=["Small", "Large"],
                     width=260,
                     corner_radius=10
                 )
 
-                widget.set("Pequeño")  # valor por defecto
+                widget.set("Small")  # valor por defecto
 
                 widget.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10))
-            elif nombre_campo.lower() in ["unidad", "unidad de medida", "unidad_medida"]:
+            elif nombre_campo.lower() in ["unit", "unidad", "unidad de medida", "unidad_medida"]:
 
                 widget = ctk.CTkOptionMenu(
                     frame_para_entries,
                     values=[
-                        "Unidad",
-                        "Kilogramo (kg)",
-                        "Gramo (g)",
-                        "Litro (L)",
-                        "Mililitro (ml)",
-                        "Pieza (pz)",
-                        "Paquete",
-                        "Caja",
-                        "Bolsa"
+                        "Unit",
+                        "Kilogram (kg)",
+                        "Gram (g)",
+                        "Liter (L)",
+                        "Milliliter (ml)",
+                        "Piece (pz)",
+                        "Package",
+                        "Box",
+                        "Bag"
                     ],
                     width=260,
                     corner_radius=10
                 )
-                widget.set("Unidad")
+                widget.set("Unit")
 
                 widget.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10))
             else:
@@ -217,7 +217,7 @@ class HistorialBase(ctk.CTkFrame):
                 widget = ctk.CTkEntry(
                     frame_para_entries,
                     width=260,
-                    placeholder_text=f"Ingrese {nombre_campo.lower()}...",
+                    placeholder_text=f"Enter {nombre_campo.lower()}...",
                     corner_radius=10
                 )
                 widget.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
@@ -241,7 +241,7 @@ class HistorialBase(ctk.CTkFrame):
 
         btn_guardar = ctk.CTkButton(
             ventana,
-            text="Guardar",
+            text="Save",
             command=guardar,
             fg_color="#FEE3D0",
             hover_color="#D8B59D",
@@ -251,7 +251,7 @@ class HistorialBase(ctk.CTkFrame):
 
     def ventana_modificar_registros(self, titulo_panel):
         ventana = ctk.CTkToplevel(fg_color="#FFF9F3")
-        ventana.title(f"{titulo_panel} - Modificar Registro")
+        ventana.title(f"{titulo_panel} - Modify Record")
         ventana.geometry("700x700")
         ventana.grab_set()
 
@@ -262,10 +262,10 @@ class HistorialBase(ctk.CTkFrame):
         )
         frame.grid(row=1, column=0, padx=20, pady=10, sticky="nsew")
 
-        lbl_id = ctk.CTkLabel(frame, text="Código", font=("Poppins", 16), text_color="#7A5230", anchor="w")
+        lbl_id = ctk.CTkLabel(frame, text="Code", font=("Poppins", 16), text_color="#7A5230", anchor="w")
         lbl_id.grid(row=0, column=0, padx=20, pady=(10, 0), sticky="ew")
 
-        entry_id = ctk.CTkEntry(frame, width=260, placeholder_text="Ingrese Código...", corner_radius=10)
+        entry_id = ctk.CTkEntry(frame, width=260, placeholder_text="Enter Code...", corner_radius=10)
         entry_id.grid(row=1, column=0, padx=20, pady=(0, 10), sticky="ew")
 
         info_obtenida["id"] = entry_id
@@ -276,36 +276,37 @@ class HistorialBase(ctk.CTkFrame):
             if nombre_campo.lower() == "id":
                 continue
 
-            if titulo_panel == "Historial de Ventas":
+            if titulo_panel == "Sales History":
                 txt = nombre_campo.lower()
-                if "código de\nproducto" not in txt and "cantidad" not in txt:
-                    continue
+                if "product date" not in txt and "quantity" not in txt and "product\ncode" not in txt: 
+                     if "product\ncode" not in txt and "quantity" not in txt:
+                        continue
 
             lbl = ctk.CTkLabel(
                 frame, text=nombre_campo, font=("Poppins", 16), text_color="#7A5230", anchor="w"
             )
             lbl.grid(row=fila, column=0, padx=20, pady=(10, 0), sticky="ew")
 
-            if nombre_campo.lower() in ["tamaño", "tamano"]:
+            if nombre_campo.lower() in ["size", "tamaño", "tamano"]:
                 widget = ctk.CTkOptionMenu(
-                    frame, values=["Pequeño", "Grande"], width=260, corner_radius=10
+                    frame, values=["Small", "Large"], width=260, corner_radius=10
                 )
-                widget.set("Pequeño")
+                widget.set("Small")
                 widget.grid(row=fila + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
 
-            elif nombre_campo.lower() in ["unidad", "unidad de medida", "unidad_medida"]:
+            elif nombre_campo.lower() in ["unit", "unidad", "unidad de medida", "unidad_medida"]:
                 widget = ctk.CTkOptionMenu(
                     frame,
-                    values=["Unidad", "Kilogramo (kg)", "Gramo (g)", "Litro (L)", "Pieza (pz)", "Paquete"],
+                    values=["Unit", "Kilogram (kg)", "Gram (g)", "Liter (L)", "Piece (pz)", "Package"],
                     width=260, corner_radius=10
                 )
-                widget.set("Unidad")
+                widget.set("Unit")
                 widget.grid(row=fila + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
             else:
                 widget = ctk.CTkEntry(
                     frame,
                     width=260,
-                    placeholder_text=f"Ingrese {nombre_campo.lower()}...",
+                    placeholder_text=f"Enter {nombre_campo.lower()}...",
                     corner_radius=10,
                 )
                 widget.grid(row=fila + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
@@ -326,7 +327,7 @@ class HistorialBase(ctk.CTkFrame):
 
         btn_guardar = ctk.CTkButton(
             ventana,
-            text="Guardar cambios",
+            text="Save changes",
             fg_color="#FEE3D0",
             hover_color="#D8B59D",
             text_color="#7A5230",
@@ -337,16 +338,16 @@ class HistorialBase(ctk.CTkFrame):
     def ventana_eliminar_registros(self, titulo_panel):
 
         ventana = ctk.CTkToplevel(fg_color="#FFF9F3")
-        ventana.title(f"{titulo_panel} - Eliminar Registro")
+        ventana.title(f"{titulo_panel} - Delete Record")
         ventana.geometry("400x250")
         ventana.grab_set()
 
         lbl = ctk.CTkLabel(
-            ventana, text="Ingrese el Código a eliminar", font=("Poppins", 18), text_color="#7A5230"
+            ventana, text="Enter Code to delete", font=("Poppins", 18), text_color="#7A5230"
         )
         lbl.pack(pady=20)
 
-        entry_id = ctk.CTkEntry(ventana, width=200, placeholder_text="Código...", corner_radius=10)
+        entry_id = ctk.CTkEntry(ventana, width=200, placeholder_text="Code...", corner_radius=10)
         entry_id.pack(pady=10)
 
         def eliminar():
@@ -360,7 +361,7 @@ class HistorialBase(ctk.CTkFrame):
             ventana.destroy()
 
         btn = ctk.CTkButton(
-            ventana, text="Eliminar", fg_color="#F2A3A3",
+            ventana, text="Delete", fg_color="#F2A3A3",
             hover_color="#E57C7C", text_color="#7A5230",
             command=eliminar
         )
@@ -368,50 +369,50 @@ class HistorialBase(ctk.CTkFrame):
 
     def enviar_datos_al_controlador(self, titulo_panel, datos):
         # PRODUCTOS
-        if titulo_panel == "Productos":
+        if titulo_panel == "Products":
             self.controlador.agregar_producto(
-                datos.get("Nombre"),
-                datos.get("Tamaño"),
-                datos.get("Precio")
+                datos.get("Name"),
+                datos.get("Size"),
+                datos.get("Price")
             )
 
         # INSUMOS
-        elif titulo_panel == "Insumos":
+        elif titulo_panel == "Supplies":
             # campos esperados por interfaz_de_insumos.form_campos
-            nombre = datos.get("Nombre del insumo")
-            unidad = datos.get("Unidad")
-            cantidad = datos.get("Cantidad")
-            costo = datos.get("Costo unitario")
-            proveedor = datos.get("Proveedor")
-            descripcion = datos.get("Descripción")
+            nombre = datos.get("Supply Name")
+            unidad = datos.get("Unit")
+            cantidad = datos.get("Quantity")
+            costo = datos.get("Unit Cost")
+            proveedor = datos.get("Provider")
+            descripcion = datos.get("Description")
 
             if not nombre or not cantidad or not costo:
-                messagebox.showerror("Error", "Nombre, cantidad y costo son requeridos")
+                messagebox.showerror("Error", "Name, quantity and cost are required")
                 return
 
             self.controlador.agregar_insumo(nombre, unidad, cantidad, costo, proveedor, descripcion)
 
         # GASTOS
-        elif titulo_panel == "Gastos":
+        elif titulo_panel == "Expenses":
 
-            codigo = datos.get("Codigo Insumo")
+            codigo = datos.get("Supply Code")
 
             if "-" in str(codigo):
                 codigo = codigo.split(" - ")[0]
 
-            proveedor = datos.get("Proveedor")
-            descripcion = datos.get("Descripcion")
+            proveedor = datos.get("Provider")
+            descripcion = datos.get("Description")
 
             try:
-                monto = float(datos.get("Monto"))
-                cantidad = float(datos.get("Cantidad Comprada"))
+                monto = float(datos.get("Amount"))
+                cantidad = float(datos.get("Quantity Purchased"))
                 codigo = int(codigo)
             except:
-                messagebox.showerror("Error", "Código, Monto y Cantidad deben ser números válidos")
+                messagebox.showerror("Error", "Code, Amount and Quantity must be valid numbers")
                 return
 
             if not codigo or not monto or not cantidad:
-                messagebox.showerror("Error", "Código, Monto y Cantidad son obligatorios")
+                messagebox.showerror("Error", "Code, Amount and Quantity are required")
                 return
 
             self.controlador.agregar_gasto(
@@ -425,60 +426,60 @@ class HistorialBase(ctk.CTkFrame):
 
     def enviar_datos_modificar(self, titulo_panel, datos):
         # PRODUCTOS
-        if titulo_panel == "Productos":
+        if titulo_panel == "Products":
             if not datos.get("id"):
-                messagebox.showerror("Error", "Debe ingresar un ID para modificar")
+                messagebox.showerror("Error", "Must enter an ID to modify")
                 return
             self.controlador.actualizar_producto(
                 datos.get("id"),
-                datos.get("Nombre"),
-                datos.get("Tamaño"),
-                datos.get("Precio")
+                datos.get("Name"),
+                datos.get("Size"),
+                datos.get("Price")
             )
 
         # INSUMOS
-        elif titulo_panel == "Insumos":
+        elif titulo_panel == "Supplies":
             if not datos.get("id"):
-                messagebox.showerror("Error", "Debe ingresar un ID para modificar")
+                messagebox.showerror("Error", "Must enter an ID to modify")
                 return
             self.controlador.actualizar_insumo(
                 datos.get("id"),
-                datos.get("Nombre del insumo"),
-                datos.get("Unidad"),
-                datos.get("Cantidad"),
-                datos.get("Costo unitario")
+                datos.get("Supply Name"),
+                datos.get("Unit"),
+                datos.get("Quantity"),
+                datos.get("Unit Cost")
             )
 
         # GASTOS
-        elif titulo_panel == "Gastos":
+        elif titulo_panel == "Expenses":
             if not datos.get("id"):
-                messagebox.showerror("Error", "Debe ingresar un ID para modificar")
+                messagebox.showerror("Error", "Must enter an ID to modify")
                 return
             try:
-                monto = float(datos.get("Monto"))
-                cantidad = int(datos.get("Cantidad Comprada"))
+                monto = float(datos.get("Amount"))
+                cantidad = int(datos.get("Quantity Purchased"))
             except:
-                messagebox.showerror("Error", "Monto y Cantidad deben ser números")
+                messagebox.showerror("Error", "Amount and Quantity must be numbers")
                 return
             self.controlador.actualizar_gasto(
                 datos.get("id"),
-                datos.get("Codigo Insumo"),
-                datos.get("Proveedor"),
-                datos.get("Descripcion"),
+                datos.get("Supply Code"),
+                datos.get("Provider"),
+                datos.get("Description"),
                 monto,
                 cantidad
             )
 
         # VENTAS
-        elif titulo_panel == "Historial de Ventas":
+        elif titulo_panel == "Sales History":
             id_venta = datos.get("id")
             if not id_venta:
-                messagebox.showerror("Error", "Debe ingresar el ID de la venta")
+                messagebox.showerror("Error", "Must enter Sale ID")
                 return
 
             try:
-                id_producto = datos.get("Código de\nProducto")
-                cantidad = float(datos.get("Cantidad\n"))
+                id_producto = datos.get("Product\nCode")
+                cantidad = float(datos.get("Quantity\n"))
                 id_usuario = self.interface.usuario_logueado[0]
 
                 self.controlador.actualizar_venta(
@@ -488,36 +489,36 @@ class HistorialBase(ctk.CTkFrame):
                     cantidad
                 )
             except ValueError:
-                messagebox.showerror("Error", "La cantidad debe ser un número")
+                messagebox.showerror("Error", "Quantity must be a number")
             except Exception as e:
-                messagebox.showerror("Error", f"Error en datos: {e}")
+                messagebox.showerror("Error", f"Error in data: {e}")
 
     def enviar_datos_eliminar(self, titulo_panel, id_registro):
         # PRODUCTOS
-        if titulo_panel == "Productos":
+        if titulo_panel == "Products":
             if not id_registro:
-                messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
+                messagebox.showerror("Error", "Must enter ID to delete")
                 return
             self.controlador.eliminar_producto(id_registro)
 
         # INSUMOS
-        elif titulo_panel == "Insumos":
+        elif titulo_panel == "Supplies":
             if not id_registro:
-                messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
+                messagebox.showerror("Error", "Must enter ID to delete")
                 return
             self.controlador.eliminar_insumo(id_registro)
 
         # GASTOS
-        elif titulo_panel == "Gastos":
+        elif titulo_panel == "Expenses":
             if not id_registro:
-                messagebox.showerror("Error", "Debe ingresar el ID a eliminar")
+                messagebox.showerror("Error", "Must enter ID to delete")
                 return
             self.controlador.eliminar_gasto(id_registro)
             
         # HISTORIAL DE VENTAS
-        elif titulo_panel == "Historial de Ventas":
+        elif titulo_panel == "Sales History":
             if not id_registro:
-                messagebox.showerror("Error", "Debe ingresar el Código de la venta")
+                messagebox.showerror("Error", "Must enter Sale Code")
                 return
             self.controlador.eliminar_venta(id_registro)
 

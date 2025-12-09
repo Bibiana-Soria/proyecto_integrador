@@ -135,7 +135,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_bienvenida = ctk.CTkLabel(
             frame_bienvenida,
-            text="Panel Nueva Venta",
+            text="New Sale Panel",
             font=("Poppins", 20),
             text_color="#C49A85"
         )
@@ -147,7 +147,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_saludo = ctk.CTkLabel(
             frame_bienvenida,
-            text="¿Que vamos\na vender hoy?",
+            text="What are we\nselling today?",
             font=("Mochiy Pop One", 32, "bold"),
             text_color="#7A5230",
             justify="left"
@@ -213,7 +213,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_ventas_mes = ctk.CTkLabel(
             frame_ventas_mes,
-            text="Ventas del mes",
+            text="Monthly Sales",
             font=("Poppins", 20),
             text_color="#C49A85"
         )
@@ -260,7 +260,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_ganancias_mes = ctk.CTkLabel(
             frame_ganancias_mes,
-            text="Ganancias del mes",
+            text="Monthly Earnings",
             font=("Poppins", 20),
             text_color="#C49A85"
         )
@@ -331,7 +331,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         lbl_gasto_mes = ctk.CTkLabel(
             frame_gasto_mes,
-            text="Gasto del mes",
+            text="Monthly Expenses",
             font=("Poppins", 20),
             text_color="#C49A85"
         )
@@ -410,7 +410,7 @@ class NuevaVenta(ctk.CTkFrame):
         frame_lbl_productos_disponibles.columnconfigure(0, weight=1)
         lbl_productos_disponibles = ctk.CTkLabel(
             frame_lbl_productos_disponibles,
-            text="Productos disponibles",
+            text="Available Products",
             font= ("Mochiy Pop One", 24),
             text_color = "#7A5230",
             anchor="w"
@@ -481,7 +481,7 @@ class NuevaVenta(ctk.CTkFrame):
         frame_para_lbl_carrito_de_compras.columnconfigure(0, weight=1)
         lbl_carrito_de_compras = ctk.CTkLabel(
             frame_para_lbl_carrito_de_compras,
-            text="Carrito de compras",
+            text="Shopping Cart",
             font= ("Mochiy Pop One", 24),
             text_color = "#7A5230",
             anchor="w"
@@ -557,7 +557,7 @@ class NuevaVenta(ctk.CTkFrame):
         )
         btn_guardar_carrio = ctk.CTkButton(
             frame_para_lbl_total_carrito_de_compras,
-            text="Guardar",
+            text="Save",
             font=("Mochiy Pop One", 24),
             text_color="#7A5230",
             anchor= "e",
@@ -714,7 +714,7 @@ class NuevaVenta(ctk.CTkFrame):
 
         self.btn_producto_cafe = ctk.CTkButton(
             scrol_bar_productos,
-            text="Cafe",
+            text="Café",
             font=("Mochiy Pop One", 24),
             text_color="#FFF9F3",
             anchor="center",
@@ -723,7 +723,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#2F2019",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Cafe", 38.0)
+            command=lambda: self.enviar_boton_a_carrito("Café", 38.0)
         )
         self.btn_producto_cafe.grid(row=3, column=1, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_cafe)
@@ -876,7 +876,7 @@ class NuevaVenta(ctk.CTkFrame):
     def label_nueva_venta(self):
         lbl_nueva_venta = ctk.CTkLabel(
             self,
-            text="Nueva Venta",
+            text="New Sale",
             font=("Mochiy Pop One", 36, "bold"),
             text_color="#7A5230"
         )
@@ -917,7 +917,7 @@ class NuevaVenta(ctk.CTkFrame):
             lista_productos_bd = self.controlador.obtener_lista_productos()
             
             if not lista_productos_bd:
-                print("No se encontraron productos en la BD")
+                print("No products found in DB")
                 return
             
             for prod in lista_productos_bd:
@@ -926,9 +926,9 @@ class NuevaVenta(ctk.CTkFrame):
                 nombre_bd = prod[1]
                 self.mapa_productos_ids[nombre_bd] = id_bd
             
-            print(f"Productos cargados: {self.mapa_productos_ids}")
+            print(f"Products loaded: {self.mapa_productos_ids}")
         except Exception as e:
-            messagebox.showerror("Error", f"Error cargando productos: {e}")
+            messagebox.showerror("Error", f"Error loading products: {e}")
 
     def actualizar_estado_botones_productos(self):
         # Si el carrito está vacío, habilitamos todos los botones
@@ -953,7 +953,7 @@ class NuevaVenta(ctk.CTkFrame):
         # Envía la venta al controlador para guardarla en la BD
         # Validar que haya productos
         if not self.carrito_items:
-            messagebox.showwarning("Carrito vacío", "No hay productos para guardar")
+            messagebox.showwarning("Empty Cart", "No products to save")
             return
         
         # Obtener datos del carrito
@@ -968,8 +968,8 @@ class NuevaVenta(ctk.CTkFrame):
 
         if id_producto_real is None:
             messagebox.showerror(
-                "Error de datos",
-                f"El producto '{nombre_producto_boton}' no coincide con la base de datos."
+                "Data Error",
+                f"Product '{nombre_producto_boton}' does not match database."
             )
             return
         
@@ -985,11 +985,11 @@ class NuevaVenta(ctk.CTkFrame):
         exito = self.controlador.registrar_venta(id_usuario_actual, lista_para_guardar)
 
         if exito:
-            messagebox.showinfo("Exito", "Venta registrada correctamente")
+            messagebox.showinfo("Success", "Sale registered successfully")
             self.limpiar_todo_el_carrito()
             self.actualizar_tarjetas_superiores()
         else:
-            messagebox.showerror("Error", "No se pudo guardar la venta en la base de datos")
+            messagebox.showerror("Error", "Could not save sale to database")
     
     def limpiar_todo_el_carrito(self):
         # Borra todo el contenido visual y lógico del carrito.

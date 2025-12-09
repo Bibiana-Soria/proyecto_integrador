@@ -63,7 +63,7 @@ class Sidebar(ctk.CTkFrame):
        
         btn_panel_principal = ctk.CTkButton(
             self,
-                text="Panel principal",
+                text="Main Dashboard",
                 corner_radius=20,
                 image = self.home_dashoard_image,
                 compound= "left",
@@ -75,7 +75,7 @@ class Sidebar(ctk.CTkFrame):
                 hover_color="#F0C6A5",
                 border_color="#D8B59D",
                 border_width=2,
-                command=lambda on_nav="Panel Principal": self.on_nav(on_nav)
+                command=lambda on_nav="Main Dashboard": self.on_nav(on_nav)
             )
         btn_panel_principal.grid(
             row=1,
@@ -94,7 +94,7 @@ class Sidebar(ctk.CTkFrame):
         )
         btn_nueva_venta = ctk.CTkButton(
             self,
-                text="Nueva Venta",
+                text="New Sale",
                 corner_radius=20,
                 image = self.carrito_dashoard_image,
                 compound= "left",
@@ -106,7 +106,7 @@ class Sidebar(ctk.CTkFrame):
                 hover_color="#F0C6A5",
                 border_color="#D8B59D",
                 border_width=2,
-                command=lambda on_nav="Nueva venta": self.on_nav(on_nav)
+                command=lambda on_nav="New Sale": self.on_nav(on_nav)
             )
         btn_nueva_venta.grid(
             row=2,
@@ -125,7 +125,7 @@ class Sidebar(ctk.CTkFrame):
         )
         btn_historial_de_ventas = ctk.CTkButton(
             self,
-                text="Historial de ventas",
+                text="Sales History",
                 corner_radius=20,
                 image = self.historial_de_ventas_dashboard,
                 compound= "left",
@@ -137,7 +137,7 @@ class Sidebar(ctk.CTkFrame):
                 hover_color="#F0C6A5",
                 border_color="#D8B59D",
                 border_width=2,
-                command=lambda on_nav="Historial de ventas": self.on_nav(on_nav)
+                command=lambda on_nav="Sales History": self.on_nav(on_nav)
             )
         btn_historial_de_ventas.grid(
             row=3,
@@ -156,7 +156,7 @@ class Sidebar(ctk.CTkFrame):
         )
         btn_gastos = ctk.CTkButton(
             self,
-                text="Gastos",
+                text="Expenses",
                 corner_radius=20,
                 image = self.gastos_dashboard, 
                 compound= "left",
@@ -168,7 +168,7 @@ class Sidebar(ctk.CTkFrame):
                 hover_color="#F0C6A5",
                 border_color="#D8B59D",
                 border_width=2,
-                command=lambda on_nav="Gastos": self.on_nav(on_nav)
+                command=lambda on_nav="Expenses": self.on_nav(on_nav)
             )
         btn_gastos.grid(
             row=4,
@@ -187,7 +187,7 @@ class Sidebar(ctk.CTkFrame):
         ) 
         btn_insumos = ctk.CTkButton(
             self,
-                text="Insumos",
+                text="Supplies",
                 corner_radius=20,
                 image = self.insumos_dashboard, 
                 compound= "left",
@@ -199,7 +199,7 @@ class Sidebar(ctk.CTkFrame):
                 hover_color="#F0C6A5",
                 border_color="#D8B59D",
                 border_width=2,
-                command=lambda on_nav="Insumos": self.on_nav(on_nav)
+                command=lambda on_nav="Supplies": self.on_nav(on_nav)
             )
         btn_insumos.grid(
             row=5,
@@ -218,7 +218,7 @@ class Sidebar(ctk.CTkFrame):
         ) 
         btn_prodcutos = ctk.CTkButton(
             self,
-                text="Productos",
+                text="Products",
                 corner_radius=20,
                 image = self.productos_dashboard, 
                 compound= "left",
@@ -230,7 +230,7 @@ class Sidebar(ctk.CTkFrame):
                 hover_color="#F0C6A5",
                 border_color="#D8B59D",
                 border_width=2,
-                command=lambda on_nav="Productos": self.on_nav(on_nav)
+                command=lambda on_nav="Products": self.on_nav(on_nav)
             )
         btn_prodcutos.grid(
             row=6,
@@ -242,7 +242,7 @@ class Sidebar(ctk.CTkFrame):
 
         btn_cerrar_sesion = ctk.CTkButton(
             self,
-            text="Cerrar sesión",
+            text="Logout",
             corner_radius=20,
             # image=self.logout_image, # Descomenta si tienes un ícono para esto
             # compound="left",
@@ -254,7 +254,7 @@ class Sidebar(ctk.CTkFrame):
             hover_color="#C9302C",
             border_color="#AC2925",
             border_width=2,
-            command=lambda on_nav="Cerrar sesión": self.on_nav(on_nav)
+            command=lambda on_nav="Logout": self.on_nav(on_nav)
         )
         
         # Lo colocamos en row=7 (Productos es row=6)

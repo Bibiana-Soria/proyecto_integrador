@@ -7,16 +7,16 @@ class interfaz_de_gastos(HistorialBase):
         self.controlador = ControladorGastos()
         self.id_usuario = id_usuario
         
-        self.headers = ["Codigo", "Codigo Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad Comprada", "Fecha"]
+        self.headers = ["Code", "Supply Code", "Provider", "Description", "Amount", "Quantity Purchased", "Date"]
         
-        self.form_campos = ["Codigo Insumo", "Proveedor", "Descripcion", "Monto", "Cantidad Comprada"]
+        self.form_campos = ["Supply Code", "Provider", "Description", "Amount", "Quantity Purchased"]
 
         super().__init__(
             interface, 
             parent_navegar, 
             ventana_principal,
             self.form_campos, 
-            titulo_panel="Gastos"
+            titulo_panel="Expenses"
         )
         
         self.tabla = None
@@ -52,7 +52,7 @@ class interfaz_de_gastos(HistorialBase):
         datos = self.controlador.obtener_todos_los_gastos(self.id_usuario)
 
         if not datos:
-            lbl_vacio = ctk.CTkLabel(self.tabla, text="No hay gastos registrados", font=("Poppins", 16), text_color="#7A5230")
+            lbl_vacio = ctk.CTkLabel(self.tabla, text="No expenses registered", font=("Poppins", 16), text_color="#7A5230")
             lbl_vacio.grid(row=1, column=0, columnspan=len(self.headers), pady=20)
             return
 
