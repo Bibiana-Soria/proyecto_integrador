@@ -390,7 +390,7 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", "Name, quantity and cost are required")
                 return
 
-            self.controlador.agregar_insumo(nombre, unidad, cantidad, costo, proveedor, descripcion)
+            self.controlador.agregar_insumo(nombre, unidad, cantidad, costo, proveedor, descripcion, self.interface.id_usuario)
 
         # GASTOS
         elif titulo_panel == "Expenses":

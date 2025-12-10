@@ -2,7 +2,7 @@ from conexionBD import *
 class Insumos:
 
     @staticmethod
-    def insertar(nombre_insumo, unidad_medida, cantidad, costo_unitario, proveedor, descripcion):
+    def insertar(nombre_insumo, unidad_medida, cantidad, costo_unitario, proveedor, descripcion, id_usuario):
         try:
             # 1. Insertar en INSUMOS
             cursor.execute(
@@ -27,10 +27,10 @@ class Insumos:
             cursor.execute(
                 """
                 INSERT INTO egresos
-                (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha)
-                VALUES (%s, %s, %s, %s, %s, NOW())
+                (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha, id_usuario)
+                VALUES (%s, %s, %s, %s, %s, NOW(), %s)
                 """,
-                (id_insumo, proveedor, descripcion, monto_egreso, cantidad)
+                (id_insumo, proveedor, descripcion, monto_egreso, cantidad, id_usuario)
             )
 
             conexion.commit()

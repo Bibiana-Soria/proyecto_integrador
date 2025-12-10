@@ -13,35 +13,15 @@ class ControladorInsumos:
     def obtener_insumos(self):
         return self.modelo.consultar()
 
-    def agregar_insumo(self, nombre, unidad, cantidad, precio, proveedor, descripcion):
+    def agregar_insumo(self, nombre, unidad, cantidad, precio, proveedor, descripcion, id_usuario):
         if not nombre or not precio:
             messagebox.showerror("Error", "All fields are required")
             return False
 
         # 1. Insertar el insumo primero
-        resultado = self.modelo.insertar(nombre, unidad, cantidad, precio, proveedor, descripcion)
+        resultado = self.modelo.insertar(nombre, unidad, cantidad, precio, proveedor, descripcion, id_usuario)
 
         if resultado:
-
-            # 2. Obtener el último ID insertado
-            id_insumo = self.modelo.ultimo_id()
-
-            # 3. Crear egreso automáticamente
-            from model.egresos import Egresos
-            from datetime import date
-
-            egreso = Egresos()
-
-            monto = float(precio) * float(cantidad)
-
-            egreso.insertar(
-                id_insumo,
-                proveedor,
-                f"Supply Purchase: {nombre}",
-                monto,
-                cantidad
-            )
-
             messagebox.showinfo("OK", "Supply and expense registered correctly")
             return True
 
