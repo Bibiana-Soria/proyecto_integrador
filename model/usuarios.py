@@ -56,7 +56,6 @@ class Usuarios:
     @staticmethod
     def validar(email, password):
         try:
-            # Validamos por EMAIL
             cursor.execute(
                 "select * from usuarios where email = %s and contrasena = %s",
                 (email, password)

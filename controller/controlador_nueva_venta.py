@@ -31,14 +31,11 @@ class ControladorNuevaVenta:
             return False
 
         exito_total = True
-        
-        # Iteramos sobre los items del carrito para registrarlos en la BD
         for item in lista_items_carrito:
             id_prod = item.get('id_producto')
             cant = item.get('cantidad')
             prec_unit = item.get('precio')
 
-            # Insertar venta (id_usuario, id_producto, cantidad, precio_unitario)
             resultado = self.modelo_ventas.insertar(id_usuario, id_prod, cant, prec_unit)
             
             if not resultado:

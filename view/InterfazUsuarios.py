@@ -18,7 +18,6 @@ class Usuarios():
         ventana_emergente_crear_usuario.lift()
         ventana_emergente_crear_usuario.focus()
         ventana_emergente_crear_usuario.grab_set()
-        # Layout básico
         ventana_emergente_crear_usuario.grid_columnconfigure(0, weight=1)
         ventana_emergente_crear_usuario.grid_rowconfigure(0, weight=0)
         ventana_emergente_crear_usuario.grid_rowconfigure(1, weight=1)
@@ -44,10 +43,8 @@ class Usuarios():
         frame_para_entries.grid_columnconfigure(0, weight=1)
 
         for i, nombre_campo in enumerate(self.campos):
-            # saltar campo id 
             if nombre_campo.lower() == "id":
                 continue
-            # etiqueta
             lbl = ctk.CTkLabel(
                 frame_para_entries,
                 text=nombre_campo,
@@ -57,7 +54,6 @@ class Usuarios():
             )
             lbl.grid(row=i*2, column=0, padx=20, pady=(10, 0), sticky="ew")
 
-            # entry
             entry = ctk.CTkEntry(
                 frame_para_entries,
                 width=260,

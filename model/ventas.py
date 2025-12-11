@@ -26,15 +26,19 @@ class Ventas:
             return []
         
     @staticmethod
-    def cambiar(id_usuario,id_producto,cantidad,precio_unitario,total,id_venta):
+    def cambiar(id_usuario, id_producto, cantidad, precio_unitario, id_venta):
         try:
+            # NO incluimos 'total' porque es una columna generada automáticamente
             cursor.execute(
-                "update ventas set id_usuario=%s,id_producto=%s,cantidad=%s,precio_unitario=%s,total=%s where id_venta=%s",
-                (id_usuario,id_producto,cantidad,precio_unitario,total,id_venta)
+                "UPDATE ventas SET id_usuario=%s, id_producto=%s, cantidad=%s, precio_unitario=%s WHERE id_venta=%s",
+                (id_usuario, id_producto, cantidad, precio_unitario, id_venta)
             )
             conexion.commit()
             return True
-        except:
+        except Exception as e:
+            print(f"Error en cambiar(): {e}")
+            import traceback
+            traceback.print_exc()
             return False
         
     @staticmethod

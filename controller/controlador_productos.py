@@ -23,12 +23,22 @@ class ControladorProductos:
         return resultado
 
     def actualizar_producto(self, id_producto, nombre, tamano, precio):
-        if not id_producto:
-            messagebox.showerror("Error", "ID is required to modify")
+        try:
+            
+            if not id_producto:
+                print("ERROR: ID de producto vacío")
+                messagebox.showerror("Error", "ID is required to modify")
+                return False
+            resultado = self.modelo.cambiar(nombre, tamano, precio, id_producto)
+            self.respuesta_sql(resultado)
+            return resultado
+            
+        except Exception as e:
+            print(f"ERROR COMPLETO en controlador actualizar_producto:")
+            import traceback
+            traceback.print_exc()
+            messagebox.showerror("Error", f"Controller error: {e}")
             return False
-        resultado = self.modelo.cambiar(nombre, tamano, precio, id_producto)
-        self.respuesta_sql(resultado)
-        return resultado
 
     def eliminar_producto(self, id_producto):
         if not id_producto:

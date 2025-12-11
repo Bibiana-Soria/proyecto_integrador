@@ -169,7 +169,6 @@ class HistorialBase(ctk.CTkFrame):
             if nombre_campo.lower() == "id":
                 continue
 
-            # Etiqueta
             lbl = ctk.CTkLabel(
                 frame_para_entries,
                 text=nombre_campo,
@@ -188,7 +187,7 @@ class HistorialBase(ctk.CTkFrame):
                     corner_radius=10
                 )
 
-                widget.set("Small")  # valor por defecto
+                widget.set("Small")
 
                 widget.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10))
             elif nombre_campo.lower() in ["unit", "unidad", "unidad de medida", "unidad_medida"]:
@@ -213,7 +212,6 @@ class HistorialBase(ctk.CTkFrame):
 
                 widget.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10))
             else:
-                # Entry normal
                 widget = ctk.CTkEntry(
                     frame_para_entries,
                     width=260,
@@ -368,7 +366,6 @@ class HistorialBase(ctk.CTkFrame):
         btn.pack(pady=20)
 
     def enviar_datos_al_controlador(self, titulo_panel, datos):
-        # PRODUCTOS
         if titulo_panel == "Products":
             self.controlador.agregar_producto(
                 datos.get("Name"),
@@ -376,9 +373,7 @@ class HistorialBase(ctk.CTkFrame):
                 datos.get("Price")
             )
 
-        # INSUMOS
         elif titulo_panel == "Supplies":
-            # campos esperados por interfaz_de_insumos.form_campos
             nombre = datos.get("Supply Name")
             unidad = datos.get("Unit")
             cantidad = datos.get("Quantity")
@@ -392,7 +387,6 @@ class HistorialBase(ctk.CTkFrame):
 
             self.controlador.agregar_insumo(nombre, unidad, cantidad, costo, proveedor, descripcion, self.interface.id_usuario)
 
-        # GASTOS
         elif titulo_panel == "Expenses":
 
             codigo = datos.get("Supply Code")
@@ -425,7 +419,6 @@ class HistorialBase(ctk.CTkFrame):
             )
 
     def enviar_datos_modificar(self, titulo_panel, datos):
-        # PRODUCTOS
         if titulo_panel == "Products":
             if not datos.get("id"):
                 messagebox.showerror("Error", "Must enter an ID to modify")
@@ -437,7 +430,6 @@ class HistorialBase(ctk.CTkFrame):
                 datos.get("Price")
             )
 
-        # INSUMOS
         elif titulo_panel == "Supplies":
             if not datos.get("id"):
                 messagebox.showerror("Error", "Must enter an ID to modify")
@@ -450,7 +442,6 @@ class HistorialBase(ctk.CTkFrame):
                 datos.get("Unit Cost")
             )
 
-        # GASTOS
         elif titulo_panel == "Expenses":
             if not datos.get("id"):
                 messagebox.showerror("Error", "Must enter an ID to modify")
@@ -470,7 +461,6 @@ class HistorialBase(ctk.CTkFrame):
                 cantidad
             )
 
-        # VENTAS
         elif titulo_panel == "Sales History":
             id_venta = datos.get("id")
             if not id_venta:
@@ -494,28 +484,24 @@ class HistorialBase(ctk.CTkFrame):
                 messagebox.showerror("Error", f"Error in data: {e}")
 
     def enviar_datos_eliminar(self, titulo_panel, id_registro):
-        # PRODUCTOS
         if titulo_panel == "Products":
             if not id_registro:
                 messagebox.showerror("Error", "Must enter ID to delete")
                 return
             self.controlador.eliminar_producto(id_registro)
 
-        # INSUMOS
         elif titulo_panel == "Supplies":
             if not id_registro:
                 messagebox.showerror("Error", "Must enter ID to delete")
                 return
             self.controlador.eliminar_insumo(id_registro)
 
-        # GASTOS
         elif titulo_panel == "Expenses":
             if not id_registro:
                 messagebox.showerror("Error", "Must enter ID to delete")
                 return
             self.controlador.eliminar_gasto(id_registro)
             
-        # HISTORIAL DE VENTAS
         elif titulo_panel == "Sales History":
             if not id_registro:
                 messagebox.showerror("Error", "Must enter Sale Code")

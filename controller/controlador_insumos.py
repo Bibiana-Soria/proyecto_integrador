@@ -1,5 +1,6 @@
 from model.insumos import Insumos
 from tkinter import messagebox
+
 class ControladorInsumos:
     def __init__(self):
         self.modelo = Insumos()
@@ -10,21 +11,18 @@ class ControladorInsumos:
         else:
             messagebox.showerror("Error", "An error occurred during operation")
 
-    def obtener_insumos(self):
-        return self.modelo.consultar()
+    def obtener_insumos(self, id_usuario):
+        return self.modelo.consultar(id_usuario)
 
     def agregar_insumo(self, nombre, unidad, cantidad, precio, proveedor, descripcion, id_usuario):
         if not nombre or not precio:
             messagebox.showerror("Error", "All fields are required")
             return False
 
-        # 1. Insertar el insumo primero
         resultado = self.modelo.insertar(nombre, unidad, cantidad, precio, proveedor, descripcion, id_usuario)
-
         if resultado:
             messagebox.showinfo("OK", "Supply and expense registered correctly")
             return True
-
         else:
             messagebox.showerror("Error", "Could not save supply")
             return False
@@ -39,6 +37,5 @@ class ControladorInsumos:
         self.respuesta_sql(resultado)
         return resultado
 
-    def buscar_insumo(self, nombre):
-        return self.modelo.buscar(nombre)
-
+    def buscar_insumo(self, nombre, id_usuario):
+        return self.modelo.buscar(nombre, id_usuario)

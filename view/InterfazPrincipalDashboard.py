@@ -18,7 +18,6 @@ class MainInterface(ctk.CTkFrame):
         self.id_usuario=usuario_logueado[0] if usuario_logueado else None
         self.controlador=ControladorDashboard()
         self.controlador_reportes = ControladorReportes()
-
         self.base_path = os.path.dirname(os.path.abspath(__file__))
         self.Menu_Principal()
         
@@ -36,8 +35,8 @@ class MainInterface(ctk.CTkFrame):
         self.interface.title("Kunibo - Dashboard")
 
     def configurar_grid_principal(self):
-        self.grid_rowconfigure(0, weight=0)   # Parte superior
-        self.grid_rowconfigure(1, weight=1)   # Listados inferiores
+        self.grid_rowconfigure(0, weight=0) 
+        self.grid_rowconfigure(1, weight=1) 
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
 
@@ -67,12 +66,12 @@ class MainInterface(ctk.CTkFrame):
         )
         self.frame_superior_dashboard.grid_propagate(False)
 
-        self.frame_superior_dashboard.grid_columnconfigure(0, weight=0)  # logo
-        self.frame_superior_dashboard.grid_columnconfigure(1, weight=0)  # bienvenida
-        self.frame_superior_dashboard.grid_columnconfigure(2, weight=1)  # ventas
-        self.frame_superior_dashboard.grid_columnconfigure(3, weight=1)  # ganancias
-        self.frame_superior_dashboard.grid_columnconfigure(4, weight=1)  # gasto
-        self.frame_superior_dashboard.grid_rowconfigure(0, weight=1) # Linea unica
+        self.frame_superior_dashboard.grid_columnconfigure(0, weight=0)  
+        self.frame_superior_dashboard.grid_columnconfigure(1, weight=0)  
+        self.frame_superior_dashboard.grid_columnconfigure(2, weight=1)  
+        self.frame_superior_dashboard.grid_columnconfigure(3, weight=1) 
+        self.frame_superior_dashboard.grid_columnconfigure(4, weight=1) 
+        self.frame_superior_dashboard.grid_rowconfigure(0, weight=1) 
 
         self._crear_logo_dashboard()
         self._crear_bienvenida_y_saludo()
@@ -272,7 +271,6 @@ class MainInterface(ctk.CTkFrame):
         )
 
     def _crear_tarjeta_gasto_mes(self):
-        
         frame_gasto_mes = ctk.CTkFrame(
             self.frame_superior_dashboard,
             fg_color="#FEE3D0",
@@ -357,7 +355,7 @@ class MainInterface(ctk.CTkFrame):
             self.interface.title("Kunibo - New Sale")
 
             self.nueva_venta = NuevaVenta(
-            interface=self,                    # contenedor
+            interface=self,    
             parent_navegar=self.navegar
         )
             self.nueva_venta.pack(fill="both", expand=True)
@@ -393,7 +391,8 @@ class MainInterface(ctk.CTkFrame):
             self.historial_de_ventas = interfaz_de_insumos(
                 interface=self,
                 parent_navegar=self.navegar,
-                ventana_principal = self.interface
+                ventana_principal = self.interface,
+                id_usuario=self.id_usuario
 
             )
             self.historial_de_ventas.pack(fill="both" ,expand = True)
@@ -411,31 +410,22 @@ class MainInterface(ctk.CTkFrame):
             self.historial_de_ventas.pack(fill="both" ,expand = True)
 
         elif destino == "Products":
-             # lógica de productos
              pass
 
         elif destino == "Logout":
-            # Destruimos el Dashboard actual (se borra de la pantalla)
             self.destroy()
-            
-            # Le decimos a la ventana principal (LoginInterface) que se vuelva a pintar
             try:
                 self.interface.restaurar_login()
             except AttributeError:
                 print("Error: No se pudo restaurar el login en la ventana padre.")
 
     def crear_listados_inferiores(self):
-        # Contenedor de ambos cuadros inferiores
         frame_listas = ctk.CTkFrame(self, fg_color="#FFF9F3")
         frame_listas.grid(row=1, column=0, columnspan=2, sticky="nsew", padx=20, pady=(20, 5))
 
         frame_listas.grid_columnconfigure(0, weight=1)
         frame_listas.grid_columnconfigure(1, weight=1)
         frame_listas.grid_rowconfigure(0, weight=1)
-
-        # ===============================
-        #     ÚLTIMAS 5 VENTAS
-        # ===============================
         frame_ventas = ctk.CTkFrame(frame_listas, fg_color="#FEE3D0",
                                     border_width=4, border_color="#D8B59D",
                                     corner_radius=30)
@@ -457,9 +447,6 @@ class MainInterface(ctk.CTkFrame):
                 ctk.CTkLabel(frame_ventas, text=texto,
                             font=("Poppins", 16), text_color="#7A5230").pack(pady=3)
 
-        # ===============================
-        #     ÚLTIMOS 5 GASTOS
-        # ===============================
         frame_egresos = ctk.CTkFrame(frame_listas, fg_color="#FEE3D0",
                                     border_width=4, border_color="#D8B59D",
                                     corner_radius=30)
@@ -476,26 +463,18 @@ class MainInterface(ctk.CTkFrame):
                         font=("Poppins", 16)).pack(pady=10)
         else:
             for egreso in ultimos_egresos:
-                id_e, id_i, prov, desc, monto, cant, fecha, _ = egreso
+                id_e, id_i, prov, desc, monto, cant, fecha = egreso
                 texto = f"{fecha}  |  ${monto}"
                 ctk.CTkLabel(frame_egresos, text=texto,
                             font=("Poppins", 16), text_color="#7A5230").pack(pady=3)
 
-        # ======================================================
-        #           BOTONES DE EXPORTACIÓN (AFUERA)
-        # ======================================================
         frame_botones = ctk.CTkFrame(self, fg_color="#FFF9F3")
         frame_botones.grid(row=2, column=0, columnspan=2, pady=(5, 20), padx=20, sticky="ew")
 
-        # Configuración para dos filas y dos columnas
         frame_botones.grid_columnconfigure(0, weight=1)
         frame_botones.grid_columnconfigure(1, weight=1)
         frame_botones.grid_rowconfigure(0, weight=1)
         frame_botones.grid_rowconfigure(1, weight=1)
-
-        # --------------------
-        #      FILA 1
-        # --------------------
 
         btn_exportar_ventas = ctk.CTkButton(
             frame_botones,
@@ -520,10 +499,6 @@ class MainInterface(ctk.CTkFrame):
             command=self.controlador_reportes.exportar_egresos
         )
         btn_exportar_gastos.grid(row=0, column=1, padx=20, pady=10, sticky="ew")
-
-        # --------------------
-        #      FILA 2
-        # --------------------
 
         btn_exportar_insumos = ctk.CTkButton(
             frame_botones,
@@ -553,7 +528,6 @@ class MainInterface(ctk.CTkFrame):
         self.sidebar = Sidebar(self, on_nav=self.navegar)
         self.sidebar.place(x=0, y=0, relheight=1)
 
-        # Activar “detector” de click fuera
         self.interface.bind_all("<Button-1>", self._click_fuera_sidebar)
     
     def _click_fuera_sidebar(self, event):
@@ -562,9 +536,6 @@ class MainInterface(ctk.CTkFrame):
             self.cerrar_sidebar()
 
     def cerrar_sidebar(self):
-        
         self.sidebar.destroy()
         del self.sidebar
-
-        # Quitamos el bind para que ya no esté escuchando clicks todo el tiempo
         self.interface.unbind_all("<Button-1>")

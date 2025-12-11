@@ -10,22 +10,16 @@ class NuevaVenta(ctk.CTkFrame):
                  parent_navegar):
         super().__init__(interface, fg_color="#FFF9F3")
         
-        # REFERENCIAS DEL PADRE
-        self.interface = interface                # MainInterface (contenedor)
-        self.parent_navegar = parent_navegar      # router real
-
-        # Instanciar el controlador
+        self.interface = interface    
+        self.parent_navegar = parent_navegar    
         self.controlador = ControladorNuevaVenta()
         self.controlador_dashboard =ControladorDashboard()
-
         self.mapa_productos_ids = {}
         self.carrito_items = {}
         self.contador_filas_carrito = 0
-
         self.total_var = ctk.StringVar(value="$0.00")
         self.base_path = os.path.dirname(os.path.abspath(__file__))
 
-        # Cargar iconos
         self.icon_plus = ctk.CTkImage(
             light_image=Image.open(os.path.join(self.base_path,"images", "signo_plus_icon_ventas.png")),
             dark_image=Image.open(os.path.join(self.base_path, "images","signo_plus_icon_ventas.png")),
@@ -79,12 +73,12 @@ class NuevaVenta(ctk.CTkFrame):
         )
         self.frame_superior_dashboard.grid_propagate(False)
 
-        self.frame_superior_dashboard.grid_columnconfigure(0, weight=0)  # logo
-        self.frame_superior_dashboard.grid_columnconfigure(1, weight=0)  # bienvenida
-        self.frame_superior_dashboard.grid_columnconfigure(2, weight=1)  # ventas
-        self.frame_superior_dashboard.grid_columnconfigure(3, weight=1)  # ganancias
-        self.frame_superior_dashboard.grid_columnconfigure(4, weight=1)  # gasto
-        self.frame_superior_dashboard.grid_rowconfigure(0, weight=1) # Linea unica
+        self.frame_superior_dashboard.grid_columnconfigure(0, weight=0) 
+        self.frame_superior_dashboard.grid_columnconfigure(1, weight=0) 
+        self.frame_superior_dashboard.grid_columnconfigure(2, weight=1) 
+        self.frame_superior_dashboard.grid_columnconfigure(3, weight=1) 
+        self.frame_superior_dashboard.grid_columnconfigure(4, weight=1)  
+        self.frame_superior_dashboard.grid_rowconfigure(0, weight=1)
 
         self._crear_logo_dashboard()
         self._crear_bienvenida_y_saludo()
@@ -159,11 +153,8 @@ class NuevaVenta(ctk.CTkFrame):
         )
 
     def actualizar_tarjetas_superiores(self):
-        # Si existe el frame superior, lo destruimos para limpiar lo viejo
         if hasattr(self, 'frame_superior_dashboard'):
             self.frame_superior_dashboard.destroy()
-        
-        # Llamamos a crear_parte_superior() de nuevo
         self.crear_parte_superior()
      
     def _crear_tarjeta_ventas_mes(self):
@@ -300,7 +291,6 @@ class NuevaVenta(ctk.CTkFrame):
             pady=(30, 30)
         )
         frame_gasto_mes.grid_propagate(False)
-
         frame_gasto_mes.grid_columnconfigure(0, weight=1)
         frame_gasto_mes.grid_columnconfigure(1, weight=3)
         frame_gasto_mes.grid_rowconfigure(0, weight=1)
@@ -579,7 +569,6 @@ class NuevaVenta(ctk.CTkFrame):
         self.crear_barras_deslizantes_con_productos(frame_productos_disponibles,frame_para_productos_carrito_de_compras)
     
     def crear_barras_deslizantes_con_productos(self, frame_productos_disponibles, frame_para_productos_carrito_de_compras):
-        # -------- SCROLL DE PRODUCTOS DISPONIBLES --------
         scrol_bar_productos = ctk.CTkScrollableFrame(
             frame_productos_disponibles,
             width=50,
@@ -727,8 +716,6 @@ class NuevaVenta(ctk.CTkFrame):
         )
         self.btn_producto_cafe.grid(row=3, column=1, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_cafe)
-
-        # -------- SCROLL DEL CARRITO --------
         self.scrol_bar_productos = ctk.CTkScrollableFrame(
             frame_para_productos_carrito_de_compras,
             width=50,
@@ -766,11 +753,7 @@ class NuevaVenta(ctk.CTkFrame):
             sticky="we"
         )
         frame.grid_columnconfigure(0, weight=1)
-
-        # cantidad ligada a este producto
         cantidad_var = ctk.IntVar(value=1)
-
-        # Nombre del producto
         lbl_nombre = ctk.CTkLabel(
             frame,
             text=nombre,
@@ -779,7 +762,6 @@ class NuevaVenta(ctk.CTkFrame):
         )
         lbl_nombre.grid(row=0, column=0, padx=15, pady=10, sticky="w")
 
-        # Botón menos
         btn_minus = ctk.CTkButton(
             frame,
             text="",
@@ -790,8 +772,6 @@ class NuevaVenta(ctk.CTkFrame):
             command=lambda n=nombre: self.decrementar(n)
         )
         btn_minus.grid(row=0, column=1, padx=5)
-
-        # Cantidad
         lbl_cantidad = ctk.CTkLabel(
             frame,
             textvariable=cantidad_var,
@@ -800,7 +780,6 @@ class NuevaVenta(ctk.CTkFrame):
         )
         lbl_cantidad.grid(row=0, column=2, padx=5)
 
-        # Botón más
         btn_plus = ctk.CTkButton(
             frame,
             text="",
@@ -812,7 +791,6 @@ class NuevaVenta(ctk.CTkFrame):
         )
         btn_plus.grid(row=0, column=3, padx=5)
 
-        # Botón eliminar
         btn_delete = ctk.CTkButton(
             frame,
             text="",
@@ -824,7 +802,6 @@ class NuevaVenta(ctk.CTkFrame):
         )
         btn_delete.grid(row=0, column=4, padx=10)
 
-        # Guardar referencia de este producto
         self.carrito_items[nombre] = {
             "frame": frame,
             "cantidad": cantidad_var,
@@ -860,7 +837,6 @@ class NuevaVenta(ctk.CTkFrame):
         self.actualizar_estado_botones_productos()
 
     def reordenar_filas(self):
-        # Reacomoda los frames del carrito después de borrar alguno.
         self.contador_filas_carrito = 0
         for item in self.carrito_items.values():
             item["frame"].grid_configure(row=self.contador_filas_carrito)
@@ -890,8 +866,6 @@ class NuevaVenta(ctk.CTkFrame):
     def crear_sidebar(self):
         self.sidebar = Sidebar(self, on_nav=self.navegar)
         self.sidebar.place(x=0, y=0, relheight=1)
-
-        # Activar “detector” de click fuera
         self.bind("<Button-1>", self._click_fuera_sidebar)
 
     def navegar(self, destino: str):
@@ -899,20 +873,15 @@ class NuevaVenta(ctk.CTkFrame):
     
     def _click_fuera_sidebar(self, event):
         SIDEBAR_WIDTH = 260
-        # Si X es mayor al ancho de la sidebar, significa que tocó fuera
         if event.x > SIDEBAR_WIDTH:
             self.cerrar_sidebar()
 
     def cerrar_sidebar(self):
-        
         self.sidebar.destroy()
         del self.sidebar
-
-        # Quitamos el bind para que ya no esté escuchando clicks todo el tiempo
         self.unbind("<Button-1>")
     
     def cargar_mapa_productos(self):
-        # Consulta la BD y mapea los nombres de botones a IDs reales
         try:
             lista_productos_bd = self.controlador.obtener_lista_productos()
             
@@ -921,7 +890,6 @@ class NuevaVenta(ctk.CTkFrame):
                 return
             
             for prod in lista_productos_bd:
-                # Estructura asumiendo (id, nombre, tamano, precio)
                 id_bd = prod[0]
                 nombre_bd = prod[1]
                 self.mapa_productos_ids[nombre_bd] = id_bd
@@ -931,39 +899,29 @@ class NuevaVenta(ctk.CTkFrame):
             messagebox.showerror("Error", f"Error loading products: {e}")
 
     def actualizar_estado_botones_productos(self):
-        # Si el carrito está vacío, habilitamos todos los botones
         if not self.carrito_items:
-            # Habilitar todos los botones
             for btn in self.lista_botones_productos:
                 btn.configure(state="normal")
             return
-        
-        # Si hay algo, obtenemos el nombre del producto que ya está en venta
-        # (Como solo permitimos uno, tomamos la primera llave del diccionario)
         producto_activo = list(self.carrito_items.keys())[0]
 
         for btn in self.lista_botones_productos:
-            # Si el texto del botón coincide con el producto activo, lo dejamos en estado normal
             if btn.cget("text") == producto_activo:
                 btn.configure(state="normal")
             else:
                 btn.configure(state="disabled")
 
     def guardar_ventas(self):
-        # Envía la venta al controlador para guardarla en la BD
-        # Validar que haya productos
         if not self.carrito_items:
             messagebox.showwarning("Empty Cart", "No products to save")
             return
         
-        # Obtener datos del carrito
         nombre_producto_boton = list(self.carrito_items.keys())[0]
         datos_item = self.carrito_items[nombre_producto_boton]
 
         cantidad = datos_item["cantidad"].get()
         precio = datos_item["precio"]
 
-        # Buscar el ID real
         id_producto_real = self.mapa_productos_ids.get(nombre_producto_boton)
 
         if id_producto_real is None:
@@ -992,7 +950,6 @@ class NuevaVenta(ctk.CTkFrame):
             messagebox.showerror("Error", "Could not save sale to database")
     
     def limpiar_todo_el_carrito(self):
-        # Borra todo el contenido visual y lógico del carrito.
         items = list(self.carrito_items.keys())
         for i in items:
             self.eliminar_item(i)

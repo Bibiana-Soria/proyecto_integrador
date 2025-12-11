@@ -16,16 +16,13 @@ class ControladorDashboard:
             messagebox.showerror(message="Ocurrió un error en la operación", icon="error")
 
     def obtener_resumen_global(self, id_usuario):
-
         ventas = self.modelo_ventas.consultar(id_usuario)
-        insumos = self.modelo_insumos.consultar()
+        insumos = self.modelo_insumos.consultar(id_usuario)
         egresos = self.modelo_egresos.consultar(id_usuario)
 
         total_ingresos = 0
         stock_bajo = 0
         total_gastos = 0
-        
-        # Calcular ingresos totales
         if ventas:
             for v in ventas:
                 try:
@@ -33,7 +30,6 @@ class ControladorDashboard:
                 except:
                     pass
 
-        # Calcular stock bajo
         if insumos:
             for i in insumos:
                 try:
@@ -42,11 +38,10 @@ class ControladorDashboard:
                 except:
                     pass
 
-        # Calcular gastos totales
         if egresos:
             for e in egresos:
                 try:
-                    total_gastos += float(e[4])   # ← monto correcto
+                    total_gastos += float(e[4])
                 except:
                     pass
 
@@ -66,9 +61,7 @@ class ControladorDashboard:
         if not ventas:
             return []
 
-        # Ordenadas por fecha_venta (posición 2)
         ventas_ordenadas = sorted(ventas, key=lambda v: v[2], reverse=True)
-
         return ventas_ordenadas[:10]
     
     def obtener_ultimos_egresos(self, id_usuario):
@@ -76,11 +69,8 @@ class ControladorDashboard:
 
         if not egresos:
             return []
-
-        # Ordenados por fecha (posición 6) de más reciente a más antiguo
+        
         egresos_ordenados = sorted(egresos, key=lambda e: e[6], reverse=True)
-
-        # Retornamos solo los 10 primeros (o 5, según prefieras para el dashboard)
         return egresos_ordenados[:10]
 
             

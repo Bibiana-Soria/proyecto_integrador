@@ -4,16 +4,13 @@ from PIL import Image
 from tkinter import messagebox
 from view.InterfazPrincipalDashboard import MainInterface
 from view.InterfazUsuarios  import Usuarios
-from controller.controlador_logueo import ControladorLogueo # Importar el controlador
+from controller.controlador_logueo import ControladorLogueo
 
 class LoginInterface(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.controlador = ControladorLogueo()
-
-        # Rutas base
         self.base_path = os.path.dirname(os.path.abspath(__file__))
-
         self.configurar_ventana()
         self.configurar_grid_principal()
         self.cargar_icono()
@@ -22,8 +19,6 @@ class LoginInterface(ctk.CTk):
         self.crear_frame_inferior()
         self.crear_contenido_superior()
         self.crear_contenido_inferior()
-
-        # tamaño y estado
         self.minsize(800, 600)
         self.after(10, lambda: self.state("zoomed"))
 
@@ -78,8 +73,6 @@ class LoginInterface(ctk.CTk):
             sticky="nsew"
         )
         self.frame_inferior.grid_propagate(False)
-
-        # grid interno (parte de abajo)
         self.frame_inferior.grid_rowconfigure(0, weight=0)
         self.frame_inferior.grid_rowconfigure(1, weight=0)
         self.frame_inferior.grid_rowconfigure(2, weight=0)
@@ -221,22 +214,16 @@ class LoginInterface(ctk.CTk):
         )
 
     def realizar_login(self):
-        # 1. Obtener datos
         email = self.email_entry.get()
         password = self.password_entry.get()
-
-        # 2. Validar con el controlador
         datos_usuario = self.controlador.validar_login(email, password)
 
         if datos_usuario:
-            # Login exitoso
             self.switch_to_main(datos_usuario)
         else:
-            # Login fallido
             messagebox.showerror("Access Error", "Incorrect email or password")
 
     def switch_to_main(self, datos_usuario):
-        # Destruir todo lo actual (login)
         for widget in self.winfo_children():
             widget.destroy()
         self.main_interface = MainInterface(self, usuario_logueado=datos_usuario)

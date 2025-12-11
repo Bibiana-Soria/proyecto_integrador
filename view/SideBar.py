@@ -21,10 +21,10 @@ class Sidebar(ctk.CTkFrame):
         ctk.FontManager.load_font(font_path_Poppins)
     
     def _configurar_grid(self):
-        self.grid_rowconfigure(0, weight=0)  # logo
-        self.grid_rowconfigure(1, weight=0)  # Boton panel principal
-        self.grid_rowconfigure(8, weight=20) # espaciado y presion
-        self.grid_columnconfigure(0, weight=1) # fila unica
+        self.grid_rowconfigure(0, weight=0)  
+        self.grid_rowconfigure(1, weight=0)  
+        self.grid_rowconfigure(8, weight=20) 
+        self.grid_columnconfigure(0, weight=1) 
 
     def _crear_logo(self):
         logo_path = os.path.join(self.base_path, "images", "Logo.png")
@@ -48,10 +48,7 @@ class Sidebar(ctk.CTkFrame):
             sticky = "nsew",)
 
     def _crear_botones(self):
-        #codigo que necesitaremos en cada uno
         base = os.path.dirname(os.path.abspath(__file__))
-        #Boton panel principal
-         #imagen icon home 
         icon_home_path = os.path.join(base, "images", "Icon_home_sidebar.png")
         img_home = Image.open(icon_home_path)
         
@@ -84,7 +81,6 @@ class Sidebar(ctk.CTkFrame):
             pady=(0,10),
             padx= 10
         )
-        #Boton ventas con imagen
         icon_carrito_path = os.path.join(base, "images", "Icon_carrito_sidebar.png")
         img_carrito = Image.open(icon_carrito_path)
         self.carrito_dashoard_image = ctk.CTkImage(
@@ -115,7 +111,6 @@ class Sidebar(ctk.CTkFrame):
             pady=(0,10),
             padx= 10
         )
-        #Boton Historial de ventas con imagen 
         icon_historial_de_ventas_path = os.path.join(base, "images", "Icon_historial_de_ventas_sidebar.png")
         img_historial_de_ventas = Image.open(icon_historial_de_ventas_path)
         self.historial_de_ventas_dashboard = ctk.CTkImage(
@@ -146,7 +141,6 @@ class Sidebar(ctk.CTkFrame):
             pady=(0,10),
             padx= 10
             )
-        #Boton Gastos con imagen
         icon_gastos_path = os.path.join(base, "images", "Icon_gastos_sidebar.png")
         img_gastos = Image.open(icon_gastos_path)
         self.gastos_dashboard = ctk.CTkImage(
@@ -177,7 +171,6 @@ class Sidebar(ctk.CTkFrame):
             pady=(0,10),
             padx= 10
         )
-        #Boton Insumos con imagen
         icon_insumos_sidebar = os.path.join(base, "images", "Icon_insumos_sidebar.png")
         img_insumos_sidebar = Image.open(icon_insumos_sidebar)
         self.insumos_dashboard = ctk.CTkImage(
@@ -208,7 +201,6 @@ class Sidebar(ctk.CTkFrame):
             pady=(0,10),
             padx= 10
         )
-        #Boton productos con imagen
         icon_productos_sidebar = os.path.join(base, "images", "Icon_productos_sidebar.png")
         img_productos_sidebar = Image.open(icon_productos_sidebar)
         self.productos_dashboard = ctk.CTkImage(
@@ -244,12 +236,10 @@ class Sidebar(ctk.CTkFrame):
             self,
             text="Logout",
             corner_radius=20,
-            # image=self.logout_image, # Descomenta si tienes un ícono para esto
-            # compound="left",
-            anchor="w",                # Alineado a la izquierda como los demás
+            anchor="w",                
             height=40,
             font=("Mochiy Pop One", 11),
-            fg_color="#D9534F",        # Rojo suave para diferenciarlo
+            fg_color="#D9534F",      
             text_color="white",
             hover_color="#C9302C",
             border_color="#AC2925",
@@ -257,12 +247,11 @@ class Sidebar(ctk.CTkFrame):
             command=lambda on_nav="Logout": self.on_nav(on_nav)
         )
         
-        # Lo colocamos en row=7 (Productos es row=6)
         btn_cerrar_sesion.grid(
             row=7, 
             column=0,
             sticky="new",
-            pady=(20, 10),  # Un poco más de margen superior para separarlo del grupo
+            pady=(20, 10),  
             padx=10
         )
 
