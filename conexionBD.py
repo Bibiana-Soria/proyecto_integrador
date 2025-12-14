@@ -7,7 +7,7 @@ try:
         host="localhost",
         user="root",
         password="Garcia_635",
-        database="bd_Kunibo"
+        database="bd_kunibo"
     )
     cursor=conexion.cursor(buffered=True)
 except:

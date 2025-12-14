@@ -98,7 +98,7 @@ CREATE TABLE producto_insumo (
 );
 
 -- =====================
--- TABLA VENTAS
+-- TABLA VENTAS (CORREGIDA)
 -- =====================
 DROP TABLE IF EXISTS ventas;
 CREATE TABLE ventas (
@@ -108,25 +108,26 @@ CREATE TABLE ventas (
   fecha_venta DATE NOT NULL,
   cantidad INT UNSIGNED NOT NULL,
   precio_unitario DECIMAL(5,2) NOT NULL,
-  total DECIMAL(5,2),
+  total DECIMAL(5,2)
+    GENERATED ALWAYS AS (cantidad * precio_unitario) STORED,
   PRIMARY KEY (id_venta),
   FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
   FOREIGN KEY (id_producto) REFERENCES productos(id_producto) ON DELETE CASCADE
 );
 
 INSERT INTO ventas
-(id_venta, id_usuario, id_producto, fecha_venta, cantidad, precio_unitario, total)
+(id_venta, id_usuario, id_producto, fecha_venta, cantidad, precio_unitario)
 VALUES
-(1,1,1,'2025-12-10',1,30.00,30.00),
-(2,1,2,'2025-12-10',3,35.00,105.00),
-(3,1,3,'2025-12-10',1,40.00,40.00),
-(4,1,4,'2025-12-10',1,42.00,42.00),
-(5,1,6,'2025-12-10',1,48.00,48.00),
-(6,1,5,'2025-12-10',1,45.00,45.00),
-(7,1,8,'2025-12-10',1,38.00,38.00),
-(8,1,7,'2025-12-10',1,32.00,32.00),
-(9,1,1,'2025-12-10',4,30.00,120.00),
-(10,1,6,'2025-12-10',2,48.00,96.00),
-(11,1,8,'2025-12-10',5,38.00,190.00);
+(1,1,1,'2025-12-10',1,30.00),
+(2,1,2,'2025-12-10',3,35.00),
+(3,1,3,'2025-12-10',1,40.00),
+(4,1,4,'2025-12-10',1,42.00),
+(5,1,6,'2025-12-10',1,48.00),
+(6,1,5,'2025-12-10',1,45.00),
+(7,1,8,'2025-12-10',1,38.00),
+(8,1,7,'2025-12-10',1,32.00),
+(9,1,1,'2025-12-10',4,30.00),
+(10,1,6,'2025-12-10',2,48.00),
+(11,1,8,'2025-12-10',5,38.00);
 
 SET FOREIGN_KEY_CHECKS = 1;
