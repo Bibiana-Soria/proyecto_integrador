@@ -600,7 +600,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#FFB8C5",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Fresa", 30.0)
+            command=lambda: self.enviar_boton_a_carrito("Fresa", 22.0)
         )
         self.btn_producto_fresa.grid(row=0, column=0, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_fresa)
@@ -616,7 +616,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#543921",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Chocolate", 35.0)
+            command=lambda: self.enviar_boton_a_carrito("Chocolate", 22.0)
         )
         self.btn_producto_chocolate.grid(row=0, column=1, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_chocolate)
@@ -632,7 +632,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#543921",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Nuez", 40.0)
+            command=lambda: self.enviar_boton_a_carrito("Nuez", 22.0)
         )
         self.btn_producto_nuez.grid(row=1, column=0, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_nuez)
@@ -648,7 +648,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#FCFCBA",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Piña coco", 42.0)
+            command=lambda: self.enviar_boton_a_carrito("Piña coco", 22.0)
         )
         self.btn_producto_piña_coco.grid(row=1, column=1, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_piña_coco)
@@ -664,7 +664,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#C0E9C9",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Pistache", 45.0)
+            command=lambda: self.enviar_boton_a_carrito("Pistache", 30.0)
         )
         self.btn_producto_pistache.grid(row=2, column=0, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_pistache)
@@ -680,7 +680,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#A87E57",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Capuchino", 48.0)
+            command=lambda: self.enviar_boton_a_carrito("Capuchino", 30.0)
         )
         self.btn_producto_capuchino.grid(row=2, column=1, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_capuchino)
@@ -696,7 +696,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#D8B59D",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Vainilla", 32.0)
+            command=lambda: self.enviar_boton_a_carrito("Vainilla", 30.0)
         )
         self.btn_producto_vainilla.grid(row=3, column=0, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_vainilla)
@@ -712,7 +712,7 @@ class NuevaVenta(ctk.CTkFrame):
             border_color="#2F2019",
             border_width=2,
             corner_radius=10,
-            command=lambda: self.enviar_boton_a_carrito("Café", 38.0)
+            command=lambda: self.enviar_boton_a_carrito("Café", 30.0)
         )
         self.btn_producto_cafe.grid(row=3, column=1, pady=10, padx=10, sticky="nsew")
         self.lista_botones_productos.append(self.btn_producto_cafe)
