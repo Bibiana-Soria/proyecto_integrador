@@ -6,7 +6,7 @@ try:
         port=3306,
         host="localhost",
         user="root",
-        password="",
+        password="Garcia_635",
         database="bd_kunibo"
     )
     cursor=conexion.cursor(buffered=True)
