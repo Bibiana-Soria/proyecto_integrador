@@ -23,6 +23,8 @@ class ControladorDashboard:
         total_ingresos = 0
         stock_bajo = 0
         total_gastos = 0
+        
+        # SUMA DE VENTAS (Index 5: Total) - Sin cambios
         if ventas:
             for v in ventas:
                 try:
@@ -30,6 +32,7 @@ class ControladorDashboard:
                 except:
                     pass
 
+        # ALERTA STOCK (Index 2: Cantidad) - Sin cambios
         if insumos:
             for i in insumos:
                 try:
@@ -38,10 +41,11 @@ class ControladorDashboard:
                 except:
                     pass
 
+        # SUMA DE GASTOS (CORREGIDO: Index 4 -> 5 por la nueva columna id_usuario)
         if egresos:
             for e in egresos:
                 try:
-                    total_gastos += float(e[4])
+                    total_gastos += float(e[5]) # <--- CAMBIO AQUÍ (antes era 4)
                 except:
                     pass
 
@@ -70,8 +74,5 @@ class ControladorDashboard:
         if not egresos:
             return []
         
-        egresos_ordenados = sorted(egresos, key=lambda e: e[6], reverse=True)
+        egresos_ordenados = sorted(egresos, key=lambda e: e[7], reverse=True) # <--- CAMBIO AQUÍ
         return egresos_ordenados[:10]
-
-            
-            

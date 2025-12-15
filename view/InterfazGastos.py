@@ -61,7 +61,9 @@ class interfaz_de_gastos(HistorialBase):
             
             frame_fila.bind("<Button-1>", lambda e, datos_fila=fila: self.seleccionar_fila(datos_fila, e.widget))
             
-            for col, valor in enumerate(fila):
+            fila_visual = (fila[0], fila[1], fila[3], fila[4], fila[5], fila[6], fila[7])
+            
+            for col, valor in enumerate(fila_visual):
                 lbl = ctk.CTkLabel(
                     frame_fila, 
                     text=str(valor),
@@ -109,7 +111,7 @@ class interfaz_de_gastos(HistorialBase):
             messagebox.showwarning("Warning", "Please select a row from the table first")
             return
 
-        id_egreso, id_insumo, proveedor, descripcion, monto, cantidad, fecha = self.datos_seleccionados
+        id_egreso, id_insumo, id_usuario, proveedor, descripcion, monto, cantidad, fecha = self.datos_seleccionados
         
         ventana = ctk.CTkToplevel(fg_color="#FFF9F3")
         ventana.title("Expenses - Modify Record")

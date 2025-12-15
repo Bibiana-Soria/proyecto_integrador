@@ -463,7 +463,7 @@ class MainInterface(ctk.CTkFrame):
                         font=("Poppins", 16)).pack(pady=10)
         else:
             for egreso in ultimos_egresos:
-                id_e, id_i, prov, desc, monto, cant, fecha = egreso
+                id_e, id_i, id_u, prov, desc, monto, cant, fecha = egreso
                 texto = f"{fecha}  |  ${monto}"
                 ctk.CTkLabel(frame_egresos, text=texto,
                             font=("Poppins", 16), text_color="#7A5230").pack(pady=3)

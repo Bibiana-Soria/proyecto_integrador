@@ -13,11 +13,11 @@ class Egresos:
 
             sql = """
                 INSERT INTO egresos
-                (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha)
-                VALUES (%s, %s, %s, %s, %s, NOW())
+                (id_insumo, proveedor, descripcion, monto, cantidad_comprada, fecha, id_usuario)
+                VALUES (%s, %s, %s, %s, %s, NOW(), %s)
             """
 
-            cursor.execute(sql, (id_insumo, proveedor, descripcion, monto, cantidad_comprada))
+            cursor.execute(sql, (id_insumo, proveedor, descripcion, monto, cantidad_comprada, id_usuario))
             conexion.commit()
 
             return True
@@ -29,7 +29,7 @@ class Egresos:
     @staticmethod
     def consultar(id_usuario):
         try:
-            cursor.execute("SELECT * FROM egresos")
+            cursor.execute("SELECT * FROM egresos where id_usuario = %s", (id_usuario,))
             return cursor.fetchall()
         except Exception as e:
             print("ERROR consultar:", e)
