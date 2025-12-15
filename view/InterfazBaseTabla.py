@@ -218,6 +218,10 @@ class HistorialBase(ctk.CTkFrame):
                     placeholder_text=f"Enter {nombre_campo.lower()}...",
                     corner_radius=10
                 )
+
+                if "password" in nombre_campo.lower() or "contraseña" in nombre_campo.lower():
+                    widget.configure(show="*")
+
                 widget.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
 
             info_obtenida[nombre_campo] = widget

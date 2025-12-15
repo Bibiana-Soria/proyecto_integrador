@@ -59,8 +59,11 @@ class Usuarios():
                 width=260,
                 placeholder_text=f"Enter {nombre_campo.lower()}...",
                 corner_radius=10,
-
             )
+
+            if nombre_campo == "Password":
+                entry.configure(show="*")
+
             entry.grid(row=i*2 + 1, column=0, padx=20, pady=(0, 10), sticky="ew")
 
             info_obtenida[nombre_campo] = entry
